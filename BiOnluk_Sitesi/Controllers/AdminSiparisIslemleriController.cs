@@ -1,5 +1,4 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using HemenTanitim.Models;
+﻿using HemenTanitim.Models;
 using Rotativa;
 using System;
 using System.Collections.Generic;
