@@ -24,6 +24,8 @@ namespace HemenTanitim
         }
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer<Models.HemenTanitimContext>(null);
+
             //Mapper.Initialize(cfg =>
             //{
             //    cfg.AddProfile<MessageProfile>();
