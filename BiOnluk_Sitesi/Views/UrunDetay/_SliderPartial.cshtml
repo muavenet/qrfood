@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HemenTanitim.Models.Slider>
+
+
+
+<div class="trending-slider rounded overflow-hidden">
+    @foreach (var item in Model)
+    {
+        <div class="osahan-slider-item px-1 py-3">
+            <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                <div class="list-card-image">
+                    <a href="#">
+                        <img src="@item.Fotograflar" class="img-fluid item-img w-100">
+                    </a>
+                </div>
+                <div class="p-3 position-relative">
+                    <div class="list-card-body">
+                        <h6 class="mb-1">
+                            <a href="#" class="text-black">@item.baslik</a>
+                        </h6>
+                        <p class="text-gray mb-3">@item.ANKADI • @item.ALTKADI </p>
+                        <p class="text-gray m-0"> <span class="text-black-50"> @item.fiyat FOR @item.kisiSayisi</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

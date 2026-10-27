@@ -1,0 +1,13 @@
+﻿@model IEnumerable<HemenTanitim.Models.AnaKategoriler>
+
+<div class="cat-slider border-bottom" >
+    @foreach (var item in Model)
+    {
+        <div class="cat-item px-1 py-3">
+            <a class="d-block text-center" href="/UrunListesi/KategoriSayfasi/@item.Id/@item.KategoriAdi">
+                <img src="~/Content/uploads/@item.resim" class="img-fluid mb-2 shadow">
+                <p class="m-0 small">@item.KategoriAdi</p>
+            </a>
+        </div>
+    }
+</div>

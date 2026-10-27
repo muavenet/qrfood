@@ -1,0 +1,110 @@
+﻿
+
+@model IEnumerable<HemenTanitim.Models.UserAndGroupAndPeople>
+
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            Kullanıcı listesi <b>@TempData["MailGonderildi"]</b>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Kullanıcı listesi</a></li>
+
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>                  
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Kullanıcı adı
+                                    </th>
+                                    <th>
+                                        Telefon
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                  
+                                    <th>
+                                        Rol
+                                    </th>
+                                   
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.Hidden(user.Id, new { @id = "hdnId" })
+                                            @user.UserName
+                                        </td>
+                                        <td>
+                                            @user.Telefon
+                                        </td>
+                                        <td>
+                                            @user.Email
+                                        </td>
+                                        <td>
+                                            @user.Role
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("ManageUserRoles", new { UserName = user.UserName })">Rol güncelle</a> | 
+                                            <a href="@Url.Action("Details", "Mesajlars", new { uyeid = user.Id, urunid= Guid.NewGuid(), uyeadi=user.UserName })">Mesaj gönder</a> | 
+                                            <a href="@Url.Action("MailGonder", new { mailadresi = user.Email})">Mail Gönder</a>
+                                        </td>
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+
+
+        <script>
+            $(document).ready(function () {
+        
+
+                $("li").removeClass("active");
+                $("#kullanicilar").addClass("active");
+            });
+</script>
+}

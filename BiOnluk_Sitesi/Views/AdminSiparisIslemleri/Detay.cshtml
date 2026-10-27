@@ -1,0 +1,279 @@
+﻿@model HemenTanitim.Models.SiparisBilgileri
+
+
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side strech">
+
+    <section class="content-header">
+     
+        <div class="col-md-12 no-padding">
+            <div class="col-md-12  no-padding text-left">
+                <h1>
+                    <a href="#" onclick="history.back()" class="btn btn-lg btn-default pull-left"><< Geri Dön</a>
+                </h1>
+                    <h1>
+                        <a href="@Url.Action("RealTimeSiparisler", "AdminSiparisIslemleri")" class="btn btn-lg btn-info pull-right">Canlı Sipariş Ekranına Dön</a>
+                    </h1>
+            </div>
+        
+            <div class="col-md-12 text-right">
+                <h2>   Sipariş No : @Model.SiparisId</h2>
+            </div>
+
+
+        </div>
+     
+ 
+  
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-default'>
+
+                   
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+
+                        <div>
+
+                            @Html.DropDownListFor(
+                                 model => model.Durumu,
+                                 new SelectList(
+                                 new List<Object>
+                                      {
+                                         new { value = 1 , text = "Hazırlanıyor"  },
+                                         new { value = 2 , text = "Yola Çıktı" },
+                                         new { value = 3 , text = "Teslim Edildi"},
+                                         new { value = 4 , text = "Sipariş İptal"},
+                                      }, "value", "text", Model.Durumu),
+                                      new
+                                      {
+                                          @id = Model.SiparisId,
+                                          onchange = "ddlTes(this)",
+                                          @class = "form-control",
+                                          @style = "font-weight:bold;font-size:18px; height:55px"
+                                      })
+
+                              
+                                @*    <a class="btn btn-default" href="@Url.Action("PrintInvoice", "Faturalar", new { invoiceId = Model.SiparisId })"><i class=" fa fa-print"></i>&nbsp;Fatura kes</a>*@
+
+                        </div>
+                        <br />
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-2">Başlıklar</th>
+                                    <th>İçerikler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <span>Hotel Adı</span>
+                                    </td>
+                                    <td>
+                                        <label>@ViewBag.HotelAdi</label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span>Oda No</span>
+                                    </td>
+                                    <td>
+                                        <label>@Model.odaNo</label>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span>Sipariş tarihi</span>
+                                    </td>
+                                    <td>
+                                        @Model.SiparisTarihi
+                                    </td>
+                                </tr>
+
+                                
+                                <tr>
+                                    <td>
+                                        <span>Ürün</span>
+                                    </td>
+                                    <td>
+                                        @Html.Raw(Model.IlanAciklama)
+                                    </td>
+                                </tr>                             
+
+                                <tr>
+                                    <td>
+                                        <span>Tutar</span>
+                                    </td>
+                                    <td>
+                                        <label>@String.Format("{0:N}", Model.Tutar) TL</label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span>Ödeme şekli</span>
+                                    </td>
+                                    <td>
+                                        @if (Model.OdemeTipi == 1)
+                                        {
+                                            <label>
+                                                Kredi Kartı
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label>
+                                                Kapıda Ödeme
+                                            </label>
+                                        }
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span>Sipariş durumu</span>
+                                    </td>
+                                    <td>
+                                        @if (Model.SiparisDurumu == 1)
+                                        {<label>Sipariş alındı</label>;
+                                        }
+                                        else
+                                        { <label>Geçersiz işlem</label>;
+                                        }
+
+                                    </td>
+                                </tr>
+
+
+                                @*
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Ürün Sahibi</a></li>
+                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Sipariş Veren bilgileri</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                @{Html.RenderAction("_UyeBilgileri", "AdminSiparisIslemleri", new { id = Model.IlanSahibiId });}
+        </div>
+                                                        <div role="tabpanel" class="tab-pane" id="profile">@{Html.RenderAction("_UyeBilgileri", "AdminSiparisIslemleri", new { id = Model.SiparisVerenId });}</div>
+                                                        <div role="tabpanel" class="tab-pane" id="profile">
+                                                              @@{Html.RenderAction("_FaturaBilgileri", "AdminSiparisIslemleri", new { id = Model.FaturaId });}
+                                                            </div>
+                                                            <div role="tabpanel" class="tab-pane" id="messages">@{Html.RenderAction("_KargoBilgileri", "AdminSiparisIslemleri", new { id = Model.KargoId });}</div>
+                                                    </div>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                *@
+
+
+                            </tbody>
+                        </table>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</aside>
+
+
+<script>
+
+   /* $('#profile').tab('show');*/
+
+    function myFunction() {
+
+        var sId = "@Model.SiparisId";
+
+        window.location = "/AdminSiparisIslemleri/ExportFatura/" + sId;
+    }
+
+
+    function ddlTes(e) {
+
+        var val = $(e).val();
+
+        $.ajax({
+            url: "/AdminSiparisIslemleri/TeslimDurumuDegistir",
+            data: { selectedValue: val, Id: e.id },
+            type: "POST",
+            dataType: "json",
+            success: function (result) { },
+            error: function (error) { alert(error); }
+        })
+
+    }
+
+    $(document).ready(function () {
+        $(".left-side").addClass("collapse-left");
+
+        var sId = "@Model.SiparisId";
+
+        $.ajax({
+            url: "/AdminSiparisIslemleri/Okundu",
+            data: { Id: sId },
+            type: "POST",
+            dataType: "json",
+            success: function (result) { },
+            error: function (error) { alert(error); }
+        })
+
+
+    });
+    //Teslim durumu değişitilmesi
+
+
+
+    @*$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+
+        if (e.currentTarget.text == 'Fatura bilgileri')
+        {
+            alert("xzx");
+            var $detailsDiv = $('.faturaicerik'),
+            url = "@Url.Action("_FaturaBilgileri", "AdminSiparisIslemleri", new { id = Model.FaturaId })";
+
+            $.get(url, function (data) {
+                $detailsDiv.replaceWith(data);
+
+            });
+        }
+        e.relatedTarget // previous active tab
+    })
+
+    $('#fatura').on('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+
+
+        var $detailsDiv = $('.faturaicerik'),
+            url = "@Url.Action("_FaturaBilgileri", "AdminSiparisIslemleri", new { id = Model.FaturaId })";
+
+        $.get(url, function (data) {
+            $detailsDiv.replaceWith(data);
+
+        });
+    });*@
+</script>

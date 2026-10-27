@@ -1,0 +1,34 @@
+﻿@model List<HemenTanitim.Models.IsIlanlariGaleri>
+
+<div class="col-md-12" style="margin-bottom:50px; margin-top:30px;" id="videolarDiv">
+
+
+
+	<h4 style="padding-left:0px; text-decoration:underline">Yüklü Videolar</h4>
+
+	<img src="~/Content/Resim_Editor/images/ilanver_load.GIF" width="40"
+		 alt="Yükleniyor" id="silmeLoadGif" style="visibility:hidden;" title="Bekleyiniz" />
+
+	@foreach (var item in Model)
+	{
+
+		<ul class="premium-options" id="videolarUl">
+			<li class="premium">
+				<img src="~/Content/FrontEnd/images/icon/iconfinder_file__mp4__video__3209609.png"
+					 alt="Alternate Text" class="" style="max-height:35px !important; border-radius:50%" />
+				<label for="day-one">@item.VideoDosyaAdi</label>
+				<div class="user-option pull-right">
+					<a class="delete-item" href="#" id="@item.Id" name="@item.IsIlanId"
+					   data-toggle="tooltip" data-placement="top" title="Sil" 
+					   onclick=" if (confirm('Simek istediğinize emin misiniz ?'))
+						{ VideoKaldir(this); return false } else { return false }">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+				<hr />
+			</li>
+		</ul>
+
+	}
+
+</div>

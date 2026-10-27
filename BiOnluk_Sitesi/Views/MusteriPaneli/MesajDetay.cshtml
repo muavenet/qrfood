@@ -1,0 +1,132 @@
+﻿@model List<HemenTanitim.Models.Mesajlar>
+@using Microsoft.AspNet.Identity;
+@{
+	ViewBag.Title = "MesajDetay";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+<div class="ads-info">
+	<div class="row">
+		<!-- quick-rules -->
+
+		@if (!Request.Browser.IsMobileDevice)
+		{
+
+			<div class="col-md-4">
+				@{Html.RenderAction("BilgileriDegistir_PartialView", "MusteriPaneli");}
+			</div><!-- quick-rules -->
+		}
+
+
+		<div class="col-md-8 clearfix" style="background-color:white;">
+			<div class="section express-yourself" style="padding:35px 0 !important">
+				@*	<h4>İlan Adı : @Request.QueryString["urunadi"].ToUpper()</h4>*@
+				@{string nerede = "pull-left";}
+				<div class="col-md-12" id="scroll_Div" style="margin-bottom: 15px;
+															padding: 15px;
+															border: 2px solid #efefef;
+															max-height: 500px;
+															overflow: auto;
+															border-collapse: collapse;
+															background-color: #ffffff;">
+					@*	<div class="form-group">*@
+					@foreach (var item in Model)
+					{
+
+
+						@*<label class="pull-left"></label>*@
+
+						<div style="margin-bottom:10px; border:1px solid #ccc; border-radius:2px; padding:15px">
+							<span class="" style="font-weight:400; font-size:15px">
+
+
+								@if (item.gonderenId != User.Identity.GetUserId())
+								{
+									<small><i>Site yönetiminin cevabı</i><br /></small>
+									<strong>@Html.Raw(item.mesaj)</strong>
+								}
+
+								else
+								{
+									@item.mesaj
+								}
+							</span>
+							<span style="display:block;margin-top:2px;"><small style="color:#ccc">@item.tarih.ToShortTimeString()</small></span>
+
+
+						</div>
+
+
+
+
+					}
+				</div>
+
+			</div>
+
+
+
+			@using (Html.BeginForm("MesajGonder", "MusteriPaneli", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+
+				<input type="hidden" value="@Request.QueryString["urunAdi"]" name="urunadi" />
+				<input type="hidden" value="@Request.QueryString["siparisId"]" name="siparisId" />
+
+
+				<div class="row form-group additional-information">
+					<div class="col-sm-12">
+
+						@{string disabled = ""; }
+						@if (Request.QueryString["k"] != null)
+						{
+							disabled = "disabled";
+
+						}
+
+						<textarea name="mesajicerik" rows="4" cols="50" class="form-control" @disabled
+								  placeholder="Lütfen mesajınızı giriniz"></textarea>
+
+
+					</div>
+				</div>
+
+				<div class="row form-group photos-resume">
+
+					<div class="col-sm-10">
+						<label class="upload-image" for="upload-image-two">
+							<input type="file" id="upload-image-two" name="yuklenendosya" onchange="getFileData(this);">
+							Dosya Yükle
+						</label>
+
+					</div>
+				</div>
+
+
+
+				<input type="submit" name="name" class="btn btn-primary" value="Gönder" />
+			}
+			<hr />
+
+
+		</div><!-- postdetails -->
+
+
+
+
+
+	</div><!-- photos-ad -->
+</div>
+
+
+
+	<script>
+
+		var objDiv = document.getElementById("scroll_Div");
+		objDiv.scrollTop = objDiv.scrollHeight;
+
+		
+	</script>
+
+	
+

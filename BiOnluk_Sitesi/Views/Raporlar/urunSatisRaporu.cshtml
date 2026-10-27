@@ -1,0 +1,92 @@
+﻿@model List<HemenTanitim.Models.IsIlanlari>
+
+@{
+    ViewBag.Title = "Siparişler";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<style>
+    .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th,
+    .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 12px !important;
+    }
+</style>
+
+
+
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Ürün listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Ürün Adı
+                                    </th>
+                                    <th>
+                                        Fiyat
+                                    </th>
+                                    <th>
+                                        Satış Oranı
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{string sonuc = ""; }
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @item.baslik
+                                        </td>
+                                        <td>
+                                            @item.fiyat
+                                        </td>
+                                        <td>
+                                            <b>@item.SatisOrani</b>
+                                        </td>
+
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+@section scriptFooter{
+    <script>
+        $(document).ready(function () {
+            $("#UrunRaporu").addClass("active");
+        });
+    </script>
+}

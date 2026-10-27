@@ -1,0 +1,162 @@
+﻿@model HemenTanitim.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Foods";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TYP">
+    <meta name="author" content="TYP">
+    <link rel="icon" type="image/png" href="~/Content/UI/img/logo.png">
+    <title>TYP - Online Food Ordering </title>
+    <!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick-theme.min.css" />
+    <!-- Feather Icon-->
+    <link href="~/Content/UI/vendor/icons/feather.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/UI/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+    <!-- Sidebar CSS -->
+    <link href="~/Content/UI/vendor/sidebar/demo.css" rel="stylesheet">
+</head>
+<body class="fixed-bottom-bar">
+    <div class="osahan-home-page">
+        <div class="shadow p-3 homepage-osahan-header bg-white">
+            <!-- Hotel Bilgileri -->
+            <div class="title d-flex align-items-center">
+                <div class="mr-auto">
+                    <a class="text-dark d-flex align-items-center" href="#">
+                        <i class="feather-map-pin fs-18 mr-2"></i>
+                        <h6 class="m-0 border-dashed-bottom">
+                            @Model.hotelAdi, @Model.odaNo
+                        </h6>
+                    </a>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <a class="toggle ml-2 text-dark hc-nav-trigger hc-nav-1" href="#" role="button" aria-controls="hc-nav-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3
+                                  7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            @{Html.RenderAction("_BasitArama", "Filtre");}
+        </div>
+        <!-- Filters -->
+        <div class="osahan-main">
+
+            @{Html.RenderAction("_Ana_Kategoriler", "FrontEndModules");}
+
+            <!-- Trending this week -->
+            @{Html.RenderAction("_VitrinUrunler", "FrontEndModules", new { size = 0 });}
+
+        </div>
+        <!-- Footer -->
+
+
+        @{Html.RenderAction("_Footer", "FrontEndModules");}
+    </div>
+
+    @Html.Partial("_LoginPartial")
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Content/UI/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/UI/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- slick Slider JS-->
+    <script type="text/javascript" src="~/Content/UI/vendor/slick/slick.min.js"></script>
+    <!-- Sidebar JS-->
+    <script type="text/javascript" src="~/Content/UI/vendor/sidebar/hc-offcanvas-nav.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/Content/UI/js/osahan.js"></script>
+
+  
+
+    @*<script src="http://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>*@
+
+    <script type="text/javascript">
+        var j5 = $.noConflict(true);
+    </script>
+
+    @*<div class="input-group border osahan-search mt-3 rounded-lg shadow-sm overflow-hidden">
+            <div class="input-group-prepend">
+                <button class="border-0 btn btn-outline-secondary text-primary bg-white btn-block"><i class="feather-search"></i></button>
+            </div>
+            <input type="text" class="shadow-none border-0 form-control pl-0" placeholder="Search for restaurants or dishes" aria-label="" aria-describedby="basic-addon1">
+        </div>*@
+    @Scripts.Render("~/bundles/kendo")
+</body>
+</html>
+
+
+
+
+@if (ViewContext.RouteData.Values.Keys.Contains("anaKategoriAdi"))
+{
+
+    @Html.Hidden("hdnanaKategoriAdi", ViewContext.RouteData.Values["anaKategoriAdi"].ToString())
+    @Html.Hidden("hdnanaKategoriId", ViewContext.RouteData.Values["anaKategoriId"])
+    @Html.Hidden("hdnanaAltKategoriAdi", ViewContext.RouteData.Values["AltKategoriAdi"].ToString())
+    @Html.Hidden("hdnanaAltKategoriId", ViewContext.RouteData.Values["AltKategoriId"])
+    @Html.Hidden("hdnIlId", ViewContext.RouteData.Values["ilId"])
+    @Html.Hidden("hdnSiralama", ViewContext.RouteData.Values["sortOrder"])
+}
+
+
+@section scripts{
+
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/js/Load_more_Ilanlar.js"></script>
+
+    <script src="/js/jsLibrary.js"></script>
+
+    <script>
+
+        var $hdn = jQuery.noConflict();
+
+        console.log($hdn("#hdnIlId").val());
+
+        function filtreleme_clickler_kategoriler(sortorder_, anaKategoriId_, altKategoriId_, anaKategoriAdi_, dropdownda_gösterilece_yazi) {
+
+            MYLIBRARY.init([sortorder_, anaKategoriId_, anaKategoriAdi_, altKategoriId_, dropdownda_gösterilece_yazi, $hdn("#hdnIlId").val()]);
+
+            MYLIBRARY.VitrinUrunleriGetir();
+
+        };
+
+        function filtreleme_clickler_iller(dropdownda_gösterilece_yazi, ilId_) {
+
+            MYLIBRARY.init(['', $hdn("#hdnanaKategoriId").val(), $hdn("#hdnanaAltKategoriId").val(), $hdn("#hdnanaAltKategoriAdi").val(), dropdownda_gösterilece_yazi, ilId_]);
+
+            MYLIBRARY.VitrinUrunleriGetir_IllereGore();
+
+        };
+
+        function filtreleme_clickler_siralama(siralama, dropdownda_gösterilece_yazi) {
+
+            console.log(siralama);
+
+            $hdn("#hdnSiralama").val(siralama);
+
+            MYLIBRARY.init([siralama, $hdn("#hdnanaKategoriId").val(), $hdn("#hdnanaAltKategoriId").val(), $hdn("#hdnanaAltKategoriAdi").val(), dropdownda_gösterilece_yazi, $hdn("#hdnIlId").val()]);
+
+            MYLIBRARY.VitrinUrunleriGetir_Siralama();
+
+        };
+
+    </script>
+
+}
+
+

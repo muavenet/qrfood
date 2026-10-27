@@ -1,0 +1,128 @@
+﻿@model HemenTanitim.Models.Hotels
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Hotel oluştur</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                 
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+
+                        @using (Html.BeginForm())
+                        {
+
+                            @Html.HiddenFor(model => model.Lat)
+                            @Html.HiddenFor(model => model.log)
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>Yeni Hote Oluştur   </h4>
+                                <hr />
+                                <label id="lblBildirim" style="color:red;font-size:medium; opacity:1;"></label>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+
+                                    @Html.LabelFor(model => model.HotelAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-xs-12">
+                                        @Html.EditorFor(model => model.HotelAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.HotelAdi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.odaSayisi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-xs-12">
+                                        @Html.EditorFor(model => model.odaSayisi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.odaSayisi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.KomisyonOrani, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-xs-12">
+                                        @Html.EditorFor(model => model.KomisyonOrani, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.KomisyonOrani, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Kaydet" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+                            @Html.ActionLink("<<Geri Dön", "Index")
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+@section scriptFooter{
+    <script>
+
+        $(document).ready(function () {
+
+            $("#lblBildirim").text("* Otel Konumu Alınıyor Lütfen Bekleyiniz.");
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+            else {
+                alert("Geolocation is not supported by this browser.");
+            }
+
+            function showPosition(position) {
+
+                var lat = position.coords.latitude.toString().substring(0, 4).replace('.', '');
+                var longt = position.coords.longitude.toString().substring(0, 4).replace('.', '');
+
+                $("#Lat").val(lat);
+                $("#log").val(longt);
+
+              
+
+                $("#lblBildirim").text("* Konum alındı. Devam edebilirsiniz.");
+            }
+        });
+
+        function showError(error) {
+            if (error.code == 1) {
+                alert("User denied the request for Geolocation.");
+            }
+            else if (err.code == 2) {
+                alert("Location information is unavailable.");
+            }
+            else if (err.code == 3) {
+                alert("The request to get user location timed out.");
+            }
+            else {
+                alert("An unknown error occurred.");
+            }
+        }
+
+    </script>
+}

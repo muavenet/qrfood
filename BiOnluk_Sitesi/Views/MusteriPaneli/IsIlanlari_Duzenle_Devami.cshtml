@@ -1,0 +1,457 @@
+﻿@model HemenTanitim.Models.IsIlanlari
+
+@{
+	ViewBag.Title = "IsIlanlari_Duzenle_Devami";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #00a651 !important;
+		background-color:transparent;
+    }
+
+    .select-category > li > a {
+        display: inline !important;
+    }
+
+    /*.select-category li:before {
+        position: absolute;
+        top: 0 !important;
+        right: 0;
+        font-size: 15px;
+        content: "\f105";
+        font-family: 'FontAwesome';
+        color: #00a651;
+        opacity: 0;
+    }*/
+
+    .postdetails li .IsIlanlari_a {
+        font-family: 'Ubuntu', sans-serif !important;
+        font-size: 15px !important;
+        font-weight: 400 !important;
+        min-width: 140px;
+        display: block !important;
+        line-height: 18px;
+    }
+
+    .section {
+        background-color: white;
+    }
+
+    .btn-group-sm > .btn, .btn-sm {
+        padding: 5px 25px !important;
+    }
+</style>
+
+@if (Request.Browser.IsMobileDevice)
+{
+	<style>
+		.selected-product .select-category li:before {
+			top: 5px !important;
+			right: 4px;
+			opacity: 1;
+		}
+
+		.selected-product .select-category li.active {
+			padding-left: 0;
+		}
+	</style>
+}
+
+
+
+<section id="main" class="clearfix details-page">
+	<div class="row">
+
+		@if (!Request.Browser.IsMobileDevice)
+		{
+			<style>
+				label {
+					font-size: 11px !important;
+				}
+                -
+				.col-md-6 strong, .col-md-4 strong {
+					font-size: 13px !important;
+				}
+			</style>
+
+		
+                    }
+                    else
+                    {
+                        <style>
+                            #pr_content {
+                                float: left;
+                                border: 1px solid #ebebeb;
+                            }
+
+                            #preview {
+                                height: 94px !important;
+                            }
+
+                            #pr_content canvas, #pvi {
+                                width: 87px !important;
+                                height: 70px !important;
+                            }
+                            .li1 {
+                                display:none !important;
+                            }
+                        </style>
+
+                    }
+
+		<div class="col-md-12">
+			<div class="section postdetails box-shadow-genel">
+				@* <h4>Sell an item or service <span class="pull-right">* Mandatory Fields</span></h4>*@
+				<div class="form-group selected-product" id="rootwizard">
+
+                    <ul class="select-category list-inline">
+                        <li class="li1">
+                            <a href="#" class="IsIlanlari_a btn btn-sm btn-default">
+                                Ürün Girişi
+                            </a>
+                        </li>
+                        <li class="displaytelefon active li1"><a href="#tab1" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Ürün Açıkması/İçerik</a></li>
+                        @*<li class="displaytelefon li1"><a href="#tab2" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Sözleşme</a></li>*@
+                        <li class="displaytelefon li1"><a href="#tab2" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Detaylar</a></li>
+                        <li class="displaytelefon li1"><a href="#tab3" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Fotoğraflar</a></li>
+                        <li class="displaytelefon li1"><a href="#tab4" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Yayınla</a></li>
+                    </ul>
+
+
+					<form id="formIcerik" action="" method="post">
+						<div class="tab-content">
+							<div id="loadgifdiv" style="width:100%; text-align:center; margin-top:15px" class="center"></div>
+
+							<div class="tab-pane  fade active in" id="tab1">
+								<div class="row form-group add-image">
+									<div class="col-sm-12">
+                                        <div class="row form-group add-image">
+
+
+                                            @Html.TextAreaFor(model => model.IsIlanAciklamasi, new
+                                            {
+                                           name = "IsIlanAciklamasi",
+                                           id = "IsIlanAciklamasi",
+                                           placeholder = "İçerik giriniz...",
+                                           @class = "form-control",
+                                           @style = "margin-top:35px; min-height:130px; font-size:10pt",
+                                           @required = "required"
+                                             })
+
+                                            @Html.ValidationMessageFor(model => model.IsIlanAciklamasi)
+
+                                            <ul class="pager wizard">
+                                                @*<li class="previous"><a href="#">Geri Dön</a></li>*@
+                                                <li class="next">
+                                                    <a href="#">
+                                                        Devam Et
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+									</div>
+								</div>
+							</div>							
+
+							<div class="tab-pane" id="tab2">
+								<div class="row form-group add-image">
+
+									<div class="col-sm-12" style="margin-top:25px">
+
+                                        <div class="row form-group add-image">
+
+                                            <div class="col-sm-6">
+                                                @Html.Label("Gösterim", new { style = "display:block" })
+                                                @Html.CheckBoxFor(model => model.Trending, new { @class = "checkbox-inline", style = "vertical-align:top;" })
+                                                <span style="margin-right:15px;">Trending</span>
+                                                @Html.CheckBoxFor(model => model.Hot, new { @class = "checkbox-inline", style = "vertical-align:top;" })
+                                                <span style="margin-right:15px;">    Hot</span>
+                                                @Html.CheckBoxFor(model => model.Promoted, new { @class = "checkbox-inline", style = "vertical-align:top;" })
+                                                <span style="margin-right:15px;">Promoted</span>
+                                                @Html.CheckBoxFor(model => model.mostPopular, new { @class = "checkbox-inline", style = "vertical-align:top;" })
+                                                <span style="margin-right:15px;">Popular</span>
+                                                @Html.CheckBoxFor(model => model.mostSales, new { @class = "checkbox-inline", style = "vertical-align:top;" })
+                                                <span style="margin-right:15px;">Sales</span>
+                                                @Html.CheckBoxFor(model => model.Vitrin, new { @class = "checkbox-inline", style = "vertical-align:top;" })
+                                                <span style="margin-right:15px;">Vitrin</span>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                @Html.Label("Teslim Süresi")
+                                                @Html.DropDownListFor(model => model.TeslimSuresi, new List<SelectListItem>
+                                                   {
+                                                     new SelectListItem { Text = "15-20 min", Value = "15-20 min"},
+                                                     new SelectListItem { Text = "20-30 min", Value = "20-30 min"},
+                                                     new SelectListItem { Text = "30-40 min", Value = "30-40 min"},
+                                                     new SelectListItem {Text  = "50-60 min",   Value="50-60 min"}
+                                                  }, new { @class = "form-control smallElements" })
+                                            </div>
+
+                                            <div class="col-sm-6">
+
+                                                @Html.Label("Kaç Kişilik ")
+                                                @Html.DropDownListFor(model => model.kacKisilik, new List<SelectListItem>
+                                                   {
+                                                     new SelectListItem { Text = "1", Value = "1"},
+                                                     new SelectListItem { Text = "2", Value = "2"},
+                                                     new SelectListItem { Text = "3", Value = "3"},
+                                                     new SelectListItem { Text = "4", Value = "4"},
+                                                     new SelectListItem { Text = "5", Value = "5"}
+                                                  }, new { @class = "form-control smallElements" })
+                                            </div>
+
+
+                                            <div class="col-sm-6">
+                                                @Html.Label("İndirim Oranı")
+
+                                                @Html.DropDownListFor(model => model.indirimOrani, new List<SelectListItem>
+                                                   {
+                                                     new SelectListItem { Text = "0", Value = "0"},
+                                                     new SelectListItem { Text = "10%", Value = "10"},
+                                                     new SelectListItem { Text = "20%", Value = "20"},
+                                                     new SelectListItem {Text  = "30%",   Value="30"},
+                                                     new SelectListItem { Text = "40%", Value = "40"},
+                                                     new SelectListItem {Text  = "50%",   Value="50"},
+                                                     new SelectListItem {Text  = "60%",   Value="60"}
+
+                                                  }, new { @class = "form-control smallElements" })
+                                            </div>
+
+
+                                            <div class="col-sm-3" style="margin-top:25px">
+
+                                                <strong>@Html.Label("Fiyat")</strong>
+
+                                                @Html.TextBoxFor(model => model.fiyat, new
+                                                          {
+                                                              name = "TanitimIcerik",
+                                                              id = "TanitimIcerik",
+                                                              @class = "form-control",
+                                                              @required = "required"
+
+                                                          })
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <ul class="pager wizard">
+                                                    @*<li class="previous"><a href="#">Geri Dön</a></li>*@
+                                                    <li class="next">
+                                                        <a href="#">
+                                                            Devam Et
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        </div>
+								</div>
+							</div>
+
+                            <div class="tab-pane" id="tab3">
+
+
+                                <div class="row form-group add-image">
+                                    <div class="col-sm-12">
+
+                                        <a id="tooltip" class="tooltip" style="visibility:hidden; left:237px; margin-top:17px; " href="#" title="Kapak resmi">
+                                            <img src="~/Content/Resim_Editor/images/icons/kapak.png" />
+                                        </a>
+
+                                        @if (Request.Browser.IsMobileDevice)
+                                        {
+
+                                            <div id="preview" style="width:99%; float:none; padding-left:0;">
+                                                <div id="resimUp">
+
+                                                    <label class="upload-image" for="upload-image-two">
+                                                        <input type="file" id="upload-image-two" name="file[]" multiple onchange="javascript:handleFileSelectBtn(event)">
+
+                                                    </label>
+
+                                                </div>
+
+                                                <span>Resim Ekle</span>
+                                                <span class="small">(PNG, JPG)</span>
+                                                <span class="small">Yüklenen dosya <br /> <span id="dosya_adet"></span> / 16 </span><br />
+                                                <progress value="0" max="8" style="width: 130px" id="progress_file"></progress>
+
+
+                                            </div>
+
+                                            <div id="progress_bar" style="position:relative; bottom:0px;width:100%; right:0px; "><div class="percent">0%</div></div>
+
+                                            <div id="pr_content" class="pr_content">
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div id="preview" style="width:99%; float:none; padding-left:0;" title="Fotoğrafları buraya sürükleyiniz. ">
+                                                <div id="resimUp">
+
+                                                    <label class="upload-image" for="upload-image-two">
+                                                        <input type="file" id="upload-image-two" name="file[]" multiple onchange="javascript:handleFileSelectBtn(event)">
+                                                        <span>Resim Ekle</span>
+                                                    </label>
+                                                    <span class="small">(PNG, JPG)</span>
+
+                                                    <span class="small">Yüklenen dosya <br /> <span id="dosya_adet"></span> / 8 </span><br />
+                                                    <progress value="0" max="8" style="width: 90px" id="progress_file"></progress>
+
+
+                                                </div>
+                                                <div id="pr_content" class="pr_content">
+                                                </div>
+
+                                                <div id="progress_bar" style="position:absolute; bottom:0px;width:80%; right:0px; "><div class="percent">0%</div></div>
+                                            </div>
+
+                                        }
+
+
+
+
+                                        <div class="col-md-12" style="padding:1px">
+
+                                            <img src="~/Content/Resim_Editor/images/ilanver_load.GIF" width="40"
+                                                 alt="Yükleniyor" id="load_ilanver" style="visibility:hidden;" title="Bekleyiniz" />
+
+                                            <style>
+                                                #btnDevam:focus ~ #spin_i {
+                                                    display: inline-block !important;
+                                                }
+                                                }
+                                            </style>
+
+                                            <ul class="pager wizard">
+                                                @*<li class="previous"><a href="#">Geri Dön</a></li>*@
+
+                                                <li>
+
+                                                    <a href="#" class="btn btn-default" onclick="servisGonder('param1');" id="btnDevam" tabindex="0">
+                                                        Kaydet
+                                                    </a>
+                                                    <i class="fa fa-spinner fa-spin" style="display:none;" id="spin_i"></i>
+                                                </li>
+                                            </ul>
+
+
+                                        </div>
+
+
+                                        @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["id"] != null)
+                                        {
+                                            <input type="hidden" value='@HttpContext.Current.Request.RequestContext.RouteData.Values["id"]' id="routeDataId" />
+                                            <script src="~/js/Resim_Editor_Edit.js"></script>
+                                        }
+                                        else
+                                        {
+                                            <script src="~/js/Resim_Editor_Create.js"></script>
+                                        }
+
+                                        <link href="~/Content/Resim_Editor/resim_dondur.css" rel="stylesheet" />
+
+                                        <div id="cerceve_arka">
+                                            <div id="cerceve">
+                                                <div id="icerik">
+                                                    <div id="serit">
+
+                                                        @*<input type="button" id="btnVitrin" title="Vitrin" value="Vitrin yap" />*@
+                                                        <input type="button" id="btnDondur" value="    Dondur" />
+                                                        <input type="button" id="btnGom" value="    Kaydet" />
+                                                        <input type="button" id="btnVazgec" value="    Vazgeç" />
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <div id="resim"></div>
+                                                    <div id="canvas_div">
+                                                        <img id="rot_image" width="480" height="360" />
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+							<div class="tab-pane " id="tab4">
+								<div class="row form-group add-image">
+
+									<div class="col-sm-12">
+										<div class="row form-group add-image">
+											<div class="congratulations">
+												<i class="fa fa-check-square-o"></i>
+												<h2>İlan Taslağınız Oluşturuldu!</h2>
+												<h4>İlanınız onaylandıktan sonra yayına alınacaktır.</h4>
+											</div>
+
+											<ul class="pager wizard">
+												@*<li class="previous"><a href="#">Geri Dön</a></li>*@
+												<li>
+													<a href="#" class="btn btn-large animate-flicker" style="color:black">
+														Yönlendiriliyorsunuz ...
+														@*İş İlanlarım&nbsp;&nbsp; <span class="glyphicon glyphicon-arrow-right"></span>*@
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+@*<script>
+			function getFileData(myFile) {
+
+				var file = myFile.files[0];
+
+				document.getElementById("secilenDosya").innerHTML =  file.name;
+
+			}
+	</script>*@
+
+
+
+<script type="text/javascript">
+
+	window.onbeforeunload = function (evt) {
+		var message = 'Sayfadan ayrılıyorsunuz?';
+		if (typeof evt == 'undefined') {
+			evt = window.event;
+		} if (evt) {
+
+		}
+		return message;
+	}
+
+</script>
+
+<script src="~/Content/tabs/bootstrap.min.js"></script>
+
+<script src="~/Content/tabs/jquery.bootstrap.wizard.js"></script>
+
+<script src="~/Scripts/jquery.validate.1.9.min.js"></script>
+
+<script src="~/js/Video_Kaldir.js"></script>
+
+<script src="~/Content/tabs/prettify.js"></script>
+
+<script src="~/js/IsIlanlari_Duzenleme_Devami.js"></script>
+

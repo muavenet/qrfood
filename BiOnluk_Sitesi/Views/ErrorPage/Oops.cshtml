@@ -1,0 +1,20 @@
+﻿
+
+@{ ViewBag.Title = "Oops! Error Encountered"; Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<div class="body-content outer-top-bd">
+    <div class="container">
+        <div class="x-page inner-bottom-sm">
+            <div class="row">
+                <div class="col-md-12 x-text text-center">
+                    <h1 style="font-size:40px">@Response.Status</h1>
+                    <p>Üzgünüz, ulaşmak istediğiniz sayfa yok yada bir problem meydana geldi.</p>
+                    <form role="form" class="outer-top-vs outer-bottom-xs">
+                     
+                    </form>
+                    <a href="/Home"><i class="fa fa-home"></i>Anasayfaya git</a>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.sigin-in-->
+    </div><!-- /.container -->
+</div><!-- /.body-content -->

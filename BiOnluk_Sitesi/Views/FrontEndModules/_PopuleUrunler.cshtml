@@ -1,0 +1,78 @@
+﻿@model List<HemenTanitim.Models.FotoVeUrunler>
+<div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+    <div class="widget-header">
+        <h4 class="widget-title">En çok ziyaret edilenler</h4>
+    </div>
+    <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
+
+        <div class="tab-content outer-top-xs">
+            <div class="tab-pane active " id="grid-container">
+                <div class="category-product  inner-top-vs">
+                    <div class="row">
+
+
+                 @foreach (var item in Model)
+                    {
+
+                <div class="col-sm-12 col-md-12">
+                    <div class="products" style="margin-bottom:20px;  background: #f0f0f0; border: 1px solid #e8e8e8; ">
+
+                        <div class="product">
+                            <div class="product-image">
+                                <div class="image">
+                                    <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.Id })" title="@item.UrunAdi">
+                                        <img src="@item.ThumbnailYolu" alt="@item.UrunAdi" class="img img-responsive center" style="height: 158px; width: 250px; margin-top: 5px; margin-left:auto; margin-right:auto;" />
+                                    </a>
+
+                                </div><!-- /.image -->
+                                @if (item.IndirimOrani != null)
+                                {
+
+                                    <div class="tag hot"><span>%@item.IndirimOrani</span></div>
+                                }
+                             
+                               
+                            </div><!-- /.product-image -->
+                            <div class="product-info text-left" style="padding: 10px 10px 10px; ">
+                                <h3 class="name"><a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.Id })" title="@item.UrunAdi" class="pricetext"> @item.UrunAdi</a></h3>
+                                <div class="product-price" style="padding-top: 20px;">
+                                    <span class="price">
+                                        @String.Format("{0:N}", item.Fiyat) <i class="fa fa-turkish-lira"></i>
+                                    </span>
+                                    <span class="price-before-discount">@String.Format("{0:N}", item.UstuCiziliFiyat)  <i class="fa fa-turkish-lira"></i></span>
+
+                                </div><!-- /.product-price -->
+
+                            </div><!-- /.product-info -->
+                            <div class="cart-button button-group" style=" padding: 10px 10px 10px; ">
+
+                                <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.Id })" title="cafe-sandalyesi-ucs-03" class="btn btn-cart">
+                                    <i class=" fa fa-shopping-cart">
+                                    </i>
+                                    Ürün detay
+                                </a>
+
+                                <a class="btn btn-wishlist" href="#" id="@item.Id" title="Favorilerime ekle" onclick="FavorilerimeEkle(this); return false">
+                                    <i class="fa fa-heart"></i>
+                                </a>
+
+                                <button type="button" title="Karşılatır" id="@item.Id" onclick="KarsilastirmaEkle(this); return false" class="btn btn-compare">
+                                    <i class="fa fa-bar-chart-o"></i>
+                                </button>
+                            </div>
+
+                        </div><!-- /.product -->
+
+                    </div><!-- /.products -->
+                </div><!-- /.item -->
+
+                    }
+
+                    </div><!-- /.product-slider -->
+                </div><!-- /.tab-pane -->
+
+            </div><!-- /.tab-content -->
+        </div><!-- /.scroll-tabs -->
+
+    </div>
+</div>

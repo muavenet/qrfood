@@ -1,0 +1,209 @@
+﻿@model HemenTanitim.Models.IsIlanlari
+
+
+@{
+	ViewBag.Title = "Detay";
+	Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+
+	<section class="content-header">
+		<h1>
+			İlan No : @Model.isId
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+			<li><a href="#">Sipariş detay</a></li>
+		</ol>
+	</section>
+
+	<section class="content">
+		<div class='row'>
+			<div class='col-xs-12'>
+				<div class='box box-info'>
+
+
+					<div class="box-body table-responsive" style="overflow:hidden">
+
+					
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th class="col-md-2">Başlıklar</th>
+									<th>İçerikler</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr>
+									<td>
+										<span>İlan tarihi</span>
+									</td>
+									<td>
+										@Model.Tarih.ToLongDateString()
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<span>İlan Id</span>
+									</td>
+									<td>
+										@Model.isId
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<span>Başlık</span>
+									</td>
+									<td>
+										@Model.baslik
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<span>Açıklama</span>
+									</td>
+									<td>
+										@Model.IsIlanAciklamasi
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>
+										<span>Gereksinimler</span>
+									</td>
+									<td>
+										@Model.Gereksinimler
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<span>Öne Çıkarma Durumu</span>
+									</td>
+									<td>
+										@Model.Trending
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<span>Fiyat Aralığı</span>
+									</td>
+									<td>
+										<label>@String.Format("{0:N}", Model.fiyat) TL</label>
+									</td>
+								</tr>
+
+								@*<tr>
+									<td>
+										<span>Adet & Teslimat Süresi</span>
+									</td>
+									<td>
+										<label>@String.Format("{0:N}", Model.fiyatlandirmaAdet + "-" + Model.teslimatSuresi) TL</label>
+									</td>
+								</tr>*@
+
+								<tr>
+									<td>
+										<span>Sipariş durumu</span>
+									</td>
+									<td>
+										@if (Model.durum == true)
+										{<label>Onaylandı</label>;
+										}
+										else
+										{ <label>Onay Bekliyor</label>;
+										}
+
+									</td>
+								</tr>
+
+								
+								<tr>
+									<td colspan="2">
+
+
+
+										<div>
+											<!-- Nav tabs -->
+											<ul class="nav nav-tabs" role="tablist">
+												<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">İlan Sahibi</a></li>
+												<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Eklenen Medyalar</a></li>
+											</ul>
+
+											<!-- Tab panes -->
+											<div class="tab-content">
+												<div role="tabpanel" class="tab-pane active" id="home">@{Html.RenderAction("_UyeBilgileri", "AdminSiparisIslemleri", new { id = Model.userId });}</div>
+												<div role="tabpanel" class="tab-pane" id="profile">@{Html.RenderAction("_Medyalar", "AdminIlanYonetimi", new { isIlanId = Model.isId });}</div>
+												@*<div role="tabpanel" class="tab-pane" id="profile">
+							@{Html.RenderAction("_FaturaBilgileri", "AdminSiparisIslemleri", new { id = Model.FaturaId });}
+						</div>
+						<div role="tabpanel" class="tab-pane" id="messages">@{Html.RenderAction("_KargoBilgileri", "AdminSiparisIslemleri", new { id = Model.KargoId });}</div>*@
+											</div>
+
+										</div>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+						@using (Html.BeginForm())
+						{
+							<div class="form-group">
+								<div class="col-lg-4">
+									@Html.ActionLink("<< Listeye geri don", "Index")
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</aside>
+
+
+
+
+<script>
+
+
+    @*$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+
+        if (e.currentTarget.text == 'Fatura bilgileri')
+        {
+            alert("xzx");
+            var $detailsDiv = $('.faturaicerik'),
+            url = "@Url.Action("_FaturaBilgileri", "AdminSiparisIslemleri", new { id = Model.FaturaId })";
+
+            $.get(url, function (data) {
+                $detailsDiv.replaceWith(data);
+
+            });
+        }
+        e.relatedTarget // previous active tab
+    })
+
+    $('#fatura').on('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+
+
+        var $detailsDiv = $('.faturaicerik'),
+            url = "@Url.Action("_FaturaBilgileri", "AdminSiparisIslemleri", new { id = Model.FaturaId })";
+
+        $.get(url, function (data) {
+            $detailsDiv.replaceWith(data);
+
+        });
+    });*@
+</script>

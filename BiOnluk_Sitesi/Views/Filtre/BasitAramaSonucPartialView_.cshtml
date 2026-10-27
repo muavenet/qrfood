@@ -1,0 +1,172 @@
+﻿@model IEnumerable<HemenTanitim.Models.UrunListele2>
+
+
+<style>
+	.urun_kutusu {
+		background-color: white;
+		margin-bottom: 40px;
+		margin-right: 13px;
+		padding: 0;
+		width: 263px
+	}
+	.featured-image h5 {
+		font-size: 14px !important;
+		line-height: 20px;
+		transform: scale(1.06, 1.2);
+		font-weight: 500;
+		text-align: left;
+	}
+	.baslik_ {
+		padding: 8px 15px 0px;
+		color: #000000;
+		vertical-align: -webkit-baseline-middle;
+		overflow: hidden;
+		float: left;
+		font-size: 16px;
+		font-weight: 500;
+		min-height: 53px;
+		width: 100%;
+		text-align: left;
+	}
+	.kullanicifoto_ {
+		padding: 8px 15px 0px;
+		color: #545454;
+		vertical-align: -webkit-baseline-middle;
+		line-height: 44px;
+		text-align: left;
+	}
+
+	.item-cat, hr {
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+	.fiyatlama {
+		position: relative;
+		float: right;
+		line-height: 50px;
+	}
+
+	.fiyatlama_li {
+		padding-right: 5px;
+		padding-left: 5px;
+		;
+	}
+    .resim_100 {
+        object-fit: cover;
+        min-width: 260px;
+        height: 154px !important;
+    }
+</style>
+
+
+@if (Request.Browser.IsMobileDevice)
+{
+	<style>
+		.urun_kutusu {
+			background-color: white;
+			margin: 0 auto;
+			padding: 0;
+			width: 100%;
+		}
+      
+		.baslik_ {
+			padding: 18px 15px 0px;
+		}
+		.fiyatlama {
+			float: none;
+			line-height: 40px;
+		
+		}
+		.fiyatlama_li {
+			text-align: right;
+			padding-right: 15px;
+			display: inline-block;
+			padding-left: 15px;
+		}
+		.banner-section, .category-dropdown a {
+			margin-right: 0 !important;
+		}
+		.ul_right {
+			text-align: right;
+			padding-right: 5px;
+		}
+		.yorum_ {
+			
+		}
+	</style>
+}
+
+@foreach (var item in Model)
+{
+	<div class="col-sm-6 col-md-4 col-lg-4 urun_kutusu" >
+		<div class="featured">
+			<div class="featured-image">
+				<div style="border-bottom: 1px solid rgb(232, 232, 232); height: 148px;" class="resim_100">
+					<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })" title="@item.isId">
+
+						@if (item.oneCikarma == true)
+						{
+							<span class="notify-badge">Öne çıkan</span>
+						}
+
+						@if (item.ResimYolu != "")
+						{<img src="@item.ResimYolu" alt="@item.isId" class="img-responsive center-block resim_100"  width="263" height="153" style="max-height:153px;min-height:153px">}
+						else
+						{ }
+
+					</a>
+				</div>
+
+				<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })" class="baslik_">
+					@item.baslik.FirstCharToUpper().TrimFrontIfLongerThan(50)
+				</a>
+
+				@if (!Request.Browser.IsMobileDevice)
+				{
+					<a href="@Url.Action("Kullanicilar", "MusteriPaneli", new { Id = item.KullaniciId })" title="@item.KullaniciAdi" class="kullanicifoto_">
+						<img src="@item.KullaniciFoto" class="img-circle " height="33" width="33" /> @item.KullaniciAdi.TrimFrontIfLongerThan(22) <small><i> -  </i></small>
+					</a>
+				}
+				else
+				{
+					<a href="@Url.Action("Kullanici_Ozgecmisi","CV", new { uid = item.KullaniciId })" title="@item.KullaniciAdi" class="kullanicifoto_">
+						<img src="@item.KullaniciFoto" class="img-circle " height="33" width="33" /> @item.KullaniciAdi.TrimFrontIfLongerThan(22) <small><i> -</i></small>
+					</a>
+				}
+
+				@*<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.UrunId })" class="verified" data-toggle="Detay" data-placement="top" title="Detay"><i class="fa fa-dot-circle-o"></i></a>*@
+			</div>
+
+			<!-- ad-info -->
+			<div class="ad-info">
+				<div class="item-cat">
+					<span>
+						<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })"
+						   title="@item.siteUrl">
+							@*@item.siteUrl.TrimFrontIfLongerThan(25)*@
+						</a>
+					</span>
+				</div>
+				<ul class="ul_right">
+					<li class="fiyatlama_li">
+						<a href="#"
+						   title="Fiyat" class="fiyatlama">
+							<small>Min. </small> <strong style="font-size:17px; ">@item.MinFiyat TL </strong>
+						</a>
+					</li>
+					<li class="fiyatlama_li" style="float: left;">
+						<a href="#" style="color:#ffbf00" title="Puan" class="fiyatlama">
+							<i class="fa fa-star"></i> <strong> (@item.puan_ortalamasi) </strong>
+						</a>
+					</li>
+					<li class="fiyatlama_li yorum_" style="float: left; padding-left:35px">
+						<a href="#" style="color:#9a9696" title="Yorumlar" class="fiyatlama">
+							<i class="fa fa-comments" style="font-size:16px"></i> (@item.YorumSayisi)
+						</a>
+					</li>
+				</ul>
+
+			</div><!-- ad-info -->
+		</div><!-- featured -->
+	</div><!-- featured -->
+}

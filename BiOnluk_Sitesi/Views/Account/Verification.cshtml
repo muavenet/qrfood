@@ -1,0 +1,121 @@
+﻿@model HemenTanitim.Models.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Askbootstrap">
+    <meta name="author" content="Askbootstrap">
+    <link rel="icon" type="image/png" href="~/Content/UI/img/logo.png">
+    <title>TYP - Online Food Ordering</title>
+    <!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick-theme.min.css" />
+    <!-- Feather Icon-->
+    <link href="~/Content/UI/vendor/icons/feather.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/UI/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+    <!-- Sidebar CSS -->
+    <link href="~/Content/UI/vendor/sidebar/demo.css" rel="stylesheet">
+</head>
+<body>
+    <div class="osahan-verification">
+        <div class="p-3 osahan-inner-header bg-white shadow-sm">
+            <div class="d-flex align-items-center">
+                <a class="font-weight-bold text-dark text-back text-decoration-none d-flex" href="#" onclick="history.back()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                         class="back-page bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                    </svg>
+                    <span class="pl-2">Back to login</span>
+                </a>
+                <div class="ml-auto d-flex align-items-center">
+                  @*  <a class="text-dark mx-2 top-nav-btn top-nav-btn-cart fs-18 position-relative" href="contact-us.html"><i class="feather-help-circle"></i></a>*@
+
+                </div>
+            </div>
+        </div>
+        <div class="verify_number p-4">
+            <h2 class="mb-3">Verify your<br>email account</h2>
+            <h6 class="text-black-50">Enter your OTP code here</h6>
+
+            @using (Html.BeginForm("Verification", "Account", FormMethod.Post, new { @class = "container_", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(m => m.UserName)
+                @Html.HiddenFor(m => m.Email)
+                @Html.HiddenFor(m => m.hotelId)
+                @Html.HiddenFor(m => m.odaGuidId)
+                @Html.HiddenFor(m => m.hotelAdi)
+                @Html.HiddenFor(m => m.odaNo)
+                @Html.HiddenFor(m => m.Lat)
+                @Html.HiddenFor(m => m.log)
+
+                @Html.ValidationSummary(true)
+
+
+
+                <label id="lblBildirim" style="color:red;font-weight:bold; font-size:medium; opacity:1;">       @TempData["Hata"]</label>
+                <div class="row my-5 mx-0">
+                    <div class="col pr-1 pl-0">
+                        @Html.TextBoxFor(m => m.Password1, new { type = "number", maxlength = "1", @class = "test form-control form-control-lg" })
+                    </div>
+                    <div class="col px-2">
+                        @Html.TextBoxFor(m => m.Password2, new { type = "number", maxlength = "1", @class = "test form-control form-control-lg" })
+                    </div>
+                    <div class="col px-2">
+                        @Html.TextBoxFor(m => m.Password3, new { type = "number", maxlength = "1", @class = "test form-control form-control-lg" })
+                    </div>
+                    <div class="col pl-1 pr-0">
+                        @Html.TextBoxFor(m => m.Password4, new { type = "number", maxlength = "1", @class = "test form-control form-control-lg" })
+                    </div>
+                </div>
+                <button type="submit" onclick="verify" class="btn btn-lg btn-primary btn-block">Verify Now</button>
+            }
+            <button type="button" id="resend_btn" onclick="YenidenGonder()" class="btn btn-lg btn-block">Resend The Code <i class="feather-send"></i></button>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript">
+
+
+        function YenidenGonder() {
+
+            var val = $("#UserName").val();
+            $.ajax({
+                url: "/Account/Register",
+                data: {  email: val },
+                type: "POST",
+                dataType: "json",
+                beforeSend: function () {
+                    $("#resend_btn").text("Sending... Please Wait...");
+                },
+                success: function (result) { alert("New Code has been sent"), $("#resend_btn").text("Resend The Code");},
+                error: function (error) { alert(error); }
+            });
+
+        }
+
+
+        jQuery(".test").keyup(function () {
+            if (this.value.length == this.maxLength) {
+                if (jQuery(this).index() === jQuery(this).siblings().length) {
+                    jQuery(this).parent().next("div").find(".test").first().focus();
+                } else {
+                    jQuery(this).next(".test").focus();
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>

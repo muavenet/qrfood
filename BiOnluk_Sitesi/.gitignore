@@ -1,0 +1,20 @@
+﻿# Build outputs
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet packages (packages.config ile her zaman yeniden indirilebilir)
+packages/
+
+# Hassas config - şifre içeriyor
+BiOnluk_Sitesi/Web.config
+
+# Publish profilleri (kimlik bilgisi içerebilir)
+**/PublishProfiles/*.pubxml
+**/PublishProfiles/*.pubxml.user

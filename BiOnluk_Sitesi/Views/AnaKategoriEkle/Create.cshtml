@@ -1,0 +1,80 @@
+﻿@model HemenTanitim.Models.AnaKategoriler
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Ana kategori ekle
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active"> Ana kategori ekle</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class="box-body">
+
+                        @using (Html.BeginForm("Create", "AnaKategoriEkle", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true)
+
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <label for="foto">Fotoğraf:</label>
+                                        <input type="file" name="foto" id="file1" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.KategoriAdi, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.KategoriAdi, new { @class = "form-control col-md-2 " })
+                                        @Html.ValidationMessageFor(model => model.KategoriAdi)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.link, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.link, new { @class = "form-control col-md-2 " })
+                                        @Html.ValidationMessageFor(model => model.link)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Kaydet" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+                            @Html.ActionLink("Geri dön", "Index")
+                        </div>
+                    </div></div></div></div></section></aside>
+                        @section scriptFooter {
+                            @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#kategoriler").addClass("active");
+        $("#kategoriler_menu").css("display", "block");
+        $("#kategoriler_anakategori").addClass("active");
+        $("#kategoriler_arrow").addClass("fa-angle-down");
+    });
+                            </script>
+                        }

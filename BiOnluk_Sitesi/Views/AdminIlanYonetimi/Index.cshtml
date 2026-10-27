@@ -1,0 +1,183 @@
+﻿@model List<HemenTanitim.Models.IsIlanlari>
+
+@{
+	ViewBag.Title = "Siparişler";
+	Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<style>
+	.body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+		padding: 12px !important;
+	}
+</style>
+
+
+
+
+<style>
+	.text-center {
+		text-align: left;
+	}
+</style>
+
+
+<aside class="right-side">
+
+	<section class="content-header">
+		<h1>
+			@ViewBag.SiparisTuru
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+			<li class="active">Sipariş listesi</li>
+		</ol>
+	</section>
+
+	<section class="content">
+		<div class='row'>
+			<div class='col-xs-12'>
+				<div class='box box-info'>
+
+					<div class="col-md-12">
+						<br />
+						<div class="lbl-cnt">
+							<div class="fld inline">
+								<div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+									<button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+										Filtreleme seçenekleri ile sırala...
+										<span class="caret"></span>
+									</button>
+									<ul role="menu" class="dropdown-menu">
+
+										<li role="presentation">
+											<a href="@Url.Action("Index", new { IlanTuru = "" })">Beklemede Olan Siparişler</a>
+										</li>
+
+										<li role="presentation">
+
+											<a href="@Url.Action("Index", new { IlanTuru = "Onaylandı" })">Onaylanan İlanlar</a>
+										</li>	
+										
+										<li role="presentation">
+											<a href="@Url.Action("Index", new { IlanTuru = "Tüm İlanlar" })">Tüm İlanlar</a>
+
+										</li>
+
+									</ul>
+								</div>
+							</div><!-- /.fld -->
+						</div><!-- /.lbl-cnt -->
+
+
+						<hr />
+						<!-- tools box -->
+					</div><!-- /.box-header -->
+
+					<div class="box-body table-responsive" style="overflow:hidden">
+						<table id="tblListe" class="ui celled table">
+
+							<thead>
+								<tr>
+
+									<th>
+										İlan No
+									</th>
+									<th>
+										İlan Başlık
+									</th>
+									<th>
+										İlan Onay durumu
+									</th>
+
+									<th>
+										İlan tarihi
+									</th>
+									<th>
+
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								@{string sonuc = ""; }
+								@foreach (var item in Model)
+								{
+									int sayi = 1;
+
+								
+									<tr>
+										<td>
+											@item.isId
+										</td>
+
+										<td>
+											@item.baslik
+										</td>
+										<td>
+
+											@Html.DropDownList("ddlTes",
+
+										   new SelectList(ViewBag.Teslim, "Value", "Text", item.adminOnay),
+
+										   new { @id = item.isId, onchange = "ddlTes(this)", @class="form-control" })
+
+
+										</td>
+
+										<td>
+											@item.Tarih.ToShortDateString()
+										</td>
+										<td>
+											<a class="btn btn-default" 
+											   href="@Url.Action("Detay", "AdminIlanYonetimi", new { isId= item.isId})">Detaylar</a>
+										</td>
+									</tr>
+
+									sayi = 1;
+								}
+							<tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</aside>
+
+
+@section scriptFooter{
+
+	@Scripts.Render("~/bundles/datatables")
+
+	<script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+	<script type="text/javascript">
+
+    function ddlTes(e) {
+
+        var val = $(e).val();
+
+        $.ajax({
+			url: "/AdminIlanYonetimi/OnayDurumuDegistir",
+			data: { selectedValue: val, isId: e.id },
+            type: "POST",
+            dataType: "json",
+            success: function (result) { },
+            error: function (error) { alert(error); }
+        })
+
+    }
+
+        $(document).ready(function () {
+
+            $("li").removeClass("active");
+            $("#siparisler").addClass("active");
+        });
+
+
+	</script>
+}
+
+

@@ -1,0 +1,203 @@
+﻿@using Resources;
+
+
+@model HemenTanitim.Models.UserYetkiViewModel
+@{
+    ViewBag.Title = "ManageUserRoles";
+    Layout = "~/Views/Shared/Admin.cshtml";
+
+    Session["Dil"] = Response.Cookies["lang"].Value;
+
+    string CurrentURL = Request.Url.AbsoluteUri;
+
+    object displayMode = "";
+
+    if (CurrentURL.Contains("UserName"))
+    {
+        displayMode = new { @class = "form-control", @readonly = "readonly" };
+    }
+    else
+    {
+        displayMode = new { @class = "form-control" };
+    }
+}
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <div class="col-md-12 text-center"><label class="label label-primary" style="font-size:15px">@ViewBag.ResultMessage</label></div>
+        <h1>
+            Kullanıcı rol yönetimi
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Blog yaz&#305;lar&#305;</a></li>
+
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>Rol ata</h3>
+                    </div>
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        @using (Html.BeginForm("RoleAddToUser", "Role", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                              <div class="form-group">
+                                <label class="control-label col-lg-3">KullaniciAdi</label>
+                                <div class="col-lg-2">
+                                    @Html.TextBox("UserName", "", displayMode)
+                                </div>
+                                <label class="control-label col-lg-1">YetkiAdi </label>
+                                <div class="col-lg-2">
+
+                                    @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seciniz", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <input type="submit" value="Rol ekle" class="btn btn-success  " /><br />
+
+                                </div>
+
+                            </div>
+                            
+                            
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+<aside class="right-side">
+    
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>Rol kaldır</h3>
+                    </div>
+
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        @using (Html.BeginForm("DeleteRoleForUser", "Role", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-3">KullaniciAdi</label>
+                                <div class="col-lg-2">
+                                    @Html.TextBox("UserName", "", displayMode)
+                                </div>
+                                <label class="control-label col-lg-1">YetkiAdi </label>
+                                <div class="col-lg-2">
+
+                                    @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seciniz", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <input type="submit" value="Sil" class="btn btn-danger  " /><br />
+
+                                </div>
+
+                            </div>
+
+
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+<aside class="right-side">
+
+   
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>Rolleri göster</h3>
+                    </div>
+
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        @using (Html.BeginForm("GetRoles", "Role", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-3">KullaniciAdi</label>
+                                <div class="col-lg-2">
+
+                                    @Html.TextBox("UserName", "", displayMode)
+
+                                </div>
+                                <div class="col-lg-2">
+                                    <input type="submit" value="Getir" class="btn btn-success " />
+                                </div>
+                            </div>
+
+                        }
+                        @if (ViewBag.RolesForThisUser != null)
+                        {
+                            <div class="well">
+                                <h4>Bu kullanıcıya ait rol/roller listesi :  </h4>
+                                <ol>
+                                    @foreach (string s in ViewBag.RolesForThisUser)
+                                    {
+                                        <li>@s</li>
+                                    }
+                                </ol>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+             
+        <script src="~/assets/plugins/jquery-2.0.3.min.js"></script>
+        <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="~/assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $("li").removeClass("active");
+        $("#kullanicilar").addClass("active");
+    });
+</script>

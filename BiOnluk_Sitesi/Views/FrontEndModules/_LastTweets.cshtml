@@ -1,0 +1,71 @@
+﻿@model HemenTanitim.Models.GenelBilgiler
+
+
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="~/Scripts/plugins/LastTweets/tweecool.js"></script>
+<style>
+    .twitter-widget ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .twitter-widget li {
+        list-style: none;
+        clear: both;
+    }
+
+        .twitter-widget li img, .twitter-widget li .tweets_txt {
+            float: left;
+            margin-bottom: 10px;
+        }
+
+        .twitter-widget li img {
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+        }
+
+        .twitter-widget li .tweets_txt {
+            float: left;
+            width: 200px;
+            margin-left: 10px;
+        }
+
+            .twitter-widget li .tweets_txt span {
+                font-style: italic;
+                color: #666;
+                display: block;
+            }
+</style>
+
+
+<div class="latest-tweet">
+    <div class="module-heading">
+        <h4 class="module-title">SON TWEETLER</h4>
+    </div><!-- /.module-heading -->
+    <div class="module-body outer-top-xs">
+
+        <div class="twitter-widget">
+            <div id="tweecool"></div>
+        </div>
+
+
+
+
+
+    </div><!-- /.module-body -->
+</div><!-- /.contact-timing -->
+
+<script>
+    var $tweet = jQuery.noConflict();
+
+    $tweet(document).ready(function () {
+        $tweet('#tweecool').tweecool({
+            //settings
+            username: '@Model.TwitterKullaniciAdi',
+            limit: 3
+        });
+    });
+</script>
+

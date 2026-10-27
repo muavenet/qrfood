@@ -1,0 +1,99 @@
+﻿@model List<HemenTanitim.Models.Odalar>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+         Odalar
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Hotels")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Oda listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <a href="@Url.Action("Create", "Odalar", new { id = Url.RequestContext.RouteData.Values["id"]})" class="btn btn-success" style="color:white">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;Yeni Oda Ekle
+                </a> <br />  &nbsp;
+
+            </div>
+
+
+            @*@Html.HiddenFor(model => model.Id)*@
+
+            @foreach (var item in Model)
+            {
+                <div class='col-md-3'>
+                  
+                    <div class='box box-success'>
+                        <div class="box-body table-responsive" style="overflow:hidden">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                            <div class="col-md-12">
+                                @Html.LabelFor(Modelitem => item.OdaNo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(Modelitem => item.OdaNo, new { htmlAttributes = new { @class = "form-control odaNumarasi"} })
+                                    @Html.ValidationMessageFor(Modelitem => item.OdaNo, "", new { @class = "text-danger" })
+
+                                    <a href="#" onclick="odaGuncelle(this, @item.Id)" value="Kaydet" class="btn btn-success">
+
+                                        <span class="fa fa-spinner fa-spin" style="display:none;" id="spin_i_@item.Id"></span>
+
+                                        Kaydet
+                                    </a>
+                                    <a href="@Url.Action("FileDownload","Odalar", new { id = item.Id })" class="btn btn-red">QR KOD AÇ</a>
+                                    <a href="@Url.Action("DeleteConfirmed","Odalar", new { id = item.Id,})" class="btn btn-red pull-right">KALDIR</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        <div class="col-md-12">
+            <a href="@Url.Action("Index","Hotels")" class="btn btn-red"><< Geri Dön</a>
+          
+        </div>
+
+
+        </div>
+    </section>
+</aside>
+@section scriptFooter{
+        <script>
+
+            function odaGuncelle(e, Id) {
+
+                var $l = jQuery.noConflict();
+
+                var odaNumarasi = $l(e).closest('div').find('input.odaNumarasi').val();
+
+                $l.ajax({
+                    url: '/Odalar/OdaGuncelle',
+                    data: { odaNo: odaNumarasi, id: Id },
+                    datatype: 'json',
+                    beforeSend: function (xhr) {
+                        $l("#spin_i_" + Id).css("display", "inline-block");
+                    },
+                    success: function (sss) {
+                        $l("#spin_i_" + Id).css("display", "none");
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            };
+
+
+        </script>
+    }

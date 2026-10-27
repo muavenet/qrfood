@@ -1,0 +1,162 @@
+
+@model HemenTanitim.Models.BankaHesaplari
+
+@{
+    ViewBag.Title = "Delete silme";
+
+          Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Delete kay&#305;t silme
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("Index")">BankaHesaplari i&#351;lemleri</a></li>
+            <li class="active">BankaHesaplari silme</li>
+        </ol>
+    </section>
+
+<div id="content">
+
+    <div class="inner" style="min-height: 700px;">
+
+      
+
+        <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'> Silmek istedi&#287;inize emin misiniz?</h3>
+                    </div>
+					   <div class="box-body">
+                        <div class="box-body table-responsive" style="overflow:hidden">
+                            <table id="tblListe" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-2">Ba&#351;l&#305;klar</th>
+                                    <th>&#304;cerikler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+					
+	
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.uyeId)</label>
+                                    </td>
+                                    <td>
+                                          @Model.uyeId
+                                    </td>
+                                </tr>
+
+
+   
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.bankaAdi)</label>
+                                    </td>
+                                    <td>
+                                          @Model.bankaAdi
+                                    </td>
+                                </tr>
+
+
+   
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.tcNo)</label>
+                                    </td>
+                                    <td>
+                                          @Model.tcNo
+                                    </td>
+                                </tr>
+
+
+   
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.subeNo)</label>
+                                    </td>
+                                    <td>
+                                          @Model.subeNo
+                                    </td>
+                                </tr>
+
+
+   
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.subeKodu)</label>
+                                    </td>
+                                    <td>
+                                          @Model.subeKodu
+                                    </td>
+                                </tr>
+
+
+   
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.hesapNumarasi)</label>
+                                    </td>
+                                    <td>
+                                          @Model.hesapNumarasi
+                                    </td>
+                                </tr>
+
+
+   
+
+						<tr>
+                                    <td>
+                                        <label >@Html.LabelFor(model => model.hesapSahibiAdSoyad)</label>
+                                    </td>
+                                    <td>
+                                          @Model.hesapSahibiAdSoyad
+                                    </td>
+                                </tr>
+
+
+   
+<tr>
+                                    <td colspan="2">
+ @using (Html.BeginForm())
+                    {
+                        <div class="form-group">
+                        
+                            <div class="col-lg-4">
+                                <input type="submit" value="Sil" class="btn btn-primary btn-sm " /> |
+                                   	<a href="@Url.Action("Index")">Listeye d&#246;n</a>
+                              
+                            </div>
+                        </div>
+
+
+
+                    }
+					  </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+        </div>
+        </section></aside>
+
+
+

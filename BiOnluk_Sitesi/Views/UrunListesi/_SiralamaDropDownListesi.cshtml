@@ -1,0 +1,29 @@
+﻿<ul class="dropdown-menu category-change">
+
+    @{
+
+        var minF = ViewContext.RouteData.Values["minFiyat"];
+        var maxF = ViewContext.RouteData.Values["maxFiyat"];
+        var minAlexa_ = ViewContext.RouteData.Values["minAlexa"];
+        var maxAlexa_ = ViewContext.RouteData.Values["maxAlexa"];
+        var dmozKaydi_ = ViewContext.RouteData.Values["dmozKaydi"];
+        var newsKaydi_ = ViewContext.RouteData.Values["newsKaydi"];
+        var anaKategoriAdi_ = ViewContext.RouteData.Values["anaKategoriAdi"].ToString().ToSeoUrl();
+        var anaKategoriId_ = ViewContext.RouteData.Values["anaKategoriId"].ToString().ToSeoUrl();
+        
+        <li>
+            <a href="@Url.Action("FiltreliUrunler", "UrunListesi", new { AnaKategoriAdi = anaKategoriAdi_, AnaKategoriId = anaKategoriId_, minFiyat = minF, maxFiyat = maxF, minAlexa = minAlexa_, maxAlexa = maxAlexa_, DmozKaydi = dmozKaydi_, NewsKaydi = newsKaydi_, sortorder = "en_yeniler" })">En yeniler</a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("FiltreliUrunler", "UrunListesi", new { AnaKategoriAdi = anaKategoriAdi_, AnaKategoriId = anaKategoriId_, minFiyat = minF, maxFiyat = maxF, minAlexa = minAlexa_, maxAlexa = maxAlexa_, DmozKaydi = dmozKaydi_, NewsKaydi = newsKaydi_, sortorder = "fiyat_artan" })">Fiyat artan</a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("FiltreliUrunler", "UrunListesi", new { AnaKategoriAdi = anaKategoriAdi_, AnaKategoriId = anaKategoriId_, minFiyat = minF, maxFiyat = maxF, minAlexa = minAlexa_, maxAlexa = maxAlexa_, DmozKaydi = dmozKaydi_, NewsKaydi = newsKaydi_, sortorder = "fiyat_azalan" })">Fiyat azalan</a>
+        </li>
+
+    }
+
+</ul>
+

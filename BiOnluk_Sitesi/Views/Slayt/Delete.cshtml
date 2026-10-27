@@ -1,0 +1,82 @@
+﻿@model HemenTanitim.Models.Fotolar
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Bu kaydı silmek istediğinizden emin misiniz?
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active"> Ana kategori sil</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class="box-body">
+
+                        <dl>
+
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Baslik1)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Baslik1)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Baslik2)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Baslik2)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Icerik)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Icerik)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Sil" class="btn btn-primary" /> |
+                                @Html.ActionLink("Geri dön", "Index")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("li").removeClass("active");
+        $("#foto").addClass("active");
+        $("#foto_menu").css("display", "block");
+        $("#foto_ana").addClass("active");
+        $("#foto_arrow").addClass("fa-angle-down");
+    });
+
+</script>

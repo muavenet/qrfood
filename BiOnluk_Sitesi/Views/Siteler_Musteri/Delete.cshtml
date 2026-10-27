@@ -1,0 +1,88 @@
+﻿@model HemenTanitim.Models.MusteriSiteleri
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+
+    <div class="adpost-details">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- /.modal -->
+
+                <fieldset>
+                    <div class="section postdetails">
+                        <h4><span class="pull-left">*</span>Aşağıda ki siteyi kaldırma istediğinize emin misiniz? </h4>
+
+                        <div class="row form-group add-title">
+                            <label class="col-sm-4 label-title">Site Adı<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.siteAdi, new { @class = "form-control smallElements", disabled = "true" })
+                                @Html.ValidationMessageFor(model => model.siteAdi)
+                            </div>
+                        </div>
+
+                        <div class="row form-group add-title">
+                            <label class="col-sm-4 label-title">Site Url<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.siteUrl, new { @class = "form-control smallElements", placeholder = "Örn: http://orneksite.com", disabled = "true" })
+                                @Html.ValidationMessageFor(model => model.siteUrl)
+                            </div>
+                        </div>
+
+                        <div class="row form-group add-title">
+                            <label class="col-sm-4 label-title">Site Kategorisi<span class="required">*</span></label>
+                            <div class="col-sm-6">
+                                @Html.DropDownList("AnaKategoriId", (IEnumerable<SelectListItem>)ViewBag.KategoriId, new { @class = "form-control smallElements", @style = "padding:0; width:30%", disabled = "true" })
+                            </div>
+                        </div>
+
+                        <div class="row form-group add-title">
+                            <label class="col-sm-4 label-title">Aylık Gösterim<span class="required">*</span></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.aylikGosterim, new { @class = "form-control smallElements  ", disabled = "true" })
+                                @Html.ValidationMessageFor(model => model.aylikGosterim)
+                            </div>
+                        </div>
+
+
+                        
+                          <div class="checkbox section agreement">
+                                    @using (Html.BeginForm())
+                                    {                                       
+                                         <input type="submit" value="Bu Siteyi Kaldır" class="btn btn-danger btn-lg " />
+    <a href="/Siteler_Musteri/Create" class="btn btn-info btn-lg">Yeni Site</a>
+                                    }
+                                </div><!-- section -->
+
+                          
+                         
+                        
+
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-6">
+                <div class="section quick-rules">
+                    <h4>Mevcut Siteleriniz</h4>
+                    <p class="lead">Sitelerinizi listenizden kaldırsanız da bizim onayımızdan sonra veritabanından kaldırılacaktır!</p>
+                    <ul>
+                        @foreach (var item in ViewBag.MusteriSiteleri)
+                        {
+                            <li>
+                                @item.siteUrl
+
+                            <a class="delete-item pull-right" href="/Siteler_Musteri/Delete?aid=@item.siteId"><i class="fa fa-remove"></i> Kaldır</a>
+                            <a class="remove pull-right" href="/Siteler_Musteri/Edit?aid=@item.siteId"><i class="fa fa-pencil"></i> Düzenle &nbsp; &nbsp;</a>
+
+                        </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div><!-- photos-ad -->
+    </div>

@@ -1,0 +1,555 @@
+﻿@using Resources;
+
+@model  HemenTanitim.Models.IsIlanlariListele_IlanDetay
+
+@*@model  HemenTanitim.Models.IsIlanlariListele_IlanDetay*@
+
+@{
+    ViewBag.Title = Model.baslik;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var request = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+}
+
+@section header
+{
+
+    <title>@Model.title</title>
+    <meta name="description" content="@Model.baslik">
+
+    <meta property="og:title" content="@Model.baslik" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+
+    @*@foreach (var item in ViewBag.UrunResim)
+        {
+            <meta property="og:image" content="http://@request/@item.Text" />
+
+            break;
+        }*@
+
+    <meta property="og:description" content="@Model.metaDescripton" />
+
+    @*<meta property="article:author" content="https://www.facebook.com/fareedzakaria" />
+        <meta property="article:publisher" content="https://www.facebook.com/cnn" />*@
+
+}
+<style>
+    .mesaj_gonder_btn {
+        display: inline-block;
+        margin-bottom: 0;
+        line-height: 19px;
+        width: 100%;
+        background-color: white;
+        font-size: 13.8px !important;
+        font-weight: 500;
+        border: 2px solid #efefef;
+        border-radius: 0;
+        color: #0f82ff;
+    }
+
+    .dropdown-toggle::after {
+        content: none !important;
+    }
+
+    .baslik_border {
+        border-top: 3px solid #bdbdbd;
+        border-right: 1px solid #e4e4e4;
+        border-left: 1px solid #e4e4e4;
+        padding: 0px 5px 0px 5px !important;
+    }
+
+        .baslik_border a {
+            color: #505050 !important;
+            font-weight: 400 !important;
+            font-size: 15px !important;
+        }
+
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+
+@{
+    string padding_0 = "padding-top:0 !important; padding-left:0 !important; padding-right:0 !important; padding-bottom:0 !important";
+    string background = "background-color:white;";
+    string mobil_margin = "margin-left:15px; margin-right:15px;";
+
+    if (!Request.Browser.IsMobileDevice)
+    {
+        padding_0 = "";
+        background = "background-color:#f4f5f7;";
+        mobil_margin = "";
+
+
+    }
+
+}
+
+<section id="main" class="clearfix details-page" style="@background @padding_0">
+
+    <!-- breadcrumb -->
+    @*<div class="breadcrumb-section text-center" style="background-color:#f6f6f6">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index","Home")">ANASAYFA</a></li>
+            </ol>
+            <h2 class="title">"@Model.baslik" </h2>
+        </div>*@
+
+    @if (!Request.Browser.IsMobileDevice)
+    {
+
+        <div class="col-md-12 col-sm-4" style="border-bottom: 2px solid #ffffff;background-color: white;">
+            <div class="container">
+                <div class="col-md-3 col-sm-4">
+
+
+                </div>
+                <div class="col-md-5 col-sm-4">
+
+                    @{Html.RenderAction("_BasitArama", "Filtre");}
+
+                </div>
+                <div class="col-md-4 col-sm-4 text-center">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <style>
+            #main {
+                padding: 0 !important;
+            }
+
+            .mobil_margin_bottom {
+                margin-bottom: 15px;
+            }
+
+            .ilan_foto {
+                height: 108px;
+                border-radius: 0;
+                width: 126px;
+                box-shadow: none;
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            .item-image {
+                text-align: center;
+            }
+
+            .title {
+                line-height: 29px;
+            }
+
+            .sola_yanas {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        </style>
+    }
+
+    @if (Request.Browser.IsMobileDevice)
+    {
+        <style>
+            .Aciklama_ve_yorum_basliklari {
+                font-size: 15px !important;
+                padding-left: 15px;
+            }
+
+            .title {
+                word-break: break-word;
+                line-height: 22px;
+            }
+
+            .slider {
+                padding-top: 0 !important;
+            }
+
+            h4.title {
+                line-height: 40px;
+            }
+        </style>
+
+
+        <div class="col-md-12 col-sm-4" style="background-color: white;padding: 7px;">
+            <div class="container">
+                <div class="col-md-3 col-sm-4">
+                    <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                        <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height:45px; margin: 0 auto; ">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 text-right box-shadow-genel" style="background-color:#fff; padding-left:0">
+            <div class="container">
+                <div class="col-md-12 col-sm-12 text-left" style="width:100%; padding:0 !important; margin:0 !important">
+                    <h3 class="title" style="font-size:16px">@Model.baslik</h3>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-12 col-sm-4" style="border-bottom: 2px solid #ffffff;background-color: white;">
+            <div class="col-md-3 col-sm-4">
+                <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                    <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height: 41px; margin-top: 10px; margin-left: -15px;">
+                </a>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                @{Html.RenderAction("_BasitArama", "Filtre");}
+            </div>
+            <div class="col-md-4 col-sm-4 text-right">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    }
+
+
+    @if (!Request.Browser.IsMobileDevice)
+    {
+        <div class="col-md-12 text-right " style="background-color:#fff; padding-bottom: 10px; padding-top: 50px;">
+            <div class="container">
+                <div class="col-md-8 col-sm-4 text-left">
+
+                    <h3 class="title">"@Model.baslik" </h3>
+                    <div class="breadcrumb-section">
+                        <!-- breadcrumb -->
+                        <ol class="breadcrumb">
+                            <li><a href="@Url.Action("Index", "Home")" title="Anasayfa">Anasayfa</a></li>
+                            <li>
+                                <a href="@Model.AnaKategoriLink" title="@Model.baslik.ToSeoUrl()">@Model.AnaKategoriAdi</a>
+                            </li>
+                            <li>
+                                <a href="@Url.RouteUrl("Kategoriler", new { anaKategoriId = Model.AnaKategoriId, anaKategoriAdi = Model.AnaKategoriAdi.turkceSeoUrl(),
+									    AltKategoriAdi = Model.AltKategoriAdi.turkceSeoUrl(), AltKategoriId = Model.AltKategoriId, sortOrder = "en_yeniler", page = 1 })"
+                                   title="@Model.baslik.ToSeoUrl()">@Model.AltKategoriAdi</a>
+                            </li>
+
+                        </ol><!-- breadcrumb -->
+                        <h2 class="title">@Model.siteUrl</h2>
+                    </div>
+
+                    <ol class="breadcrumb ikinci" style="padding-left:15px; margin-bottom:0; padding-bottom:0; padding-top:0; position: relative;bottom: -10px;line-height: 37px; ">
+                        <li class="baslik_border">
+                            <a href="#aciklama" data-toggle="tooltip" data-placement="right" style="padding-left:5px; padding-right:5px">
+                                İlan Hakkında
+                            </a>
+                        </li>
+                        <li class="baslik_border">
+                            <a href="#degelendirme" data-toggle="tooltip" data-placement="right" style="padding-left:5px; padding-right:5px">Değerlendirmeler <strong>(@Model.yorum_sayisi)</strong> </a>
+                        </li>
+
+                        @*<li><i class="fa fa-bar-chart-o"></i><a id="@Model.isId" data-toggle="tooltip" data-placement="right" title="Karşılaştır" onclick="KarsilastirmaEkle(this); return false" href="#">Karşılaştırma tabloma ekle</a></li>*@
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="baslik_border">
+                                <a href="#" id="@Model.isId" onclick="FavorilerimeEkle(this); return false" title="Favorilerime ekle"
+                                   style="padding-left:5px; padding-right:10px">Favorilere Ekle</a>
+                            </li>
+                        }
+
+
+
+                        <li class="baslik_border">
+                            <a href="/MusteriPaneli/MesajDetay?urunAdi=@Request.Url.AbsolutePath" style="padding-left:5px; padding-right:10px">İlanı Bildir</a>
+                        </li>
+
+                    </ol><!-- social-icon -->
+                    <!-- social-links -->
+
+
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    @{Html.RenderAction("_IlanOdemeyeGit");}
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+    <div class="container">
+        <div class="section slider" style="@padding_0 background-color: transparent;">
+
+            <div class="col-md-8" style="@padding_0  padding-left: 0;padding-right: 0; ">
+                @{Html.RenderAction("_SliderPartial");}
+            </div>
+
+            <div class="col-md-4" style=" padding-right: 0;">
+
+                @{Html.RenderAction("_BilgileriOzetle");}
+
+                <div class="ads-info">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12" style=" @mobil_margin">
+                            <a class="btn mesaj_gonder_btn" data-toggle=" tooltip" data-placement="right" title="Mesaj gönder"
+                               href="/UrunDetay/MesajGonder?toKullaniciAdi=@Model.KullaniciAdi&receiverId=@Model.kullaniciId&isIlanId=@Model.isId">
+                                Mesaj Gönder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="background-color: #ffffff; margin-top:15px; box-shadow: 0px 0px 12px #ccc; padding-left: 0; padding-right: 0; @padding_0">
+                <h4 class="title Aciklama_ve_yorum_basliklari" style="padding-left:15px">İlan Açıklaması </h4>
+                <div class="product-reviews">
+                    <div class="reviews">
+                        <div class="description" style="font-size: 16px; color: #7e7c7c; line-height: 28px; word-break: break-word;" id="aciklama">
+                            @if (String.IsNullOrWhiteSpace(Model.aciklama))
+                            {
+                                @Html.Label("Satıcı tarafından ürün bilgisi belirtilmemiş");
+                            }
+                            else
+                            {
+                                @*<iframe src="http://blurexkemerburgaz.beysen.xyz/"
+                                                id="myIframe" style="width:100%; min-height:1140px" scrolling="no" frameborder="0">
+                                    </iframe>*@
+
+                                @Html.Raw(Model.aciklama)
+
+
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <h4 class="title Aciklama_ve_yorum_basliklari" style=" border: 2px solid #f8f8f8; padding-left:15px" id="degelendirme">
+                    Değerlendirmeler & Puan (@Model.yorum_sayisi)
+
+
+                    @if (!Request.Browser.IsMobileDevice)
+                    {
+                        <span style="display:inline-block; float:right; padding-right:15px; padding-left:15px; background-color: white;">
+                            Yorum Puanı  :  @{ var degerlendirme_puani = Model.is_puan_ortalamasi;
+
+
+                                int w = 1;
+                                var k = 0;
+
+                                while (w < 6)
+                                {
+                                    if (k == 0)
+                                    {
+
+                                        for (int i = 0; i < degerlendirme_puani; i++)
+                                        {
+                                            <span class="fa fa-star checked"></span>
+
+                                            w++;
+                                            k++;
+                                        }
+                                    }
+
+                                    if (w == 6)
+
+                                    { break; }
+
+                                    <span class="fa fa-star"></span>
+
+                                    w++;
+                                }
+
+                            }
+                        </span>
+                    }
+                </h4>
+
+                @{Html.RenderAction("_YorumlarPartial"); }
+
+
+            </div>
+
+            @if (Request.Browser.IsMobileDevice)
+            {
+
+                <div class="col-md-4 col-sm-4" style="padding-left: 0 !important;padding-right: 0 !important;width: 100%;position: fixed;bottom: 45px;left: 0;">
+                    @{Html.RenderAction("_IlanOdemeyeGit");}
+                </div>
+            }
+
+        </div>
+    </div>
+</section><!-- main -->
+
+
+<input type="hidden" name="userAdi" class="userAdi" value="@Model.KullaniciAdi" />
+
+@section scripts
+{
+
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+
+    @if (Request.IsAuthenticated)
+    {
+        <script src="~/js/FavorilerimeEkle.js"></script>
+        @*<script src="~/js/KarsilastimaEkle.js"></script>*@
+    }
+
+    <script src="~/js/UrunDetay.js"></script>
+
+    <script type="text/javascript">
+
+
+
+		var $yorum = jQuery.noConflict();
+
+
+
+		$yorum("#btnYorumGonder").click(function (e) {
+
+			if ($yorum(".cnt-form")[0].checkValidity()) {
+
+                e.preventDefault();
+
+				MYLIBRARY.init([$yorum("#exampleInputName").val(), $yorum("#exampleInputReview").val(), @Model.isId]);
+                MYLIBRARY.yorumfonksiyonu();
+            };
+
+        });
+
+        var $fArama = jQuery.noConflict();
+
+        $fArama('.currency').on('keyup', function () {
+            jQuery(this).val(jQuery(this).val().split('.').join(''));
+            jQuery(this).val((jQuery(this).val()).replace(/\B(?=(?:\d{3})+(?!\d))/g, "."));
+
+		});
+
+        function HAltKatlariGetir(e) {
+
+            var element = $fArama("#HAltKat li");
+            var temizle1 = $fArama("#hizliAramaSiteAltKategori");
+
+
+            $fArama.ajax({
+                url: '/KategoriListesiGetir/HizliAramaaltKategorileriGetir',
+                type: "GET",
+                dataType: "JSON",
+                data: { anaKatId: e },
+                success: function (cities) {
+
+                    element.remove();
+
+                    temizle1.empty();
+
+                    temizle1.append("Site Kategorisi Seçiniz");
+
+                    $fArama.each(cities, function (i, city) {
+
+                        $fArama("#HAltKat").append(
+
+                        $fArama('<li><a href="#"><span id="firstKatAd">' + city.KategoriAdi + '</span> <span id="secondKatI" style="visibility:hidden">' + city.Id + '</span></a></li>'));
+                    });
+                }
+            });
+        }
+
+
+        $fArama("#btnHizliMenuArama").click(function () {
+
+
+
+            var maxAlexa = $fArama("#hizliAramaMaxAlexa").val().replace(/\./g, "");
+            var SiteKoriAdi = $fArama("#hizliAramaSiteKategori span#firstKatAd").text();
+            var SiteKategori = $fArama("#hizliAramaSiteKategori span#secondKatI").text();
+            var SiteKategoriAltKatAdi = $fArama("#hizliAramaSiteAltKategori span#firstKatAd").text();
+            var SiteAltKategori = $fArama("#hizliAramaSiteAltKategori span#secondKatI").text();
+
+            if ($fArama("#hizliAramaSiteKategori").text() == "Kategori Seçiniz") {
+                alert("Kategori Seçiniz");
+                return false;
+            }
+
+
+            if ($fArama("#hizliAramaSiteAltKategori").text() == "Site Kategorisi Seçiniz") {
+                alert("Site Kategorisi Seçiniz");
+                return false;
+            }
+
+
+
+            if (maxAlexa == "") {
+
+                maxAlexa = 0;
+            }
+
+
+
+            var aKaAdi = "@Model.AnaKategoriAdi.Trim()";
+            var altKaAdi = "@Model.AltKategoriAdi.Trim()";
+            var aKaId = "@Model.AnaKategoriId";
+            var altKaId = "@Model.AltKategoriId";
+
+
+
+            var url = "/UrunListesi/FiltreliUrunler/" + aKaAdi + "/" + aKaId + "/" + altKaAdi + "/" + altKaId + "/0/0/0/" + maxAlexa + "/false/false/en_yeniler/1" + "";
+
+            window.location.replace(url);
+
+            return false;
+		});
+
+
+
+
+
+    </script>
+
+}
+
+@section scripts_OnlineUser
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+
+    <script src="/js/OnlineUser.js"></script>
+}
+
+
+<style>
+    .hide-bullets {
+        list-style: none;
+        margin-left: -0px;
+        margin-top: 15px;
+    }
+
+    .productbox {
+        background-color: #ffffff;
+        padding: 10px;
+        margin-bottom: 10px;
+        -webkit-box-shadow: 0 8px 6px -6px #999;
+        -moz-box-shadow: 0 8px 6px -6px #999;
+        box-shadow: 0 8px 6px -6px #999;
+    }
+
+    .producttitle {
+        font-weight: bold;
+        padding: 5px 0 5px 0;
+    }
+
+    .productprice {
+        border-top: 1px solid #dadada;
+        padding-top: 5px;
+    }
+
+    .pricetext {
+        font-weight: normal;
+        font-size: 1.2em;
+        color: #4e4e4e;
+    }
+
+    .breadcrumb ul li:after {
+        margin-right: 0px !important;
+    }
+</style>

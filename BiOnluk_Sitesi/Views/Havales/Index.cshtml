@@ -1,0 +1,117 @@
+
+@model IEnumerable<HemenTanitim.Models.Havale>
+
+@using Resources;
+
+
+
+@{
+    ViewBag.Title = "Index";
+          Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center{text-align:left}
+</style>	
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            Havale listesi
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Havale listesi</li>
+        </ol>
+    </section>
+
+	 <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>@Html.ActionLink("Yeni Ekle", "Create")</h3>
+					</div><!-- /.box-header -->
+
+     <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+ <thead>
+    <tr>
+       <th></th>
+        <th>
+         @Html.DisplayNameFor(model => model.bankaAdi)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.bankaSubesi)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.subeKodu)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.hesapNo)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.iban)
+        </th>
+ 
+    </tr>
+	 </thead>
+	  <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+			<a href="@Url.Action("Edit", new { aid=item.id })">D&#252;zenle</a>|
+            @Html.ActionLink("Detaylar", "Details", new { aid=item.id }) |
+            @Html.ActionLink("Sil", "Delete", new { aid=item.id })
+        </td>
+        <td>
+			@item.bankaAdi
+        </td>
+        <td>
+			@item.bankaSubesi
+        </td>
+        <td>
+			@item.subeKodu
+        </td>
+        <td>
+			@item.hesapNo
+        </td>
+        <td>
+			@item.iban
+        </td>
+    </tr>
+}
+ <tbody>
+</table>
+   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+@Scripts.Render("~/bundles/datatables")
+
+<script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("li").removeClass("active");
+            $("#ayarlar").addClass("active");
+            $("#ayarlar_menu").css("display", "block");
+            $("#ayarlar_havale").addClass("active");
+            $("#ayarlar_arrow").addClass("fa-angle-down");
+        });
+    </script>
+    }
+
+

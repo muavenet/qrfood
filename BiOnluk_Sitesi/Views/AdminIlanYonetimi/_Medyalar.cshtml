@@ -1,0 +1,50 @@
+﻿@model List<HemenTanitim.Models.IsIlanlariGaleri>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="col-md-2">Dosya Görüntüsü</th>
+						<th>Tür</th>
+						<th>Yolu</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						if (item.Video != null)
+						{
+							<tr>
+								<td>
+									<video  height="100" controls>
+										<source src="@item.Video#t=0.1" type="video/mp4" />
+									</video>
+								</td>
+								<td>
+									Video
+								</td>
+								<td>
+									@item.Video
+								</td>
+							</tr>
+						}
+						else
+						{
+							<tr>
+								<td>
+									<img src="@item.Fotograflar"
+										 alt="Alternate Text" height="75" />
+								</td>
+								<td>
+									Fotoğraf
+								</td>
+								<td>
+									@item.Fotograflar
+								</td>
+							</tr>
+						}
+
+					}
+				</tbody>
+			</table>
+
+	

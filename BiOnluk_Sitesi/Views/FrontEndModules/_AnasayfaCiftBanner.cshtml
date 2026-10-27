@@ -1,0 +1,49 @@
+﻿@model IEnumerable<HemenTanitim.Models.Fotolar>
+<div class="wide-banners wow fadeInUp new-banner no-margin inner-bottom-xs">
+    <div class="row center">
+        @{int sayi = 0;}
+        @foreach (var item in Model)
+        {
+            if (sayi == 1)
+            {
+                <a href="@item.link" title="@item.Baslik1.ToSeoUrl()">
+                    <div class="col-md-7">
+                        <div class="wide-banner cnt-strip">
+                            <div class="image">
+                                <img width="670" height="146" alt="@item.Baslik1" src="/Content/uploads/@item.ResimYolu">
+                            </div>
+                            @*<div class="strip">
+                                <div class="strip-inner text-right" style="display:inline-block;">
+                                    <h2>
+                                        @item.Baslik1
+                                        <br>
+                                        <span class="shopping-needs">@item.Baslik2</span>
+                                    </h2>
+                                </div>
+                            </div>*@
+                        </div><!-- /.wide-banner -->
+                    </div><!-- /.col -->
+                </a>
+                break;
+            }
+            <a href="@item.link" title="@item.Baslik1.ToSeoUrl()">
+                <div class="col-md-5">
+                    <div class="wide-banner cnt-strip">
+                        <div class="image">
+                            <img width="470" height="146" alt="@item.Baslik1" src="/Content/uploads/@item.ResimYolu">
+                        </div>
+                        @*<div class="strip">
+                            <div class="strip-inner">
+                                <h3>@item.Baslik1</h3>
+                                <h2>@item.Baslik2</h2>
+                            </div>
+                        </div>*@
+                    </div><!-- /.wide-banner -->
+                </div><!-- /.col -->
+            </a>
+            sayi++;
+            continue;
+
+        }
+    </div><!-- /.row -->
+</div><!-- /.wide-banners -->

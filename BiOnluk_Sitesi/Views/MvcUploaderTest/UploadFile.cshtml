@@ -1,0 +1,84 @@
+﻿@model HemenTanitim.Models.Urunler
+@using MvcFileUploader.HtmlHelper
+@using MvcFileUploader.Models
+@{
+    ViewBag.Title = "Ürün Ekle";
+
+    //option for inline view only
+    var ui = "jquery".Equals(Request.Params["ui"]) ? UploadUI.JQueryUI : UploadUI.Bootstrap;
+    var toggleUi = ui == UploadUI.Bootstrap ? "jquery" : "bootstrap";
+
+    //setting layout based on ui
+    Layout = "~/Views/Shared/" + (ui == UploadUI.Bootstrap ? "_MvcFileUploaderLayout.cshtml" : "_MvcFileUploaderLayout_jui.cshtml");
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Urunler</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UrunAdi, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UrunAdi)
+                @Html.ValidationMessageFor(model => model.UrunAdi)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UrunIcerik, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UrunIcerik)
+                @Html.ValidationMessageFor(model => model.UrunIcerik)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fiyat, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fiyat)
+                @Html.ValidationMessageFor(model => model.Fiyat)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KategoriId, "KategoriId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("KategoriId", String.Empty)
+                @Html.ValidationMessageFor(model => model.KategoriId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="well">
+    <legend>Resim Ekleme</legend>
+    <p class="help-block">jpg/png resim boyutu max 5 MB</p>
+    @(
+ Html.MvcFileUpload()
+        .UploadAt(Url.Action("UploadFile"))
+        .UIStyle(ui)
+        .WithFileTypes(@"/(\.|\/)(jpe?g|png)$/i")
+        .WithMaxFileSize(5000000)
+        .AddFormField("entityId", "1234")
+        .RenderInline("_MvcFileupload")
+    )
+
+</div>
+
+<!-- file upload modal dialog -->
+<div class="modal fade" id="dlgFileUpload" tabindex="-1" role="dialog" aria-hidden="true">
+
+</div><!-- /.modal -->

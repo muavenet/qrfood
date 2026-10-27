@@ -1,0 +1,360 @@
+﻿@using MvcFileUploader.HtmlHelper
+@using MvcFileUploader.Models
+@{
+    ViewBag.Title = "Ürün Düzenle";
+
+    //option for inline view only
+    var ui = "jquery".Equals(Request.Params["ui"]) ? UploadUI.JQueryUI : UploadUI.Bootstrap;
+    var toggleUi = ui == UploadUI.Bootstrap ? "jquery" : "bootstrap";
+
+    //setting layout based on ui
+    //Layout = "~/Views/Shared/" + (ui == UploadUI.Bootstrap ? "_MvcFileUploaderLayout.cshtml" : "_MvcFileUploaderLayout_jui.cshtml");
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+@model HemenTanitim.Models.Urunler
+
+<style>
+    .smallElements {
+        width: 20%;
+        font-size: 14px;
+        line-height: 18px;
+        border: 1px solid #dddddd;
+        padding: 10px;
+    }
+    span a img {
+        width: 100px !important;
+    }
+</style>
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Ürün düzenleme
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("Index")">Ürün işlemleri</a></li>
+            <li class="active">Ürün düzenleme</li>
+        </ol>
+    </section>
+
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-warning'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>Resim Ekleme <small> jpg/png resim boyutu max 5 MB</small></h3>
+                        <div class="col-md-12">
+                            @(
+                                    Html.MvcFileUpload()
+                                    .UploadAt(Url.Action("UploadFile"))
+                                    .UIStyle(ui)
+                                    .WithFileTypes(@"/(\.|\/)(jpe?g|png)$/i")
+                                    .WithMaxFileSize(5000000)
+                                    .AddFormField("entityId", "1234")
+                                    .RenderInline("_MvcFileupload")
+                            )
+
+                        </div>
+                    </div><!-- /.box-header -->
+                    <!-- file upload modal dialog -->
+                    <div class="modal fade" id="dlgFileUpload" tabindex="-1" role="dialog" aria-hidden="true">
+
+                    </div><!-- /.modal -->
+
+
+                    <div class="row myform" style="margin-bottom:30px; margin-left:0 !important; margin-right:0 !important">
+                        <div class="col-md-12">
+                            <form name="myform" role="form" novalidate>
+                                <div class="row myform">
+                                    <div class="form-inline">
+
+                                        @foreach (var item in ViewBag.UrunId)
+                                        {
+                                            <form id="missingForm"></form>
+                                            using (Html.BeginForm("DeleteFoto", "UrunIslemleri", new { fileUrl = item.Text }))
+                                            {
+                                                <div class="col-md-1">
+                                                    <img src="@item.Text" alt="test" class="img img-thumbnail" style="min-height:75px !important" />
+                                                    <br />
+                                                    <button class="btn btn-danger col-md-12" style="margin-top:5px; text-align:left" onclick="return confirm('Silmek istediğinizden emin misiniz?')">
+                                                        Sil<span class="glyphicon glyphicon-trash pull-right"></span>
+
+                                                    </button>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="box-body">
+
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true)
+
+                            @Html.HiddenFor(model => model.siteId)
+
+                            @Html.HiddenFor(model => model.UrunId)
+
+                            @Html.HiddenFor(model => model.ZiyaretciSayisi)
+
+                            @Html.HiddenFor(model => model.UyeId)
+
+                            <div class="form-group">
+                               
+                                @Html.DropDownList("AnaKategoriId", (IEnumerable<SelectListItem>)ViewBag.KategoriId,
+                               new { @class = "form-control smallElements", @readonly = "readonly", @style = "padding:0; width:30%" })
+                            </div>
+
+
+                            <div class="form-group">
+
+                                @Html.DropDownList("AltKategoriId", (IEnumerable<SelectListItem>)ViewBag.AltKategoriId_, 
+                               new { @class = "form-control smallElements", @style = "padding:0; width:30%" })
+                            
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Satış Sayısı")
+                                @Html.TextBoxFor(model => model.satisSayisi, new { @class = "form-control smallElements  " })
+                                @Html.ValidationMessageFor(model => model.satisSayisi)
+
+                            </div>
+
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.Trending, new { @class = "form-control smallElements" }) Trending
+                            </div>
+
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.Hot)  HOT
+                            </div>
+
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.Promoted) Promoted
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("URL")
+                                @Html.TextBoxFor(model => model.siteUrl, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.siteUrl)
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Ürün adı")
+                                @Html.TextBoxFor(model => model.UrunAdi, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.UrunAdi)
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Fiyat)
+                                @Html.TextBoxFor(model => model.Fiyat, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.Fiyat)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.domainYasi)
+                                @Html.TextBoxFor(model => model.domainYasi, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.domainYasi)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.yayinYasi)
+                                @Html.TextBoxFor(model => model.yayinYasi, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.yayinYasi)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.GoogleIndex)
+                                @Html.TextBoxFor(model => model.GoogleIndex, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.GoogleIndex)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AlexaPuani)
+                                @Html.TextBoxFor(model => model.AlexaPuani, new { @class = "form-control smallElements", @id = "indirim" })
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MozRank)
+                                @Html.TextBoxFor(model => model.MozRank, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.MozRank)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MozDa)
+                                @Html.TextBoxFor(model => model.MozDa, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.MozDa)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MozPa)
+                                @Html.TextBoxFor(model => model.MozPa, new { @class = "form-control smallElements" })
+                                @Html.ValidationMessageFor(model => model.MozPa)
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                @Html.Label("Ürün detayı")
+
+                                @Html.TextAreaFor(model => model.UrunIcerik, new { @class = "textarea", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" })
+                                @Html.ValidationMessageFor(model => model.UrunIcerik)
+                            </div>
+
+
+
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.title)
+                                @Html.TextBoxFor(model => model.title, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.title)
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.metaDescription)
+                                @Html.TextBoxFor(model => model.metaDescription, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.metaDescription)
+                            </div>
+
+
+                        </div>
+                        <div class="box-footer">
+                            <input type="submit" value="Yayına Al" class="btn btn-default" />
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("Geri dön", "Index")
+        </div>
+    </section>
+</aside>
+
+
+
+
+
+
+
+@section scriptFooter {
+
+   @* @Scripts.Render("~/bundles/jquery")*@
+
+    <script src="~/Scripts/knockout-3.3.0.js"></script>
+    <script src="~/Scripts/Utils.js"></script>
+
+  
+<script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
+
+
+    <script>
+
+        CKEDITOR.replace("UrunIcerik");
+       
+
+        function CheckNumericValue(e) {
+            var key = e.which ? e.which : e.keyCode;
+            //enter key  //backspace //tabkey      //escape key
+            if ((key >= 48 && key <= 57) || key == 13 || key == 8 || key == 9 || key == 27) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        var $IsIlanlari = jQuery.noConflict();
+
+        $IsIlanlari(document).ready(function () {
+
+
+
+            var _anaKatId = $IsIlanlari("#AnaKategoriId").val()
+
+            $IsIlanlari.ajax({
+                url: '/UrunIslemleri/getEnAltKategoriIds',
+                type: 'post',
+                data: {
+                    anaKatId: _anaKatId
+                }
+            }).success(function (response) {
+
+                $IsIlanlari("#AltKategoriId").html(response);
+            });
+        });
+
+        $IsIlanlari("#AnaKategoriId").change(function () {
+
+            var _anaKatId = $IsIlanlari("#AnaKategoriId").val()
+
+            $IsIlanlari.ajax({
+                url: '/UrunIslemleri/getEnAltKategoriIds',
+                type: 'post',
+                data: {
+                    anaKatId: _anaKatId
+                }
+            }).success(function (response) {
+
+                $IsIlanlari("#AltKategoriId").html(response);
+            });
+        });
+
+
+     
+        @*$(function () {
+         
+
+            var Fiyat = "@Model.Fiyat";
+            var ustFiyat = "@Model.UstuCiziliFiyat";
+            var indirimOran = "@Model.IndirimOrani";
+
+            OrdersApp.ViewModel = function (fiyat, ustFiyat, indir) {
+
+                this.ustuCiziliFiyat = ko.observable(ustFiyat);
+                this.indirim = ko.observable(indir);
+                
+                this.fiyat = ko.computed(function () {
+                    return parseInt(this.ustuCiziliFiyat()) - parseInt((this.indirim() / 100 * parseInt(this.ustuCiziliFiyat())))
+                }, this);
+
+            }
+
+            
+            ko.applyBindings(new OrdersApp.ViewModel(Fiyat, ustFiyat, indirimOran));
+
+        });*@
+
+    </script>
+
+<script>
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#urunler").addClass("active");
+        $("#urunler_menu").css("display", "block");
+        $("#urunler_liste").addClass("active");
+        $("#urunler_arrow").addClass("fa-angle-down");
+    });
+</script>
+
+
+}

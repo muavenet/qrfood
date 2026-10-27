@@ -1,0 +1,83 @@
+﻿@using Resources;
+
+@{
+    ViewBag.Title = "RolCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content">
+
+    <div class="inner" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+           
+
+
+            </div>
+        </div>
+        <hr />
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <header>
+                        <div class="icons"><i class="icon-th-large"></i></div>
+                       
+                        <div class="toolbar">
+                            <ul class="nav">
+                                <li>
+                                    <div class="btn-group">
+                                        <a class="accordion-toggle btn btn-xs minimize-box" data-toggle="collapse"
+                                           href="#collapseOne">
+                                            <i class="icon-chevron-up"></i>
+                                        </a>
+                                        <button class="btn btn-xs btn-danger close-box">
+                                            <i class="icon-remove"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </header>
+                    <div id="collapseOne" class="accordion-body collapse in body">
+
+                        @using (Html.BeginForm("Create", "Role", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true)
+
+
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-4">sAd</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBox("RoleName", "", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-actions no-margin-bottom" style="text-align:center;">
+                                <input type="submit" value="Kaydet" class="btn btn-primary btn-lg " />
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("<< ", "Index")
+        </div>
+    </div>
+
+</div>
+
+<script src="~/assets/plugins/jquery-2.0.3.min.js"></script>
+<script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>

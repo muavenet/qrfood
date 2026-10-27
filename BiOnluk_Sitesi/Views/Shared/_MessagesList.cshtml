@@ -1,0 +1,27 @@
+﻿@model IEnumerable<HemenTanitim.Models.SepetAdetUrunAdi>
+
+
+(@Model.Count())
+
+<script>
+
+    var $sep = jQuery.noConflict();
+
+    function sepettenSil(deger) {
+
+        var id = deger.id;
+
+        $sep.ajax({
+            url: '/Home/SepettenKaldir',
+            type: "post",
+            dataType: "JSON",
+            data: { uid: id },
+            async: true,
+            success: function (sonuc) {
+
+            }
+        });
+    };
+
+</script>
+

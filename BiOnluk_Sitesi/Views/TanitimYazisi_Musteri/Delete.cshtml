@@ -1,0 +1,64 @@
+﻿@model HemenTanitim.Models.Urunler
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+<div class="adpost-details">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- /.modal -->
+
+            <fieldset>
+                <div class="section postdetails">
+                    <h4><span class="pull-left">*</span>Aşağıda ki satışı kaldırmak istediğinize emin misiniz? </h4>
+                    @using (Html.BeginForm())
+                    {
+                        <input type="submit" value="Bu Siteyi Kaldır" class="btn btn-danger btn-lg " />
+                      
+                    }
+                    <div class="row form-group add-title">
+                        <label class="col-sm-4 label-title">Site Adı<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.UrunAdi, new { @class = "form-control smallElements", disabled = "true" })                          
+                        </div>
+                    </div>
+
+                    <div class="row form-group add-title">
+                        <label class="col-sm-4 label-title">Site Url<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.siteUrl, new { @class = "form-control smallElements", placeholder = "Örn: http://orneksite.com", disabled = "true" })                       
+                        </div>
+                    </div>
+
+                    <div class="row form-group add-title">
+                        <label class="col-sm-4 label-title">Site Kategorisi<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.yayinSuresi, new { @class = "form-control smallElements", disabled = "true" })
+                        </div>
+                    </div>
+
+                    <div class="row form-group add-title">
+                        <label class="col-sm-4 label-title">Detay<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(model => model.UrunIcerik, new { @class = "form-control", rows = "4", disabled="disabled" })                         
+                        </div>
+                    </div>
+
+
+                  
+                        @using (Html.BeginForm())
+                        {
+                            <input type="submit" value="Bu Siteyi Kaldır" class="btn btn-danger btn-lg " />
+                            <a href="/Siteler_Musteri/Create" class="btn btn-info btn-lg">Yeni Site</a>
+                        }
+                    
+
+                </div>
+            </fieldset>
+        </div>
+        @{ Html.RenderAction("_SatisSiteleri", "TanitimYazisi_Musteri");}
+    </div><!-- photos-ad -->
+</div>
+

@@ -1,0 +1,13 @@
+﻿@model List<HemenTanitim.Models.AnahtarKelimeler>
+
+@foreach (var category in Model)
+{
+
+        <li>
+            <a href="/kiralikkaravan/@category.Kelime_adi.ToSeoUrl()" title="@category.Kelime_adi">
+                @category.Kelime_adi
+            </a>
+        </li>
+   
+
+}

@@ -1,0 +1,53 @@
+@model HemenTanitim.Models.KargoSirketleri
+@using Resources;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Kargo firmasý düzenleme
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Kargo firmasý düzenleme</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+
+
+                    <div class="box-body">
+
+
+
+
+                        @using (Html.BeginForm("Edit", "KargoSirketleris", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+                        {
+
+                            @Html.ValidationSummary(true)
+
+
+
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.Partial("_CreateOrEdit", Model)
+
+                            <div class="form-actions no-margin-bottom" style="text-align:center;">
+                                <input type="submit" value="Kaydet" class="btn btn-primary btn-lg " />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("<< Listeye geri don", "Index")
+        </div>
+        </section></aside>

@@ -1,0 +1,125 @@
+﻿@model List<HemenTanitim.Models.Blog>
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- ============================================== HEADER : END ============================================== -->
+
+<section id="main" class="clearfix details-page">
+
+    <div class="col-md-12" style="border-bottom: 2px solid #ffffff; background-color: white;">
+
+        <div class="parallax-section">
+            <div class="row text-center">
+                <div class="col-sm-12 ">
+
+                    <div class="col-md-3 col-sm-4">
+                        <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                            <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height: 41px; margin-top: 10px; margin-left: -15px;">
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-sm-4">
+
+                        @{Html.RenderAction("_BasitArama", "Filtre");}
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+
+
+                    <div class="banner">
+                        <h1 style="line-height:inherit; padding-top:150px;" class="title">Türkiye'nin karavan kiralama<strong> platfomu</strong> </h1>
+                        <h3 style="color:black">Bir <strong>karavan kiralamak</strong> veya kendi karavanızı <strong>kiraya vermek </strong> mi istiyorsunuz</h3>
+
+
+                        <br /><br /><br />
+
+                    </div>
+                </div><!-- banner -->
+            </div><!-- row -->
+        </div><!-- world -->
+
+    </div>
+    <div class="container">
+        <div class="adpost-details">
+            <div class="row">
+
+                <div class="breadcrumb-section">
+                    <!-- breadcrumb -->
+                    <ol class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Home")">Anasayfa</a></li>
+                        <li><a href="@Url.Action("Blog","Home")">Blog</li>
+
+                    </ol><!-- breadcrumb -->
+                </div>
+
+                <div class="banner">
+                    <div class="banner-form banner-form-full">
+                        @{Html.RenderAction("_BasitArama", "Filtre");}
+                    </div>
+                </div>
+
+                <div class="section col-md-8">
+
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="blog-post  wow fadeInUp" id="section_@item.Id">
+
+                            <h1><a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })">@item.Baslik</a></h1>
+
+                            <span class="author pull-left"><strong> Yayınlayan : @item.Yazan </strong></span>
+                            @*<span class="review">6 Comments</span>*@
+                            <span class="date-time pull-right"><strong> Tarih : @item.Tarih.ToShortDateString() </strong></span>
+
+
+                            <img src="@Url.Content("~/Content/uploads/" + item.Resim)" class="img-responsive">
+
+
+
+                            <br />
+
+                            <p>@Html.Raw(@item.Icerik.TrimFrontIfLongerThan(700))<br /> </p>
+
+                            <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })">Daha fazla <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+
+
+
+                        </div>
+                        <br />
+                        <hr />
+                    }
+                    @*@Model.PageCount sayfadan @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) . sayfa gösteriliyor
+
+                        @Html.PagedListPager(Model, page => Url.Action("Blog", "Home", new {page}))*@
+
+                </div>
+
+                <div class="col-md-4 sidebar">
+                    <div class="sidebar-module-container">
+                        @{Html.RenderAction("_BlogWidget", "FrontEndModules");}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+                @section scripts
+{
+                    <script>
+                        $(document).ready(function () {
+
+                            jQuery('#blogActive').addClass('active');
+                            $('.body-content').scrollspy({ target: "#sections" })
+                        });
+                    </script>
+                }

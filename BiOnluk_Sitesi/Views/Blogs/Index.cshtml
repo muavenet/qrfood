@@ -1,0 +1,112 @@
+
+@model IEnumerable<HemenTanitim.Models.Blog>
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+           Blog yaz&#305;lar&#305;
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Blog yaz&#305;lar&#305;</a></li>
+         
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>@Html.ActionLink("Yeni ekle", "Create")</h3>
+                    </div>
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Ba&#351;l&#305;k
+                                    </th>
+
+                                    <th>
+                                        Yazan
+                                    </th>
+                                    <th>
+                                        Tarih
+                                    </th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @item.Baslik
+                                        </td>
+
+                                        <td>
+                                            @item.Yazan
+                                        </td>
+                                        <td>
+                                            @String.Format("{0:g}", item.Tarih)
+                                        </td>
+                                        <td>
+                                            
+                                            @Html.ActionLink("Duzenle", "Edit", new { aid = item.Id }) |
+                                            @Html.ActionLink("Sil", "Delete", new { aid = item.Id })
+                                        </td>
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+    
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+    
+<script>
+
+    $(document).ready(function () {
+
+        $("li").removeClass("active");
+        $("#blog").addClass("active");
+      
+        $("#wysihtml5").wysihtml5();
+
+    });
+</script>
+
+}

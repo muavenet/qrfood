@@ -1,0 +1,34 @@
+
+@model HemenTanitim.Models.KargoSirketleri
+@using Resources;
+
+
+<link rel="stylesheet" href="~/assets/plugins/validationengine/css/validationEngine.jquery.css" />
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.kargoSirketAdi)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.kargoSirketAdi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.kargoSirketAdi)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.fiyat)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.fiyat, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.fiyat)
+                                </div>
+                            </div>
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+﻿@model HemenTanitim.Models.Fatura
+
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-2">Başlıklar</th>
+            <th>İçerikler</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                <span>Tarih</span>
+            </td>
+            <td>
+                @Model.GirisTarihi.ToLongDateString()
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <span>Ad / Şirket Ünvanı</span>
+            </td>
+            <td>
+                @Model.adsirketUnvan  @Model.SoyadUnvan
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>GSM</span>
+            </td>
+            <td>
+                @Model.CepTelefonu
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>Sabit Telefon</span>
+            </td>
+            <td>
+                @Model.SabitTelefon
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <span>Adres</span>
+            </td>
+            <td>
+                @Model.Adres
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>Şehir</span>
+            </td>
+            <td>
+                @Model.Sehir
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>İlçe</span>
+            </td>
+            <td>
+                @Model.Ilce
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>Semt</span>
+            </td>
+            <td>
+                @Model.Semt
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>Posta kodu</span>
+            </td>
+            <td>
+                @Model.PostaKodu
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>TC / Vergi No</span>
+            </td>
+            <td>
+                @Model.TCVergiNo
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <span>Vergi dairesi</span>
+            </td>
+            <td>
+                @Model.VergiDairesi
+            </td>
+        </tr>
+      
+    </tbody>
+</table>
+

@@ -1,0 +1,279 @@
+﻿    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>eTicaret | MVC ver.5.0 </title>
+    @*<title>@ViewBag.Title - My ASP.NET Application</title>*@
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="robots" content="NOINDEX, NOFOLLOW" />
+    @Styles.Render("~/Content/css/bootstrap")
+    @Styles.Render("~/Content/css/AdminLTE")
+    <link href="@Url.Content("~/Content/Admin/fonts/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css/bootstrap-slider")
+    @Styles.Render("~/Content/css/bootstrap-wysihtml5")
+    @Styles.Render("~/Content/css/colorpicker")
+    @Styles.Render("~/Content/css/datatables")
+    @Styles.Render("~/Content/css/datepicker")
+    @Styles.Render("~/Content/css/daterangepicker")
+    @Styles.Render("~/Content/css/iCheck")
+    @Styles.Render("~/Content/css/ionslider")
+    @Styles.Render("~/Content/css/jvectormap")
+    @Styles.Render("~/Content/css/morris")
+    @Styles.Render("~/Content/css/timepicker")
+
+    @Scripts.Render("~/bundles/jqueryAdmin")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/AdminLTE")
+</head>
+
+@*@{
+    var db = WebMatrix.Data.Database.Open("DB150408011842Entities");
+
+    var sql = "Select className from SiteGorunum";
+
+    var content = db.QueryValue(sql);    
+   
+    
+}*@
+
+<body class="wysihtml5-supported fixed pace-done skin-black">
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+        <a href="@Url.Action("Index", "AdminDasboard")" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            Turistik Yemek Sepeti
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>@User.Identity.Name <i class="caret"></i></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue">
+                                <img src="@Url.Content("~/Content/Admin/img/Avatar.jpg")" class="img-circle" alt="User Image" />
+                                <p>
+                                    @User.Identity.Name
+                                    <small>Admin olarak giriş yaptınız</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+
+                                    <a href="@Url.Action("Manage", "Account")" class="btn btn-default btn-flat">Şifre değiştir</a>
+                                </div>
+                                <div class="pull-right">
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">
+                                            Çıkış
+                                        </a>
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left ">
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="@Url.Content("~/Content/Admin/img/Avatar.jpg")" class="img-circle" alt="User Image" /><br />
+
+                    </div>
+                    <div class="pull-left info">
+                        <p>Merhaba, @User.Identity.Name</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+            
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+
+                    <li id="dashboard" class="active">
+                        <a href="@Url.Action("Index", "AdminDasboard")">
+                            <i class="fa fa-dashboard"></i>
+                            Ana Ekran<span></span>
+                        </a>
+                    </li>
+
+                    <li id="siparisler">
+                        <a href="@Url.Action("RealTimeSiparisler", "AdminSiparisIslemleri")"><i class="fa fa-photo"></i>Real Time Siparişler</a>
+                    </li>
+
+                    @*<li id="dashboard" class="active">
+            <a href="@Url.Action("Index", "GaleriBaslik")">
+                <i class="fa fa-dashboard"></i>
+                Galeri Haberler<span></span>
+            </a>
+        </li>*@
+
+
+                    <li id="hotels">
+                        <a href="@Url.Action("Index", "Hotels")"><i class="fa fa-hotel"></i>Hotel & Odalar Kontrolü</a>
+                    </li>
+
+                    @*<li id="foto">
+            <a href="@Url.Action("Index", "AdminIlanYonetimi")"><i class="fa fa-photo"></i>Menü Yönetimi</a>
+        </li>*@
+
+                    <li id="kategoriler" class="treeview active">
+
+                        <a href="#">
+                            <i class="fa fa-file-text"></i>
+                            <span>Menü Yönetimi</span>
+                            <i id="kategoriler_arrow" class="fa fa-angle-down pull-right"></i>
+                        </a>
+
+
+                        <ul class="treeview-menu" id="kategoriler_menu">
+                            @*<li id="kategoriler_anakategori">  <a href="#"><i class="fa fa-photo"></i>Ürünler</a></li>*@
+                            <li id="kategoriler_anakategori">  <a href="@Url.Action("IsIlanlari_Duzenle", "MusteriPaneli")"><i class="fa fa-photo"></i>Ürünler</a></li>
+                            @*<li id="kategoriler_anakategori"><a href="#"><i class="fa fa-angle-double-right"></i> Ana kategoriler</a></li>*@
+                            <li id="kategoriler_anakategori"><a href="@Url.Action("Index","AnaKategoriEkle")"><i class="fa fa-angle-double-right"></i> Ana kategoriler</a></li>
+                            @*<li id="kategoriler_altKategori"><a href="#"><i class="fa fa-angle-double-right"></i> Alt kategoriler</a></li>*@
+                            <li id="kategoriler_altKategori"><a href="@Url.Action("Index","AltKategoriEkle")"><i class="fa fa-angle-double-right"></i> Alt kategoriler</a></li>
+                        </ul>
+                    </li>
+
+                    @*<li id="foto">
+            <a href="@Url.Action("Index", "Slayt")"><i class="fa fa-photo"></i>Reklam yönetimi</a>
+        </li>*@
+
+                    @*<li id="kargo">
+            <a href="@Url.Action("Index", "KargoSirketleris")"><i class="fa fa-truck"></i> Kargo</a>
+        </li>*@
+
+
+
+
+
+
+                    @*<li id="blog">
+            <a href="@Url.Action("Index", "Blogs")">
+                <i class="fa fa-newspaper-o"></i> <span>Blog</span>
+
+            </a>
+        </li>*@
+
+                    <li id="kullanicilar">
+                        <a href="#">
+                            @*<a href="@Url.Action("UserList", "Role")">*@
+                            <i class="fa fa-users"></i> <span>Kayıtlı Kullanıcılar</span>
+
+                        </a>
+                    </li>
+
+                    <li id="Mesajlar">
+                        <a href="#">
+                            @*<a href="@Url.Action("Index", "Mesajlars")">*@
+                            <i class="fa fa-envelope"></i> <span>Mesaj Yönetimi</span>
+                        </a>
+                    </li>
+
+                    <li id="yorumlar">
+                        <a href="#">
+                            @*<a href="@Url.Action("Index", "Yorumlars")">*@
+                            <i class="fa fa-comments"></i> <span>Kullanıcı Yorumları</span>
+
+                        </a>
+                    </li>
+
+                    <li id="raporlar" class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-file-text"></i>
+                            <span>Genel Raporlar</span>
+                            <i id="raporlar_arrow" class="fa fa-angle-down pull-right"></i>
+
+                        </a>
+                        <ul class="treeview-menu" id="raporlar_menu">
+                            @*<li id="rapor_genel"><a href="@Url.Action("Index", "AdminSiparisIslemleri")"><i class="fa fa-angle-double-right"></i>Sipariş Detaylı Rapor</a></li>
+                <li id="ziyaretci_genel"><a href="@Url.Action("SayfaZiyaretcileri", "Raporlar")"><i class="fa fa-angle-double-right"></i>Sayfa ziyaretçi sayısı</a></li>
+                <li id="encoksiparis"><a href="@Url.Action("EncokSiparisEdilenUrunler", "Raporlar")"><i class="fa fa-angle-double-right"></i>En çok sipariş edilen ürünler</a></li>
+                <li id="siparisIstatistikleri"><a href="@Url.Action("siparisIstatistikleri", "Raporlar")"><i class="fa fa-angle-double-right"></i>Sipariş İstatistikleri</a></li>
+                <li id="ciroYillik"><a href="@Url.Action("ciroYillik", "Raporlar")"><i class="fa fa-angle-double-right"></i>Ciro (Yıllık)</a></li>
+                <li id="ciroAylik"><a href="@Url.Action("ciroAylik", "Raporlar")"><i class="fa fa-angle-double-right"></i>Ciro (Aylık)</a></li>
+                <li id="siparisiptal"><a href="@Url.Action("Index", "SiparisIptals")"><i class="fa fa-angle-double-right"></i>İptaller</a></li>*@
+                    
+                    <li id="rapor_genel"><a href="#"><i class="fa fa-angle-double-right"></i>Sipariş Detaylı Rapor</a></li>
+                    <li id="ziyaretci_genel"><a href="#"><i class="fa fa-angle-double-right"></i>Sayfa ziyaretçi sayısı</a></li>
+                    <li id="encoksiparis"><a href="#"><i class="fa fa-angle-double-right"></i>En çok sipariş edilen ürünler</a></li>
+                    <li id="siparisIstatistikleri"><a href="#"><i class="fa fa-angle-double-right"></i>Sipariş İstatistikleri</a></li>
+                    <li id="ciroYillik"><a href="#"><i class="fa fa-angle-double-right"></i>Ciro (Yıllık)</a></li>
+                    <li id="ciroAylik"><a href="#"><i class="fa fa-angle-double-right"></i>Ciro (Aylık)</a></li>
+                    <li id="siparisiptal"><a href="#"><i class="fa fa-angle-double-right"></i>İptaller</a></li>
+                </ul>
+                    </li>
+
+                    <li id="ayarlar" class="treeview active">
+                        <a href="#">
+                            <i class="fa  fa-cogs"></i>
+                            <span>Sistem Ayarları</span>
+                            <i id="ayarlar_arrow" class="fa fa-angle-down pull-right"></i>
+
+                        </a>
+                        <ul class="treeview-menu" id="ayarlar_menu">
+                            <li id="ayarlar_genel"><a href="@Url.Action("Edit", "GenelBilgilers", new {aid=1 })"><i class="fa fa-angle-double-right"></i>Genel ayarlar</a></li>
+        <li id="ayarlar_hakkimizda"><a href="@Url.Action("Edit", "Hakkimizda", new { aid = 1 })"><i class="fa fa-angle-double-right"></i>Hakkımızda</a></li>
+        <li id="ayarlar_havale"><a href="@Url.Action("Index", "Havales")"><i class="fa fa-angle-double-right"></i>Havale bilgileri</a></li>
+        <li id="ayarlar_mail"><a href="@Url.Action("Index", "MailAyarlaris")"><i class="fa fa-angle-double-right"></i>Mail ayarları</a></li>
+        <li id="ayarlar_footer"><a href="@Url.Action("Index", "Footer")"><i class="fa fa-angle-double-right"></i>Footer(Alt) bilgileri</a></li>
+
+                            @*<li id="ayarlar_genel"><a href="#"><i class="fa fa-angle-double-right"></i>Genel ayarlar</a></li>
+                            <li id="ayarlar_hakkimizda"><a href="#"><i class="fa fa-angle-double-right"></i>Sistem Hakkında</a></li>
+
+                            <li id="ayarlar_mail"><a href="#"><i class="fa fa-angle-double-right"></i>Mail ayarları</a></li>
+                            <li id="ayarlar_footer"><a href="#"><i class="fa fa-angle-double-right"></i>Footer(Alt) bilgileri</a></li>*@
+
+                            @*<li id="ayarlar_havale"><a href="#"><i class="fa fa-angle-double-right"></i>Havale bilgileri</a></li>*@
+                        </ul>
+                    </li>
+
+                    <li id="mailbox">
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "padding-left: 15px;padding-top: 12px;padding-bottom: 12px;" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                <i class="fa  fa-sign-out"></i> <span> Çıkış yap</span>
+
+                            </a>
+                        }
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        @RenderBody()
+
+    </div><!-- ./wrapper -->
+
+    @RenderSection("scriptFooter", required: false)    
+</body>
+</html>

@@ -1,0 +1,623 @@
+﻿@model HemenTanitim.Models.IsIlanlari
+
+@{
+	ViewBag.Title = "IsIlanlari_Duzenle_Devami";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+
+<style>
+	.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+		background-color: transparent !important;
+		color: #00a651 !important;
+	}
+
+	.select-category > li > a {
+		display: inline !important;
+	}
+
+	.postdetails li .IsIlanlari_a {
+		font-family: 'Ubuntu', sans-serif !important;
+		font-size: 15px !important;
+		font-weight: 400 !important;
+	}
+
+	.section {
+		background-color: white;
+	}
+
+	
+	.pager li > a, .pager li > span {
+		border-radius: 0;
+		padding: 12px 42px;
+	}
+
+</style>
+
+@if (Request.Browser.IsMobileDevice)
+{
+	<style>
+        .nav li a, .navbar-default .navbar-nav > li > a {
+			padding:0px 12px !important;
+		}
+        .selected-product .select-category li:before {
+            top: 5px !important;
+            right: 4px;
+            opacity: 1;
+        }
+		.selected-product .select-category li.active {
+			padding-left:0;
+		}
+        .selected-product .select-category li {
+            display: grid;
+			width:100%;
+        }
+
+        .displaytelefon {
+            display: none !important;
+        }
+	</style>
+}
+
+
+
+<section id="main" class="clearfix details-page">
+	<div class="row">
+
+		@if (!Request.Browser.IsMobileDevice)
+		{
+			<style>
+				label {
+					font-size: 11px !important;
+				}
+
+				.col-md-6 strong, .col-md-4 strong {
+					font-size: 13px !important;
+				}
+              
+			</style>
+
+			<div class="col-sm-3 ">
+				<!-- recommended-cta -->
+				@{Html.RenderAction("BilgileriDegistir_PartialView", "MusteriPaneli");}
+
+			</div>
+		}
+
+		<div class="col-md-9">
+			<div class="section postdetails box-shadow-genel">
+				@* <h4>Sell an item or service <span class="pull-right">* Mandatory Fields</span></h4>*@
+				<div class="form-group selected-product" id="rootwizard">
+
+                    <ul class="select-category list-inline">
+                        <li class="displaytelefon">
+                            <a href="/MusteriPaneli/IsIlanlari_Duzenle" class="IsIlanlari_a">
+                                Kategoriler
+                            </a>
+                        </li>
+
+                        <li class="active"><a href="#tab1" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Fiyatlandırma</a></li>
+                        <li ><a href="#tab2" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default ">Açıklama</a></li>
+						@*<li class="displaytelefon" id="tab2list"><a href="#tab2" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default ">İstekler</a></li>*@
+                        <li class="displaytelefon"><a href="#tab3" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default ">Galeri</a></li>
+                        <li class="displaytelefon"><a href="#tab4" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default ">Yayınla</a></li>
+
+                    </ul>
+
+
+					<form id="formIcerik" action="" method="post">
+
+						<div class="tab-content">
+
+							<div id="loadgifdiv" style="width:100%; text-align:center; margin-top:15px" class="center"></div>
+
+							<div class="tab-pane  fade active in" id="tab1">
+								<div class="row form-group add-image">
+									<div class="col-sm-12">
+										<div class="row form-group add-image">
+											@Html.TextBoxFor(model => model.IlanOnizlemeUrl, new {
+																   placeholder = "İlan Önizleme Linki Giriniz",
+																   @class = "form-control smallElements" })
+
+											@Html.TextAreaFor(model => model.IsIlanAciklamasi, new
+										    {
+											   name = "IsIlanAciklamasi",
+											   id = "IsIlanAciklamasi",
+											   placeholder = "Sunduğunuz hizmet hakkında potansiyel müşterilerinizi detaylı olarak bilgilendirin.",
+											   @class = "form-control",
+											   @minlength = 100,
+											   @style = "margin-top:35px; min-height:130px; font-size:10pt",
+											   @required = "required",
+											   @title = "En az 100 karaketer uzunluğunda açıklama giriniz."
+										    })
+
+											@Html.ValidationMessageFor(model => model.IsIlanAciklamasi)
+
+											<ul class="pager wizard">
+												@*<li class="previous"><a href="#">Geri Dön</a></li>*@
+												<li class="next">
+													<a href="#">
+														Devam Et
+													</a>
+												</li>
+											</ul>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane" id="tab2">
+								<div class="row form-group add-image">
+
+									<div class="col-sm-12">
+										<div class="row form-group add-image">
+
+											@Html.TextAreaFor(model => model.Gereksinimler, new
+										    {
+											   name = "Gereksinimler",
+											   id = "Gereksinimler",
+											   placeholder = "Gereksinimler ile ilgili ihitiyaçlarnızı açıkca belirtiniz.",
+											   @class = "form-control",
+											   @minlength = 70,
+											   @style = "margin-top:35px; min-height:130px; font-size:10pt",
+											   @required = "required",
+											   @title = "En az 70 karaketer uzunluğunda gereksinimlerinizi belirtiniz."
+										   })
+
+											@Html.ValidationMessageFor(model => model.Gereksinimler)
+
+											<ul class="pager wizard">
+
+												@*<li class="previous">
+														<a href="#">Geri Dön</a>
+												</li>*@
+
+												<li class="next">
+													<a href="#">
+														Devam Et
+													</a>
+												</li>
+
+											</ul>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane" id="tab3">
+								<div class="row form-group add-image">
+
+									<div class="col-sm-12" style="margin-top:25px">
+
+										<div class="row form-group add-image">
+
+											<div class="col-sm-6">
+
+												@Html.Label("Teslimat Süresi")
+
+												@Html.DropDownListFor(model => model.teslimatSuresi, new List<SelectListItem>
+												   {
+													 new SelectListItem { Text = "1 Gün", Value = "1"},
+													 new SelectListItem { Text = "2 Gün", Value = "2"},
+													 new SelectListItem { Text = "3 Gün", Value = "3"},
+													 new SelectListItem {Text  = "4 Gün",Value="4"},
+													 new SelectListItem { Text = "5 Gün", Value = "5" },
+													 new SelectListItem { Text = "6 Gün", Value = "6" },
+													 new SelectListItem { Text = "7 Gün", Value = "7" },
+													 new SelectListItem { Text = "8 Gün", Value = "8" },
+													 new SelectListItem { Text = "9 Gün", Value = "9" },
+													 new SelectListItem { Text = "10 Gün", Value = "10" }
+												  }, new { @class = "form-control smallElements" })
+											</div>
+
+											<div class="col-sm-6">
+
+												@Html.Label("Adet")
+
+												@Html.DropDownListFor(model => model.fiyatlandirmaAdet, new List<SelectListItem>
+												   {
+													 new SelectListItem { Text = "1 Adet", Value = "1"},
+													 new SelectListItem { Text = "2 Adet", Value = "2"},
+													 new SelectListItem { Text = "3 Adet", Value = "3"},
+													 new SelectListItem {Text  = "4 Adet",Value="4"},
+													 new SelectListItem { Text = "5 Adet", Value = "5" },
+													 new SelectListItem { Text = "6 Adet", Value = "6" },
+													 new SelectListItem { Text = "7 Adet", Value = "7" },
+													 new SelectListItem { Text = "8 Adet", Value = "8" },
+													 new SelectListItem { Text = "9 Adet", Value = "9" },
+													 new SelectListItem { Text = "10 Adet", Value = "10" }
+												  }, new { @class = "form-control smallElements" })
+											</div>
+
+											<div class="col-sm-6" style="margin-top:25px">
+
+												@Html.Label("Fiyatlandırma Min")
+
+												@Html.DropDownListFor(model => model.fiyatMin, new List<SelectListItem>
+												   {
+													 new SelectListItem { Text = "10 TL", Value = "10"},
+													 new SelectListItem { Text = "20 TL", Value = "20"},
+													 new SelectListItem { Text = "30 TL", Value = "30"},
+													 new SelectListItem {Text  = "40 TL",   Value="40"},
+													 new SelectListItem { Text = "50 TL", Value = "50" },
+													 new SelectListItem { Text = "60 TL", Value = "60" },
+													 new SelectListItem { Text = "70 TL", Value = "70" },
+													 new SelectListItem { Text = "80 TL", Value = "80" },
+													 new SelectListItem { Text = "90 TL", Value = "90" },
+													 new SelectListItem { Text = "100 TL", Value = "100" },
+													 new SelectListItem { Text = "150 TL", Value = "150" },
+													 new SelectListItem { Text = "200 TL", Value = "200" },
+													 new SelectListItem { Text = "250 TL", Value = "250" },
+													 new SelectListItem { Text = "300 TL", Value = "300" },
+													 new SelectListItem { Text = "350 TL", Value = "350" },
+													 new SelectListItem { Text = "400 TL", Value = "400" },
+													 new SelectListItem { Text = "450 TL", Value = "450" },
+													 new SelectListItem { Text = "500 TL", Value = "500" },
+													 new SelectListItem { Text = "550 TL", Value = "550" },
+													 new SelectListItem { Text = "600 TL", Value = "600" },
+													 new SelectListItem { Text = "700 TL", Value = "700" },
+													 new SelectListItem { Text = "800 TL", Value = "800" },
+													 new SelectListItem { Text = "900 TL", Value = "900" },
+													 new SelectListItem { Text = "1000 TL", Value = "1000" },
+													 new SelectListItem { Text = "1100 TL", Value = "1100" },
+													 new SelectListItem { Text = "1200 TL", Value = "1200" },
+													 new SelectListItem { Text = "1300 TL", Value = "1300" },
+													 new SelectListItem { Text = "1400 TL", Value = "1400" },
+													 new SelectListItem { Text = "1500 TL", Value = "1500" },
+													 new SelectListItem { Text = "2000 TL", Value = "2000" },
+													 new SelectListItem { Text = "2500 TL", Value = "2500" },
+													 new SelectListItem { Text = "3000 TL", Value = "3000" },
+													 new SelectListItem { Text = "4000 TL", Value = "4000" },
+													 new SelectListItem { Text = "5000 TL", Value = "5000" },
+													 new SelectListItem { Text = "6000 TL", Value = "6000" },
+													 new SelectListItem { Text = "7000 TL",    Value = "7000" },
+													 new SelectListItem { Text = "8000 TL", Value = "8000" },
+													 new SelectListItem { Text = "9000 TL", Value = "9000" },
+													 new SelectListItem { Text = "10000 TL", Value = "10000" }
+												  }, new { @class = "form-control smallElements" })
+											</div>
+
+											<div class="col-sm-6" style="margin-top:25px">
+
+												Ay Sayısı <small>(Ay Bazında Ödeme İse)</small>
+
+												@Html.DropDownListFor(model => model.AySayisi, new List<SelectListItem>
+												   {
+													 new SelectListItem { Text = "Seçiniz", Value = "0"},
+													 new SelectListItem { Text = "2 Ay", Value = "2"},
+													 new SelectListItem { Text = "4 Ay", Value = "4"},
+													 new SelectListItem { Text = "6 Ay", Value = "6"},
+													 new SelectListItem { Text = "8 Ay", Value = "8"},
+													 new SelectListItem { Text = "12 Ay", Value = "12"},
+													 new SelectListItem { Text = "24 Ay", Value = "24"},
+													 new SelectListItem { Text = "36 Ay", Value = "36"}
+
+												  }, new { @class = "form-control smallElements" })
+											</div>
+
+											<div class="col-sm-12">
+												<ul class="pager wizard">
+													@*<li class="previous"><a href="#">Geri Dön</a></li>*@
+													<li class="next">
+														<a href="#">
+															Devam Et
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+                            <div class="tab-pane" id="tab4">
+                                <!--<div class="row form-group add-image">
+        <div class="col-sm-12">
+            <div class="alert alert-info"><a href="Portfolyo/Portfolyom">Portfolyo </a>sayfasından daha fazla görsel ekleyebilirsiniz.</div>
+            <a id="tooltip" class="tooltip" style="visibility:hidden; left:237px; margin-top:17px; " href="#" title="Kapak resmi">
+                <img src="~/Content/Resim_Editor/images/icons/kapak.png" />
+            </a>
+            <div id="preview" style="width:99%; float:none; padding-left:0;" title="İdeal boyut : 720 x 300">
+                <div id="resimUp">
+
+                    <label class="upload-image" for="upload-image-two">
+                        <input type="file" id="upload-image-two" name="file[]" onchange="javascript:handleFileSelectBtn(event)">
+                        <span>Resim Ekle</span>
+                    </label>
+                    <span class="small">(PNG, JPG)</span>
+
+                    <span class="small">Yüklenen dosya <br /> <span id="dosya_adet"></span> / 1 </span><br />
+                    <progress value="0" max="1" style="width: 90px" id="progress_file"></progress>
+
+
+                </div>
+                <div id="pr_content" class="pr_content">
+                </div>
+
+                <div id="progress_bar" style="position:absolute; bottom:0px;width:90%; right:0px; "><div class="percent">0%</div></div>
+            </div>
+
+
+
+            <div class="col-md-12" style="padding:1px">
+
+                <img src="~/Content/Resim_Editor/images/ilanver_load.GIF" width="40"
+                     alt="Yükleniyor" id="load_ilanver" style="visibility:hidden;" title="Bekleyiniz" />-->
+                                @*Video Ekleme Özelliği*@
+
+                                @*@Styles.Render("~/Content/kendo/css")
+
+									<script src="/Scripts/kendo/jquery.min.js"></script>
+								<script src="/Scripts/kendo/kendo.all.min.js"></script>
+								<script src="/Scripts/kendo/messages/kendo.messages.tr-TR.min.js"></script>
+								<script type="text/javascript">
+									var j5 = $.noConflict(true);
+								</script>
+
+
+								@Scripts.Render("~/bundles/kendo")
+
+								@(Html.Kendo().Upload()
+																			.Messages(m => m.Select("Video Ekle ... (Maks. 25 mb) "))
+												.Name("files")
+												.Async(a => a.Save("Async_Save", "MusteriPaneli")
+												.Remove("Async_Remove", "MusteriPaneli")
+												.AutoUpload(true)
+
+											)
+											.Messages(m => m.InvalidFileExtension("Videonuz MP4 formatında olmalıdır"))
+											.Messages(m => m.InvalidMaxFileSize("Dosya boyutu 25 mb üzerinde olmamalıdır"))
+											.Messages(m => m.HeaderStatusUploaded(""))
+											.Messages(m => m.StatusFailed("İşlem gerçekleşmedi"))
+												.Messages(m => m.HeaderStatusUploading("Yükleniyor"))
+											.Validation(validation => validation.AllowedExtensions(new string[] { ".mp4" }))
+											.Validation(validation => validation.MaxFileSize(27299999))
+
+										)
+                                *@
+                                @*<div class="demo-hint">Videolarınız <strong>MP4</strong> formatında olmalı, <strong>100 MB</strong> geçmemelidir</div>*@
+                                @*<span>Maks. video boyutu <strong><u>100 mb</u></strong>'ı geçmemelidir.</span>*@
+
+                                @*<div id="VideolarListPartial">*@
+                                @*</div>*@
+
+                                @*Video Ekleme Özelliği*@
+
+
+                                <!--<style>
+        #btnDevam:focus ~ #spin_i {
+            display: inline-block !important;
+        }
+        }
+    </style>
+
+
+
+
+    <ul class="pager wizard">-->
+                                @*<li class="previous"><a href="#">Geri Dön</a></li>*@
+
+                                <!--<li>
+
+                <a href="#" style="color:#00a651;" onclick="servisGonder('param1');" id="btnDevam" tabindex="0">
+                    İlanı Yayınla
+                </a>
+                <i class="fa fa-spinner fa-spin" style="display:none;" id="spin_i"></i>
+            </li>
+        </ul>
+
+
+    </div>
+
+
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["id"] != null)
+    {
+        <input type="hidden" value='@HttpContext.Current.Request.RequestContext.RouteData.Values["id"]' id="routeDataId" />
+        <script src="~/js/Resim_Editor_Edit.js"></script>
+    }
+    else
+    {
+        <script src="~/js/Resim_Editor_Create.js"></script>
+    }
+
+    <link href="~/Content/Resim_Editor/resim_dondur.css" rel="stylesheet" />
+
+    <div id="cerceve_arka">
+        <div id="cerceve">
+            <div id="icerik">
+                <div id="serit">-->
+                                @*<input type="button" id="btnVitrin" title="Vitrin" value="Vitrin yap" />*@
+                                <!--<input type="button" id="btnDondur" value="    Dondur" />
+                            <input type="button" id="btnGom" value="    Kaydet" />
+                            <input type="button" id="btnVazgec" value="    Vazgeç" />
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div id="resim"></div>
+                        <div id="canvas_div">
+                            <img id="rot_image" width="480" height="360" />
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>-->
+
+
+                                <div class="row form-group add-image">
+                                    <div class="col-sm-12">
+
+                                        <a id="tooltip" class="tooltip" style="visibility:hidden; left:237px; margin-top:17px; " href="#" title="Kapak resmi">
+                                            <img src="~/Content/Resim_Editor/images/icons/kapak.png" />
+                                        </a>
+                                        <div id="preview" style="width:99%; float:none; padding-left:0;" title="Fotoğrafları buraya sürükleyiniz. (700 x 500)">
+                                            <div id="resimUp">
+
+                                                <label class="upload-image" for="upload-image-two">
+                                                    <input type="file" id="upload-image-two" name="file[]" multiple onchange="javascript:handleFileSelectBtn(event)">
+                                                    <span>Resim Ekle</span>
+                                                </label>
+                                                <span class="small">(PNG, JPG)</span>
+
+                                                <span class="small">Yüklenen dosya <br /> <span id="dosya_adet"></span> / 16 </span><br />
+                                                <progress value="0" max="8" style="width: 90px" id="progress_file"></progress>
+
+
+                                            </div>
+                                            <div id="pr_content" class="pr_content">
+                                            </div>
+
+                                            <div id="progress_bar" style="position:absolute; bottom:0px;width:80%; right:0px; "><div class="percent">0%</div></div>
+                                        </div>
+
+
+
+                                        <div class="col-md-12" style="padding:1px">
+
+                                            <img src="~/Content/Resim_Editor/images/ilanver_load.GIF" width="40"
+                                                 alt="Yükleniyor" id="load_ilanver" style="visibility:hidden;" title="Bekleyiniz" />
+
+                                            <style>
+                                                #btnDevam:focus ~ #spin_i {
+                                                    display: inline-block !important;
+                                                }
+                                                }
+                                            </style>
+
+                                            <ul class="pager wizard">
+                                                @*<li class="previous"><a href="#">Geri Dön</a></li>*@
+
+                                                <li>
+
+                                                    <a href="#" class="btn btn-default" onclick="servisGonder('param1');" id="btnDevam" tabindex="0">
+                                                        Kaydet
+                                                    </a>
+                                                    <i class="fa fa-spinner fa-spin" style="display:none;" id="spin_i"></i>
+                                                </li>
+                                            </ul>
+
+
+                                        </div>
+
+
+                                        @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["id"] != null)
+                                        {
+                                            <input type="hidden" value='@HttpContext.Current.Request.RequestContext.RouteData.Values["id"]' id="routeDataId" />
+                                            <script src="~/js/Resim_Editor_Edit.js"></script>
+                                        }
+                                        else
+                                        {
+                                            <script src="~/js/Resim_Editor_Create.js"></script>
+                                        }
+
+                                        <link href="~/Content/Resim_Editor/resim_dondur.css" rel="stylesheet" />
+
+                                        <div id="cerceve_arka">
+                                            <div id="cerceve">
+                                                <div id="icerik">
+                                                    <div id="serit">
+
+                                                        @*<input type="button" id="btnVitrin" title="Vitrin" value="Vitrin yap" />*@
+                                                        <input type="button" id="btnDondur" value="    Dondur" />
+                                                        <input type="button" id="btnGom" value="    Kaydet" />
+                                                        <input type="button" id="btnVazgec" value="    Vazgeç" />
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <div id="resim"></div>
+                                                    <div id="canvas_div">
+                                                        <img id="rot_image" width="480" height="360" />
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                        
+
+                            </div>
+
+							<div class="tab-pane " id="tab5">
+								<div class="row form-group add-image">
+
+									<div class="col-sm-12">
+										<div class="row form-group add-image">
+											<div class="congratulations">
+												<i class="fa fa-check-square-o"></i>
+												<h2>İlan Taslağınız Oluşturuldu!</h2>
+												<h4>İlanınız onaylandıktan sonra yayına alınacaktır.</h4>
+											</div>
+
+											<ul class="pager wizard">
+												@*<li class="previous"><a href="#">Geri Dön</a></li>*@
+												<li>
+													<a href="#" class="btn btn-large animate-flicker" style="color:black">
+														Yönlendiriliyorsunuz ...
+														@*İş İlanlarım&nbsp;&nbsp; <span class="glyphicon glyphicon-arrow-right"></span>*@
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</section>
+
+
+@*<script>
+		function getFileData(myFile) {
+
+			var file = myFile.files[0];
+
+			document.getElementById("secilenDosya").innerHTML =  file.name;
+
+		}
+</script>*@
+
+
+
+<script type="text/javascript">
+
+	window.onbeforeunload = function (evt) {
+		var message = 'Sayfadan ayrılıyorsunuz?';
+			if (typeof evt == 'undefined') {
+			evt = window.event;
+					}	if (evt) {
+		
+		}
+		return message;
+	}
+
+</script>
+
+<script src="~/Content/tabs/bootstrap.min.js"></script>
+
+<script src="~/Content/tabs/jquery.bootstrap.wizard.js"></script>
+
+<script src="~/Scripts/jquery.validate.1.9.min.js"></script>
+
+<script src="~/js/Video_Kaldir.js"></script>
+
+<script src="~/Content/tabs/prettify.js"></script>
+
+<script src="~/js/IsIlanlari_Duzenleme_Devami.js"></script>
+

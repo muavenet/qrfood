@@ -1,0 +1,248 @@
+﻿@{ Layout = null;}
+
+<!DOCTYPE html>
+<html style="width:100%">
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Language" content="tr" />
+	<meta name="robots" content="NOINDEX, NOFOLLOW" />
+	@Styles.Render("~/Content/css")
+	<style>
+		html {
+			height: 100% !important;
+		}
+		.dropdown-toggle {
+			line-height: 18px !important;
+			margin-left: 0 !important;
+		}
+
+				.dropdown-toggle img {
+				vertical-align: middle !important;
+			}
+		.caret {
+			margin-top:15px !important;
+		}
+		.icofont-ui-text-chat, .icofont-notification {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<header id="header" class="clearfix">
+		<!-- navbar -->
+		<nav class="navbar navbar-default   box-shadow-genel">
+		
+				<!-- navbar-header -->
+				<div class="navbar-header">
+
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+					<a class="navbar-brand" href="/UrunListesi/3/grafik-tasar%C4%B1m/sosyal-medya-tasar%C4%B1mlar%C4%B1/0/en_yeniler/1" style="padding-top:0 !important;  margin-left: 10px !important;">
+						<img class="img-responsive" src="/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height:38px">
+					</a>
+
+				</div>
+				<!-- /navbar-header -->
+
+				<div class="navbar-right">
+
+					<div class="collapse navbar-collapse" id="navbar-collapse">
+
+						<ul class="nav navbar-nav" style="width:100%">
+
+
+							@Html.Partial("_LoginPartial")
+
+
+
+
+
+							@*@if (Request.IsAuthenticated)
+		{
+			<li class="pull-right">
+				@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+				{
+					@Html.AntiForgeryToken()
+
+					<a class="pull-right" href="javascript:document.getElementById('logoutForm').submit()" role="menuitem" tabindex="-1" title="Çıkış">
+						<i class="icon fa fa-sign-out"></i>
+
+					</a>
+				}
+			</li>
+			<li class="pull-right">@{Html.RenderAction("_Sepet", "Home");}</li>
+		}*@
+							@*@Html.Partial("_LoginPartial")*@
+
+							@*<li>
+			<a href="/">SEKTÖREL YAZILAR</a>
+		</li>*@
+						</ul>
+					</div>
+
+
+				</div>
+				<!-- nav-right -->
+			
+		</nav><!-- navbar -->
+
+
+
+	</header><!-- header -->
+
+	<link href="/Scripts/plugins/fixedheader/fixedHeader.css" rel="stylesheet" />
+
+	<style>
+		.field-validation-valid {
+			display: none;
+		}
+
+		.validation-summary-valid {
+			display: none;
+		}
+	</style>
+
+
+
+	<link href="~/Content/FrontEnd/css/bootstrap.min.css" rel="stylesheet" />
+	@Scripts.Render("~/bundles/modernizr")
+	<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+
+
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+
+	<link href="~/Content/Chat_Template.css" rel="stylesheet" />
+
+	<div id="frame">
+		<div id="sidepanel">
+
+			<div id="search">
+				<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+
+				<input type="text" id="txtSearchUser" placeholder="Kullanıcı ara..." data-bind="value: filter, valueUpdate: 'afterkeydown', event: { keyup: searchUser } " />
+			</div>
+			<div id="contacts">
+
+				<ul id="user-list" data-bind="foreach: chatUsers">
+					<li class="contact">
+						<div class="wrap">
+
+							<span data-bind="css: $data.IsOnline === true ? 'contact-status online' : 'contact-status'"></span>
+
+							<p data-bind="text: $parent.chatWithUserName() !== $data.Username && $data.UnreadMessageCount ? $data.UnreadMessageCount : '',
+										   css: $parent.chatWithUserName() !== $data.Username && $data.UnreadMessageCount ? 'unreadMessages' : ''"></p>
+
+							<img data-bind="attr:{src: $data.Fotograf}" alt="" />
+
+							<div class="meta">
+								<p class="name" data-bind="text: $data.Username"></p>
+								<p class="preview" style="font-style:italic;text-transform:lowercase;" data-bind="text: $data.mesaj_icerik"></p>
+
+								<input type="hidden" class="username" data-bind="value:$data.Username" />
+								<input type="hidden" class="userId" data-bind="value:$data.UserId" />
+								<input type="hidden" class="IsOnline" data-bind="value:$data.IsOnline" />
+
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div id="bottom-bar">
+				<span id="addcontact" data-bind="text: 'Kişiler (' + chatUsers().length + ')' "></span>
+			</div>
+
+		</div>
+		<div class="content">
+
+			<div class="messages chat-body better-scrollbar">
+
+				<ul data-bind="foreach: chatMessages">
+					<li data-bind="css: $data.isMine() === true ? 'sent' : 'replies'">
+
+						<img data-bind="attr:{src: $data.profil_fotosu} " class="message_profile_photos" />
+
+						<p>
+							<span class="author" data-bind="text:$data.from"></span>
+							<span class="timestamp_kalibi">
+								<span data-bind="text:$data.saat"></span>
+							</span>
+							<span class="content_satiri" data-bind="html:$data.content"></span>
+						</p>
+					</li>
+				</ul>
+
+			</div>
+
+			<div style="position:absolute;bottom:53px;padding-left:5px;">
+				<i id="chatOperations" style="display:none;">Empty user is typing...</i>
+			</div>
+
+			<div class="message-input">
+				<div class="wrap">
+
+					<input id="chat-message" type="text" value="" data-bind="value:message, valueUpdate: 'afterkeydown', event: { keyup: onEnter } " placeholder="Mesajınızı girin..." />
+					<input id="chat-message-hidden" type="hidden" class="chat-message-hidden" data-bind="value:message_icinde_gizle_bilgileri" />
+
+
+
+					<label for="btnUpload" class="custom-file-upload">
+						<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+					</label>
+
+					<input type="file" id="btnUpload" accept="image/*" name="files" class="fa fa-paperclip attachment" />
+
+					@*<button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>*@
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+	<div class="alert alert-dismissible alert-warning hidden" id="errorAlert">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<p data-bind="text:serverInfoMessage"></p>
+	</div>
+
+
+
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+
+
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+	<script src="~/Scripts/knockout-3.4.2.js"></script>
+	<script src="~/Scripts/modernizr-2.8.3.js"></script>
+	<script src="~/Scripts/MyChat.js"></script>
+	<script src="~/Scripts/MyScript.js"></script>
+	<script src="~/signalr/hubs"></script>
+	<script src='~/Scripts/inputEmoji.js'></script>
+	<script>
+		$(function () {
+			$('#chat-message').emoji({
+				place: 'after',
+				fontSize: '18px'
+			});
+		})
+	</script>
+
+
+
+</body>
+</html>
+
+

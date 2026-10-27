@@ -1,0 +1,275 @@
+﻿@model HemenTanitim.Models.BilgeriDegistir
+
+
+@using Microsoft.AspNet.Identity;
+@{ string telefon = "+9" + Model.Telefon.Replace(" ", ""); }
+
+@if (Request.Browser.IsMobileDevice)
+{
+    <style>
+
+        .online_mesaj_cevrimdisi:before {
+            content: "Çevrimdışı";
+            font-weight: 600;
+        }
+
+        .online_mesaj_cevrimici:before {
+            content: "Çevrimiçi";
+            font-weight: 600;
+            color: #1cbf61;
+        }
+
+        .contact-status {
+            position: absolute;
+            margin: 17px 0 0 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .online {
+            background: #2ecc71;
+            border: 2px solid white;
+        }
+    </style>
+
+    <div class="col-md-5" style="background-color:white;">
+        <div class="slider-text">
+
+            <span style="display:block">
+                <img src="@Model.Fotograf" style="width:33px; border-radius:50%;" />
+                <a href="@Url.Action("Kullanici_Ozgecmisi", "CV", new { uid = Model.kullaniciId })">@Model.UserName - <span>@Model.kimdenAciklama</span></a>
+            </span>
+
+            <span style="margin-top:10px; display:block">
+                <a href="https://wa.me/@telefon" target="_blank" style="float: left;color: #48c857;"> <i class="fa fa-whatsapp"></i>WhatsApp Mesaj </a>
+
+                <a href="tel:@Model.Telefon" style="color:black !important; font-weight:bold; float:right"><i class="fa fa-phone"></i>@Html.DisplayFor(m => m.Telefon, new { @class = "form-control" })</a>
+            </span>
+
+         
+
+            <span class="icon" style="margin: 11px 0 0px !important;"><i class="fa fa-clock-o"></i><a href="#">Son görülme : @Model.SonGorulmeTarihi.ToShortDateString()</a></span>
+
+            <span class="icon">
+                <i data-bind="css: durum() == true ? 'fa fa-suitcase online' : 'fa fa-suitcase'"></i>
+
+                <input type="hidden" name="kId" id="kId" value="@Model.UserName" />
+                <a href="#">Durumu <strong>(<span data-bind="css: durum() == true ? 'online_mesaj_cevrimici' : 'online_mesaj_cevrimdisi'"></span>)</strong></a>
+            </span>
+
+            <!-- short-info -->
+
+
+        </div>
+    </div><!-- slider-text -->
+}
+else
+{
+    <style>
+        .padding-left-0 {
+            padding-left: 0 !important
+        }
+
+        .padding-bottom-20 {
+            padding-bottom: 20px;
+        }
+
+        .form-horizontal .control-label {
+            text-align: left;
+            padding-top: 0 !important;
+            font-weight: 500;
+        }
+
+        .contact-status {
+            position: absolute;
+            margin: 17px 0 0 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+
+        .online {
+            background: #2ecc71;
+            border: 2px solid white;
+        }
+
+        .online_mesaj_cevrimdisi:before {
+            content: "Çevrimdışı";
+            font-weight: 600;
+        }
+
+        .online_mesaj_cevrimici:before {
+            content: "Çevrimiçi";
+            font-weight: 600;
+            color: #1cbf61;
+        }
+
+        .kullanici_fotosu {
+            border-radius: 50%;
+            margin-top: 20px;
+            width: 104px;
+            height: 97px;
+            box-shadow: 0 0 0 30px rgba(127,173,244,.05), 0 0 0 20px rgba(127,173,244,.08), 0 0 0 10px rgba(127,173,244,.1);
+        }
+    </style>
+
+
+    <div class="ads-info">
+        <div class="row">
+            <div class="col-sm-6 col-md-12">
+                <div class="my-reks" style="background-color: #ffffff;box-shadow: 0px 0px 12px #ccc; padding: 15px 24px; margin-bottom:0">
+                    <div class="form-horizontal">
+
+                        <div style="text-align:center;">
+
+                            <span data-bind="css: durum() == true ? 'contact-status online' : 'contact-status'"></span>
+
+                            <img src="@Model.Fotograf" class="kullanici_fotosu" />
+
+                        </div>
+
+                        <div style="text-align:center;padding-bottom:20px; padding-top:15px">
+                            <div class="form-group" style="margin-bottom:15px; margin-top:15px">
+
+                                @{ var degerlendirme_puani = Model.puan;
+
+
+                                    int w = 1;
+                                    var k = 0;
+
+                                    while (w < 6)
+                                    {
+                                        if (k == 0)
+                                        {
+
+                                            for (int i = 0; i < degerlendirme_puani; i++)
+                                            {
+                                                <span class="fa fa-star checked" style="color:#ffbf00; font-size:large;"></span>
+
+                                                w++;
+                                                k++;
+                                            }
+                                        }
+
+                                        if (w == 6)
+
+                                        { break; }
+
+                                        <span class="fa fa-star"></span>
+
+                                        w++;
+                                    }
+
+                                }
+
+                                <span style="    color: #ffbf00; font-weight: bolder; font-size: 16px;">(@Math.Round(Model.puan, 1))</span>
+                                <br />
+                                <a href="@Url.Action("Kullanicilar", "MusteriPaneli", new { Id = Model.kullaniciId })" style="display:block; color:black">
+                                    @Html.DisplayFor(m => m.UserName, new { @class = "form-control" }) <small>(@Model.kimdenAciklama)</small>
+
+                                </a>
+
+                                <span style="padding: 5px;
+                                   border: 1px solid #ededed;
+                                   text-align:right;
+                                   width: 100%;
+                                   display: inline-block;
+                                   font-size: 15px;
+                                   color: #2ecc71;
+                                   border-radius: 3px;
+                                   border-image: linear-gradient(to left, rgba(182, 182, 182, 0.00), rgba(196, 196, 196, 0.75), rgba(0, 0, 0, 0));
+                                   border-image-slice: 1; ">
+
+
+
+
+                                    <a href="https://wa.me/@telefon" target="_blank" style="        float: left;
+        color: #48c857
+"> <i class="fa fa-whatsapp"></i>  WhatsApp Mesaj </a>
+
+                                    <a href="tel:@Model.Telefon" style="color:black !important; font-weight:bold">
+                                        @Html.DisplayFor(m => m.Telefon, new { @class = "form-control" })
+                                    </a>
+
+                                </span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12 text-center">
+
+                                    @*<span data-bind="css: message() === true ? 'online_mesaj_cevrimici' : 'online_mesaj_cevrimdisi'"></span>*@
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-8 padding-left-0">
+                                    @Html.LabelFor(m => m.konum, new { @class = "col-md-12 control-label" })
+                                </div>
+                                <div class="col-md-4 text-right" style="font-weight:600">
+                                    @Html.DisplayFor(m => m.konum, new { @class = "col-md-12 control-label" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-8 padding-left-0">
+                                    @Html.LabelFor(m => m.SonGorulmeTarihi, new { @class = "col-md-12 control-label" })
+                                </div>
+                                <div class="col-md-4 text-right" style="font-weight:600">
+                                    @Html.DisplayFor(m => m.SonGorulmeTarihi, new { @class = "col-md-12 control-label" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-8 padding-left-0">
+                                    <label class="col-md-12 control-label">Durumu</label>
+                                </div>
+                                <div class="col-md-4 text-right" style="font-weight:600">
+                                    <input type="hidden" name="kId" id="kId" value="@Model.UserName" />
+                                    <span data-bind="css: durum() == true ? 'online_mesaj_cevrimici' : 'online_mesaj_cevrimdisi'"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-7 padding-left-0">
+                                    @Html.Label("Puanlayan kişi :", new { @class = "col-md-12 control-label" })
+                                </div>
+                                <div class="col-md-5 text-right" style="font-weight:600">
+                                    @Html.DisplayFor(m => m.YorumSayisi, new { @class = "col-md-12 control-label" }) kişi
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-8 padding-left-0">
+                                    @Html.LabelFor(m => m.OncekiSiparisler, new { @class = "col-md-12 control-label" })
+                                </div>
+                                <div class="col-md-4 text-right" style="font-weight:600">
+                                    @Html.DisplayFor(m => m.OncekiSiparisler, new { @class = "col-md-12 control-label" })
+                                </div>
+                            </div>
+
+                            @*<div class="form-group" style="margin-bottom:0">
+                                    <div class="col-md-8 padding-left-0">
+                                        @Html.LabelFor(m => m.IptalEdilenler, new { @class = "col-md-12 control-label" })
+                                    </div>
+                                    <div class="col-md-4 text-right" style="font-weight:600">
+                                        @Html.DisplayFor(m => m.IptalEdilenler, new { @class = "col-md-12 control-label" })
+                                    </div>
+                                </div>*@
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+
+
+

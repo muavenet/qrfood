@@ -1,0 +1,57 @@
+﻿@model List<HemenTanitim.Models.Blog>
+
+
+
+
+    <div class="col-md-4">
+        <div class="cta " style="background-color:transparent !important; margin-top:50px; margin-bottom:50px">
+            <div class="row">
+                <div class="section cat-option select-category post-option">
+                    <h4>Karavan Dünyası Hakkında Bilmek İsyecekleriniz Burada</h4>
+                    <ul role="tablist">
+
+                        @foreach (var item in Model)
+                        {
+                            <li>
+                                <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })" title="@item.Baslik.ToSeoUrl()">
+                                    <span class="select">
+                                        <img src="@Url.Content("~/Content/uploads/" + item.Resim)" alt="@item.Baslik" 
+                                             style="object-fit:cover; border-top-left-radius:15px; border-top-right-radius:15px; max-width:50px; height:50px; border-radius:50%">
+                                    </span>
+                                    <strong> @item.Baslik.TrimFrontIfLongerThan(25)</strong>
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="cta text-center" style="background-color:transparent !important; margin-top:50px; margin-bottom:50px">
+            <div class="row">
+                @{int i = 0;}
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-12 color_f7f7f7">
+                        <div class="cta-icon">
+                        
+                            <div class="cta-icon icon-secure">
+                                <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })" title="@item.Baslik.ToSeoUrl()">
+                                    <img src="@Url.Content("~/Content/uploads/" + item.Resim)" alt="Icon" class="img-responsive" 
+                                         style="border-radius: 15px; border-radius: 15px; margin-bottom: 20px; max-height: 319px; width: 100%">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    i++;
+                    if (i == 2) { break; }
+                }
+
+            </div>
+        </div>
+    </div>
+
+

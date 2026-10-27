@@ -1,0 +1,58 @@
+
+@model HemenTanitim.Models.MailAyarlari
+@using Resources;
+
+
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.mailAdresi)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.mailAdresi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.mailAdresi)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.mailSifresi)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.mailSifresi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.mailSifresi)
+                                </div>
+                            </div>
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.mailgelecekAdres)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.mailgelecekAdres, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.mailgelecekAdres)
+    </div>
+</div>
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.smptClient)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.smptClient, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.smptClient)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.port)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.port, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.port)
+                                </div>
+                            </div>
+
+

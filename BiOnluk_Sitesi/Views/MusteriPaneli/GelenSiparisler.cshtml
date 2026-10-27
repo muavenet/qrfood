@@ -1,0 +1,217 @@
+﻿@model List<HemenTanitim.Models.SiparisBilgileri>
+
+@{
+	ViewBag.Title = "Siparişlerim";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@Styles.Render("~/Content/css/datatables")
+@Styles.Render("~/Content/css/datatables_With_Image")
+
+<style>
+
+	#satisilarim_active_link, #satisilarim_active_link a, #satisilarim_active_link small {
+		background: green;
+		color: white;
+	}
+
+</style>
+
+
+@if (!Request.Browser.IsMobileDevice)
+{
+	<div class="ads-info">
+		<div class="row">
+
+			<div class="col-sm-4 ">
+				<!-- recommended-cta -->
+				@{Html.RenderAction("BilgileriDegistir_PartialView", "MusteriPaneli");}
+
+			</div>
+
+			<div class="col-sm-8">
+				<div class="my-reks section">
+					<!-- ad-item -->
+					<table id="tblListe" class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+
+								<th>
+
+								</th>
+								<th>
+
+								</th>
+								<th>
+
+								</th>
+								@*<th>
+
+									</th>*@
+							</tr>
+						</thead>
+						<tbody>
+							@{string sonuc = ""; }
+							@foreach (var item in Model)
+							{
+								int sayi = 1;
+
+								//if (item.TeslimDurumu == 1)
+								//{ sonuc = "Sipariş alındı"; }
+								//else
+								//{ sonuc = "Sipariş alınmadı"; }
+
+								<tr data-href="/SiparisiTamamla/siparisOnayla/@item.SiparisId#">
+
+									<td style="text-align:left !important; font-size:15px; font-weight:400">
+
+										@Html.Raw(item.IlanAdi.TrimFrontIfLongerThan(50))
+
+									</td>
+									<td style="text-align:center; font-size:15px; font-weight:400">
+										@item.TeslimDurumu
+
+									</td>
+
+									<td style="text-align: center!important; font-size:15px; font-weight:400">
+										@item.SiparisTarihi.ToShortDateString()
+									</td>
+
+
+									@*<td>
+											@if (item.siparisIptalTalebi)
+											{
+												<label>İptal talebinde bulundunuz</label>
+											}
+											else
+											{
+												<a href="@Url.Action("SiparisIptal", "MusteriPaneli", new { siparisId = item.SiparisId })" style="font-weight:300; color:white" class="btn btn-danger"><i class="icon fa fa-remove"></i>&nbsp;Siparişi iptal et</a>
+											}
+
+										</td>*@
+								</tr>
+
+								sayi = 1;
+							}
+
+					</table>
+
+
+				</div>
+			</div><!-- my-reks -->
+			<!-- recommended-cta-->
+
+
+		</div><!-- row -->
+	</div><!-- row -->
+}
+
+else
+{
+
+
+
+	<div class="col-sm-8">
+		<div class="my-reks section">
+
+			<h4>Gelen Siparişler</h4>
+			<!-- ad-item -->
+			<table id="tblListe" class="table table-bordered table-striped">
+
+				<thead>
+					<tr>
+
+						<th>
+
+						</th>
+
+						<th>
+
+						</th>
+						@*<th>
+
+					</th>*@
+					</tr>
+				</thead>
+				<tbody>
+					@{string sonuc = ""; }
+					@foreach (var item in Model)
+					{
+						int sayi = 1;
+
+						//if (item.TeslimDurumu == 1)
+						//{ sonuc = "Sipariş alındı"; }
+						//else
+						//{ sonuc = "Sipariş alınmadı"; }
+
+						<tr data-href="/SiparisiTamamla/siparisOnayla/@item.SiparisId#">
+
+							<td style="text-align:left !important; font-size:15px; font-weight:400">
+
+								@Html.Raw(item.IlanAdi.TrimFrontIfLongerThan(16))
+
+							</td>
+
+
+							<td style="text-align: center!important; font-size:15px; font-weight:400">
+								@item.SiparisTarihi.ToShortDateString()
+							</td>
+
+
+							@*<td>
+							@if (item.siparisIptalTalebi)
+							{
+								<label>İptal talebinde bulundunuz</label>
+							}
+							else
+							{
+								<a href="@Url.Action("SiparisIptal", "MusteriPaneli", new { siparisId = item.SiparisId })" style="font-weight:300; color:white" class="btn btn-danger"><i class="icon fa fa-remove"></i>&nbsp;Siparişi iptal et</a>
+							}
+
+						</td>*@
+						</tr>
+
+						sayi = 1;
+					}
+
+			</table>
+
+
+		</div>
+	</div><!-- my-reks -->
+
+}
+@section scripts{
+
+
+	@Scripts.Render("~/bundles/datatables")
+
+	<script src="~/Scripts/plugins/datatables/dataTablesConfigurations_With_Images.js"></script>
+
+	<script>
+
+		var $dhref = jQuery.noConflict();
+
+		$dhref('tr[data-href]').on("click", function () {
+			document.location = $dhref(this).data('href');
+		});
+	</script>
+}
+
+
+@*<script>
+
+		$(".dosyaIndir").click(function (e) {
+
+			e.preventDefault();
+
+			var link = $(this);
+
+			var url_ = "/Downloads/ajaxDosyaKontrol?dosyaAdi=" + link.attr("data-id");
+
+			MYLIBRARY.ajaxPostJsonDownloadsFile(url_);
+
+		});
+
+	</script>*@

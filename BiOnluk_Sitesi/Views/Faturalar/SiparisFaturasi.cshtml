@@ -1,0 +1,144 @@
+﻿@model IEnumerable<HemenTanitim.Models.FaturaKesimBilgileri>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
+        }
+
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+    </style>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    
+</head>
+<body>
+    @foreach (var item in Model)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="invoice-title">
+                        <h2>Fatura</h2><h3 class="pull-right">Sipariş NO # @item.SiparisId</h3>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Fatura Adresi</strong><br>
+                                Kişi / Kuruluş Adı : @item.FaturaKisiKurulusUnvan<br>
+                                Vergi Dairesi : @item.FaturaVergiDairesi<br>
+                                Vergi No : @item.FaturaVergiNo<br>
+                                Şehir : @item.KargoSehir<br>
+                                Adres @item.FaturaAdres
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <address>
+                                <strong>Teslimat Adresi</strong><br>
+                                Kargo Adı : @item.KargoSirketi<br>
+                                Kişi / Kuruluş Adı : @item.KargoKisiKurulusUnvan<br>
+                                Telefon No : @item.KargoSabitTel<br>
+                                Cep Telefonu : @item.KargoCepTel<br>
+                                Şehir : @item.KargoSehir<br>
+                                Adres : @item.KargoAdres
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Ödeme Metodu:</strong><br>
+                                 @item.OdemeTipi<br>
+                                
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <address>
+                                <strong>Tarih:</strong><br>
+                               @item.SiparisTarihi<br><br>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Ödeme özeti</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-left"><strong>Ürün adı</strong></td>
+                                            <td class="text-center"><strong>Adet</strong></td>
+                                            <td class="text-right"><strong>Birim Fiyat</strong></td>
+                                            <td class="text-right"><strong>Toplam</strong></td>
+                                            <td class="text-right"><strong>Durumu</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                        <tr>
+                                            <td class="text-left">@item.Urunler</td>
+                                            <td class="text-center">@item.Adet</td>
+                                            <td class="text-right">@String.Format("{0:N}", item.BirimFiyat) TRY</td>
+                                            <td class="text-right">@String.Format("{0:N}", item.ToplamFiyat) TRY</td>
+                                            <td class="text-right">@item.TeslimDurumu</td>
+                                        </tr>
+                                     
+                                        <tr>
+                                            <td class="thick-line"></td>
+                                            <td class="thick-line"></td> 
+                                            <td class="thick-line"></td> 
+                                            <td class="thick-line text-left"><strong>Toplam</strong></td>
+                                            <td class="thick-line text-right">@String.Format("{0:N}", item.ToplamFiyat) TRY</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="no-line"></td>
+                                            <td class="no-line"></td>
+                                            <td class="no-line"></td>
+                                            <td class="no-line text-left"><strong>Kdv Miktarı</strong></td>
+                                            <td class="no-line text-right">@String.Format("{0:N}", item.KdvMiktarı) TRY</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="no-line"></td>
+                                            <td class="no-line"></td>
+                                            <td class="no-line"></td>
+                                            <td class="no-line text-left"><strong>KDV Dahil Toplam</strong></td>
+                                            <td class="no-line text-right">@String.Format("{0:N}", item.GenelToplam) TRY
+                                            <br /><br /> @item.YaziSayi</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    </body>
+
+</html>

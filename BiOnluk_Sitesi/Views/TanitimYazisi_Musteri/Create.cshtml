@@ -1,0 +1,112 @@
+﻿@model HemenTanitim.Models.Urunler
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@using (Html.BeginForm(new { role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+
+
+
+    @Html.ValidationSummary(true)
+
+    <div class="adpost-details">
+        <div class="row">
+            <div class="col-md-6">
+
+                <fieldset>
+                    <div class="section postdetails">
+                        <h4>Yeni Satış<span class="pull-right">* Zorunlu Alanlar</span> </h4>
+                        @Html.Raw(ViewBag.Uyari)
+
+                        <div class="row form-group add-title">
+                            <label class="col-sm-3 label-title">Ürün Başlığı<span class="required">*</span></label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.UrunAdi, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UrunAdi)
+                            </div>
+                        </div>
+
+                        <div class="row form-group add-title">
+                            <label class="col-sm-3 label-title">Siteniz <span class="required">*</span></label>
+                            <div class="col-sm-6">
+                                @Html.DropDownList("siteId", (IEnumerable<SelectListItem>)ViewBag.MusteriSiteleri, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                <a href="/Siteler_Musteri/Create">Yeni Site Ekle</a>
+                            </div>
+                        </div>
+                        <div class="row form-group add-title">
+                            <label class="col-sm-3 label-title">Yayın Süresi <span class="required">*</span></label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="yayinSuresi">
+                                    <option value="Süresiz">Süresiz</option>
+                                    <option value="3 Ay">3 Ay</option>
+                                    <option value="6 Ay">6 Ay</option>
+                                    <option value="1 Yıl">1 Yıl</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                        <div class="row form-group add-title">
+                            <label class="col-sm-3 label-title">Fiyat <span class="required">*</span></label>
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(model => model.Fiyat, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Fiyat)
+                            
+                            </div>
+                        </div>
+
+                        <div class="row form-group item-description">
+                            <label class="col-sm-3 label-title">Açıklama<span class="required">*</span></label>
+                            <div class="col-sm-12">
+                                @Html.TextAreaFor(model => model.UrunIcerik, new { @class = "form-control", rows = "8" })
+                                @Html.ValidationMessageFor(model => model.UrunIcerik)
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                        </div>
+                        <!-- section -->                       
+
+                        <div class="checkbox section agreement">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+
+                        <!-- section -->
+
+                    </div>
+                </fieldset>
+
+            </div>
+            @{ Html.RenderAction("_SatisSiteleri", "TanitimYazisi_Musteri");}
+        </div><!-- photos-ad -->
+    </div>
+
+}
+
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+
+<script src="~/js/para_formati.js"></script>
+
+<script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        CKEDITOR.replace('UrunIcerik',{
+            customConfig: "/Scripts/plugins/ckeditor/simple_config.js"
+        });
+    });
+
+
+</script>

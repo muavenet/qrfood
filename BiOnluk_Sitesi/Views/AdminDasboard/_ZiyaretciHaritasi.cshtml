@@ -1,0 +1,66 @@
+﻿<div class="box box-solid bg-light-blue-gradient">
+    <div class="box-header">
+        <!-- tools box -->
+        <div class="pull-right box-tools">
+           
+        </div><!-- /. tools -->
+        <i class="fa fa-map-marker"></i>
+        <h3 class="box-title">
+            Ziyaretçi haritası
+        </h3>
+    </div>
+
+    <div class="box-body">
+        <div id="turkey-map" style="height: 265px"></div>
+    </div><!-- /.box-body-->
+   
+</div>
+
+<script>
+    $.ajax({
+        url: "@Url.Action("ZiyaretciHaritasiGetir")",   
+        data: {},
+        type: "GET",
+        success: function (data) {
+
+            var result = new Object();
+
+            $das.each(data, function (id, book) {
+                result['' + book.ilKodu + ''] = book.ziyaretciSayisi;
+            });
+            //World map by jvectormap
+            $das('#turkey-map').vectorMap({
+                map: 'turkey_1_mill_en',
+                backgroundColor: "transparent",
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 1,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 1
+                    }
+                },
+                series: {
+                    regions: [{
+                        values: result,
+                        scale: ["#92c1dc", "#ebf4f9"],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+                onRegionLabelShow: function (e, el, code) {
+                    if (typeof result[code] != "undefined")
+                        el.html(el.html() + ': ' + result[code] + ' ziyaretci');
+                }
+            });
+
+
+
+
+
+        },
+        error: function (request, status, error) {
+            console.log("hata" + error);
+        }
+    });
+</script>

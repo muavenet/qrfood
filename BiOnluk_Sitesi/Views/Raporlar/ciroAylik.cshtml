@@ -1,0 +1,179 @@
+﻿@model IEnumerable<HemenTanitim.Models.ciroAylik>
+
+@{
+    ViewBag.Title = "ciroYillik";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>Ciro Aylık</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Ciro Aylık</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="line-chart" style="height: 200px;"></div>
+                    </div>
+
+
+                    <div class="box-header">
+                        <div class="box-title">
+
+                            <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                                    Filtreleme seçenekleri
+                                                                        <span class="caret"></span>
+                                </button>
+                                <ul role="menu" class="dropdown-menu">
+
+                                    <li role="presentation">
+                                        <a href="@Url.Action("ciroAylik", new { yil = "2015" })">2015</a>
+                                    </li>
+
+                                    <li role="presentation">
+                                        <a href="@Url.Action("ciroAylik", new { yil = "2016" })">2016</a>
+                                    </li>
+
+                                    <li role="presentation">
+
+                                        <a href="@Url.Action("ciroAylik", new { yil = "2017" })">2017</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="@Url.Action("ciroAylik", new { yil = "2018" })">2018</a>
+
+                                    </li>
+                                    <li role="presentation">
+
+                                        <a href="@Url.Action("ciroAylik", new { yil = "2019" })">2019</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="@Url.Action("ciroAylik", new { yil = "2020" })">2020</a>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+
+                            <a href="@Url.Action("ExceleAktar", new { paramaterName = "ciroAylik" })" class="btn btn-default btn-flat">
+                                <i class="fa fa-download"></i>&nbsp;
+                                Excel'e aktar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive" style="overflow:hidden">
+
+                        
+                        <table id="tblListe" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Ay)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Toplam)
+                                    </th>
+                                 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Ay
+                                        </td>
+                                        <td>
+                                             @String.Format("{0:N}", item.Toplam) TL
+                                        </td>
+                                     
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    @Scripts.Render("~/bundles/raphael")
+    @Scripts.Render("~/bundles/morris")
+
+
+    <script>
+        $(function () {
+
+            var result = [];
+
+            $.ajax({
+
+                url: "@Url.Action("ciroAylikGrafikTablosu")",
+
+                type: "GET",
+
+                data: {},
+
+                success: function (data) {
+
+                    $.each(data, function (id, book) {
+                        
+                        result.push({ "month": book.Ay, "value":  book.Toplam});
+                    });
+
+                    var line = new Morris.Line({
+                        element: 'line-chart',
+                        resize: true,
+                        data: result,
+                        xkey: 'month',
+                        ykeys: ['value'],
+                        labels: ["Toplam"]
+
+                    });
+
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+
+            $("#ciroAylik").addClass("active");
+
+        });
+
+
+
+    </script>
+
+}
+
+
+

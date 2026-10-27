@@ -1,0 +1,258 @@
+
+@model HemenTanitim.Models.GenelBilgiler
+@using Resources;
+
+
+
+<div class="form-group">
+    <div class="col-md-10">
+
+        <img src="@Model.logo)"  height="68" class="img-thumbnail" />
+
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-10">
+        <label for="foto">Fotoðraf seç:</label>
+        <input type="file" name="foto" id="file1" />
+    </div>
+</div>
+
+
+
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Site Bilgileri</a></li>
+        <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO Ayarlarý</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Google Ayarlarý</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Facebook Ayalarlarý</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Twitter Ayarlarý</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+        <br />
+   
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.firmaResmiAdi)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.firmaResmiAdi, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.firmaResmiAdi)
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.firmaAdi)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.firmaAdi, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.firmaAdi)
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.yetkiliAdi)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.yetkiliAdi, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.yetkiliAdi)
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.mail)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.mail, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.mail)
+    </div>
+</div>
+
+
+
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.mail2)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.mail2, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.mail2)
+    </div>
+</div>
+
+
+
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.telefon)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.telefon, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.telefon)
+    </div>
+</div>
+
+
+
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.fax)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.fax, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.fax)
+    </div>
+</div>
+
+
+
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.canliDestekNumarasi)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.canliDestekNumarasi, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.canliDestekNumarasi)
+    </div>
+</div>
+
+
+
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.adres)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.adres, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.adres)
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.vergiNo)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.vergiNo, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.vergiNo)
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.vergiDairesi)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.vergiDairesi, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.vergiDairesi)
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.slogan)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.slogan, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.slogan)
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="form-group">
+    <label class="control-label col-lg-4">@Html.LabelFor(model => model.linkedAdresi)</label>
+    <div class="col-lg-4">
+        @Html.TextBoxFor(model => model.linkedAdresi, new { @class = "form-control", @id = "required2", @name = "required2" })
+        @Html.ValidationMessageFor(model => model.linkedAdresi)
+    </div>
+</div>*@
+
+
+
+
+
+
+
+</div>
+
+        <div role="tabpanel" class="tab-pane" id="seo">
+            <br />
+            <div class="form-group">
+                <label class="control-label col-lg-4">@Html.LabelFor(model => model.title)</label>
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(model => model.title, new { @class = "form-control", data_toggle = "tooltip", data_placement = "top", title = "Tooltip on top" })
+                    @Html.ValidationMessageFor(model => model.title)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-lg-4">@Html.LabelFor(model => model.metaDescription)</label>
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(model => model.metaDescription, new { @class = "form-control", data_toggle = "tooltip", data_placement = "top", title = "Tooltip on top" })
+                    @Html.ValidationMessageFor(model => model.metaDescription)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-lg-4">@Html.LabelFor(model => model.metaKeywords)</label>
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(model => model.metaKeywords, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.metaKeywords)
+                </div>
+            </div>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <br />
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">@Html.LabelFor(model => model.haritaKonu)</label>
+                    <div class="col-lg-10">
+                        @Html.TextAreaFor(model => model.haritaKonu, new { @class = "form-control", @id = "required2", @name = "required2" })
+                        @Html.ValidationMessageFor(model => model.haritaKonu)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">@Html.LabelFor(model => model.GoogleAnalysticId)</label>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(model => model.GoogleAnalysticId, new { @class = "form-control", @id = "required2", @name = "required2" })
+                        @Html.ValidationMessageFor(model => model.GoogleAnalysticId)
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-lg-2">@Html.LabelFor(model => model.facebookAdresi)</label>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(model => model.facebookAdresi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                        @Html.ValidationMessageFor(model => model.facebookAdresi)
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="settings">
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-lg-2">@Html.LabelFor(model => model.TwitterKullaniciAdi)</label>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(model => model.TwitterKullaniciAdi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                        @Html.ValidationMessageFor(model => model.TwitterKullaniciAdi)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">@Html.LabelFor(model => model.tweetAdresi)</label>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(model => model.tweetAdresi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                        @Html.ValidationMessageFor(model => model.tweetAdresi)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+</div>

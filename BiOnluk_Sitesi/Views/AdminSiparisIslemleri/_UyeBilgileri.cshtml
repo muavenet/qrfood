@@ -1,0 +1,45 @@
+﻿@model HemenTanitim.Models.ApplicationUser
+
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-2">Başlıklar</th>
+            <th>İçerikler</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                <span>Kullanıcı adı</span>
+            </td>
+            <td>
+                @Model.UserName
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>Telefon numarası</span>
+            </td>
+            <td>
+                @Model.PhoneNumber
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>Email</span>
+            </td>
+            <td>
+                @Model.Email
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+

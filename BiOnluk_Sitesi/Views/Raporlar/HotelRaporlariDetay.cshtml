@@ -1,0 +1,211 @@
+﻿@model List<HemenTanitim.Models.SiparisBilgileri>
+
+@{
+    ViewBag.Title = "Hotel Raporu";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+@{string sonuc = "";}
+
+<style>
+    .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 12px !important;
+    }
+</style>
+
+
+
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Hotel listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class="col-md-12">
+                        <br />
+                        <div class="lbl-cnt">
+                            <div class="fld inline">
+                                <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                    <p class="pull-left">
+
+                                       
+                                    </p>
+
+                                    <p class="pull-right">
+
+                                        <select class="form-select btn btn-default" aria-label="Default select example" id="durumlar_drop">
+                                            <option value="3" selected>Teslim Edildi</option>
+                                            <option value="2">Yolda Olanlar</option>
+                                            <option value="1">Hazırlanmakta Olanlar</option>
+                                            <option value="4">İptal Siparişler</option>
+                                        </select>
+
+                                        <input type="date" id="ilktarih" class="btn" /> /
+                                        <input type="date" id="sontarih" class="btn" />
+
+                                        <a href="#" id="tariheGoreCek" class="btn btn-default"><i class="fa fa-search"></i> Arama Yap</a>
+                                    </p>
+
+
+
+                                </div>
+                            </div><!-- /.fld -->
+                        </div><!-- /.lbl-cnt -->
+                        <!-- tools box -->
+                    </div><!-- /.box-header -->
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Sipariş İçerik
+                                    </th>
+                                    <th>
+                                        Sipariş Durumu
+                                    </th>
+                                    <th>
+                                        Tarih
+                                    </th>
+
+                                    <th>
+                                        Tutar
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                    if (item.Durumu == 3)
+                                    { sonuc = "Teslim Edildi"; }
+                                    else if (item.Durumu == 2)
+                                    { sonuc = "Yola çıktı"; }
+                                    else if (item.Durumu == 1)
+                                    { sonuc = "Hazırlanmakta"; }
+                                    else if (item.Durumu == 4)
+                                    { sonuc = "İptal Sipariş"; }
+
+                                    <tr>
+                                        <td>
+                                            @Html.Raw(item.IlanAciklama.TrimFrontIfLongerThan(50).Replace("<br />", ""))
+                                        </td>
+                                        <td>
+                                            <b>@Html.Raw(sonuc)</b>
+                                        </td>
+                                        <td>
+                                            @item.SiparisTarihi
+                                        </td>
+                                        <td>
+                                            <b>@item.Tutar</b>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-success" href="@Url.Action("Detay", "AdminSiparisIslemleri", new { id= item.SiparisId})">Detaylar</a>
+                                        </td>
+                                    </tr>
+                                 
+                                }
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <h4>Toplam tutar  <strong>@ViewBag.toplam TL</strong></h4>
+                                    </td>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+<input id="hotelId"
+       name="hotelId"
+       type="hidden"
+       value="@ViewContext.RouteData.Values["id"]" />
+
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    <script type="text/javascript">
+        var date = new Date();
+
+        var day = ("0" + date.getDate()).slice(-2);
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+
+        var month_once = ("0" + (date.getMonth())).slice(-2);
+
+        var today = date.getFullYear() + "-" + (month) + "-" + (day);
+        var birayonce = date.getFullYear() + "-" + (month_once) + "-" + (day);
+
+        $('#sontarih').val(today);
+        $('#ilktarih').val(birayonce);
+
+        $("#tariheGoreCek").click(function () {
+
+            console.log($('#hotelId').val());
+
+            var ilktarih = $("#ilktarih").val();
+            var sontarih = $("#sontarih").val();
+            var durum = $("#durumlar_drop").val();
+            var hotId = $("#hotelId").val();
+
+            var url = "/Raporlar/HotelRaporlariDetay/" + hotId + "/" + durum + "/" + ilktarih + "/" + sontarih + "";
+
+            location.href = url;
+
+
+
+
+        });
+
+
+
+        $(document).ready(function () {
+
+            $("#HotelRaporlari").addClass("active");
+
+        });
+
+
+
+    </script>
+
+
+
+}
+
+

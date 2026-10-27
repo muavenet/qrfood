@@ -1,0 +1,64 @@
+﻿@model IEnumerable<HemenTanitim.Models.UrunListele>
+
+@{
+    ViewBag.Title = "Arama";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Arama sonucu bulunan ürün adedi : ( @Model.Count() )</h2>
+
+<div class="row">
+
+    <br />
+
+    <div class="col-lg-2">
+        <div class=" panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Kategoriler</h3>
+            </div>
+
+            <div class="panel-body">
+                @{Html.RenderAction("Index", "KategoriListesiGetir");}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12 pull-right">
+
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Anasayfa</a></li>
+            <li class="active">@ViewBag.kategoriAdi</li>
+
+        </ol>
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.kategoriAdi <span class="pull-right">( @Model.Count() ) adet ürün gösteriliyor</span></h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col-md-2">
+
+
+
+                            <a href="@Url.Action("Index","UrunDetay", new { ID = item.Id})">
+                                <img src="@item.ResimYolu" class="img img-thumbnail" style="max-height: 125px !important; min-height: 125px !important; min-width: 150px !important" />
+                            </a>
+                            <br />
+
+                            <div class="text-center">
+                                <a href="@Url.Action("Index","UrunDetay", new { ID = item.Id})"> @item.UrunAdi.TrimFrontIfLongerThan(20)</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>  

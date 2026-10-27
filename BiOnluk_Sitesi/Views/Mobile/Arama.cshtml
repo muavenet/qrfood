@@ -1,0 +1,13 @@
+﻿
+@{
+	ViewBag.Title = "Arama";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	span.k-widget{
+		border-bottom:2px solid #ccc !important;
+	}
+</style>
+
+@{Html.RenderAction("_BasitArama", "Filtre");}

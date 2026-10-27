@@ -1,0 +1,99 @@
+﻿@model IEnumerable<HemenTanitim.Models.AnaKategoriler>
+
+<ul class="dropdown-menu category-change pull-right" id="filtre_dropdown">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@item.link" title="@item.KategoriAdi">@item.KategoriAdi</a>
+        </li>
+
+    }
+</ul>
+
+
+
+@*<div class="section category-ad text-center">
+        <div class="section-title">
+            <h4>Site Kategorileri</h4>
+        </div>
+        <ul class="category-list">
+            @foreach (var item in Model)
+            {
+                       <li class="category-item">
+
+                           <a href="@Url.RouteUrl("Kategoriler", new { anaKategoriAdi = item.KategoriAdi.ToSeoUrl(), altKategoriAdi = item.KategoriAdi.ToSeoUrl(), altKategoriId = item.ID, anaKategoriId = item.ID, sortOrder = "alfabetik" })"
+                              >
+
+                               <span class="category-title">@item.KategoriAdi</span>
+
+                           </a>
+                        </li>
+            }
+        </ul>
+    </div>*@
+
+
+@*<div class="category-section">
+        <div class="section-title">
+            <h4>Browse Cars By Makes</h4>
+            <h5>We currently have 94 cars available</h5>
+        </div>
+        <div class="cars-category">
+            <div class="category-menu">
+                <ul>
+                    <li><a href="categories-main.html">Audi (10)</a></li>
+                    <li><a href="categories-main.html">BMW (4)</a></li>
+                    <li><a href="categories-main.html">Chevrolet (5)</a></li>
+                    <li><a href="categories-main.html">Daihatsu (4)</a></li>
+                </ul>
+
+        </div><!-- cars category -->
+    </div><!-- category section -->
+    </div>*@
+
+@*<div class="category-section">
+        <div class="section-title">
+            <h4>Sektörel Kategoriler</h4>
+
+        </div>
+        <div class="cars-category">
+
+
+            @{int sayi = 0;}
+            @foreach (var item in Model)
+            {
+
+                if (sayi % 4 == 0)
+                {
+                    @Html.Raw("<div class='category-menu'>");
+                    @Html.Raw("<ul>");
+                }
+
+                @Html.Raw("<li><a href='" + Url.RouteUrl("Kategoriler", new { anaKategoriId = item.Id, anaKategoriAdi = item.KategoriAdi.turkceSeoUrl(), sortOrder = "en_yeniler", page = 1 }) + "'><i class='icofont icofont-hand-drawn-alt-right'></i>  " + item.KategoriAdi + "</a></li>");
+
+                 sayi++;
+
+                if (sayi % 4 == 0)
+                {
+                    @Html.Raw("</ul>");
+                    @Html.Raw("</div>");
+
+                }
+
+            }
+
+
+        </div>
+    </div>*@
+
+@*@foreach (var item in Model)
+    {
+        <li class="category-item">
+
+            <a href="@Url.RouteUrl("Kategoriler", new { anaKategoriAdi = item.KategoriAdi.ToSeoUrl(), altKategoriAdi = item.KategoriAdi.ToSeoUrl(), altKategoriId = item.ID, anaKategoriId = item.ID, sortOrder = "alfabetik" })">
+
+                <span class="category-title">@item.KategoriAdi</span>
+
+            </a>
+        </li>
+    }*@

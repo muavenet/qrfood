@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<HemenTanitim.Models.AltKategoriEkle>
+
+<style>
+    .d-flex {
+        display: -webkit-box !important;
+    }
+
+    .osahan-quantity {
+        display: inline-block !important;
+        height: auto !important;
+        overflow: inherit;
+        padding: 5px;
+        margin: 2px;
+    }
+
+        .osahan-quantity .qty {
+            text-align: center;
+          
+            background: #fff3f4;
+            font-weight: 500;
+            color: black;
+            font-size:13px!important;
+            }
+</style>
+
+<div class="d-flex align-items-center">
+
+
+
+
+    @foreach (var item in Model)
+    {
+        <div class="osahan-quantity">
+            @*<input type="text" name="quantity" value="@item.KategoriAdi" title="Qty" class="qty" onclick="redirect(@item.Id)">*@
+            <a class="qty"  href="/UrunListesi/AltKategoriler/@item.Id/@item.KategoriAdi">@item.KategoriAdi </a>
+        </div>
+    }
+
+
+</div>
+
+<script>
+    //function redirect(Id, Name) {
+    //    window.location.href = '/UrunListesi/AltKategoriler/' + Id + "/xaasdas";
+    //}
+</script>

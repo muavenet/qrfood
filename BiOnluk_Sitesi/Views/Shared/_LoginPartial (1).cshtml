@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNet.Identity;
+@using HemenTanitim.Models;
+
+@*@inject Microsoft.AspNet.Identity.UserManager<ApplicationUser> userManager;*@
+
+
+
+@{
+    /**/
+
+    object okundumusonuc, okundumu2 = "";
+    var db = WebMatrix.Data.Database.Open("DB150408011842Entities");
+    var sql = "SELECT okundumu FROM Mesajlar WHERE aliciId='" + User.Identity.GetUserId() + "' and okundumu=0";
+    var sql_message = "SELECT ReadOn FROM Message WHERE receiverId='" + User.Identity.GetUserId() + "' and ReadOn is NULL";
+    okundumu2 = db.QueryValue(sql_message);
+    okundumusonuc = db.QueryValue(sql);
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <nav id="main-nav">
+        <ul class="second-nav">
+            <li>
+                <a href="index.html"><i class="feather-grid mr-2"></i> Intro</a>
+                <a href="@Url.Action("Index", "AdminDasboard")" title="Admin Paneli"> <i class="icon fa fa-user"></i> @User.Identity.Name</a>
+            </li>
+        </ul>
+    </nav>
+}
+else
+{
+    <nav id="main-nav">
+        <ul class="second-nav">
+            <li><a href="@Url.Action("SatinAldiklarim", "MusteriPaneli")"><i class="feather-grid mr-2"></i> My Orders</a>
+        </ul>
+    </nav>
+}
+

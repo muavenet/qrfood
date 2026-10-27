@@ -1,0 +1,27 @@
+﻿
+
+#tblListe_length, #tblListe_previous, #tblListe_next, #tblListe_info {
+	display: none !important;
+}
+
+.table-bordered, .table-bordered > thead > tr > th {
+	border: none !important;
+}
+
+	.table-bordered > tbody > tr > td {
+		border: none !important;
+		text-align: left !important;
+	}
+
+.table > thead:first-child > tr:first-child > th {
+	text-align: left !important;
+}
+
+.table.dataTable thead .sorting:first-child, .table.dataTable thead .sorting:nth-child(2), .table.dataTable thead .sorting:nth-child(8) {
+	background: none !important;
+}
+
+.table-striped > tbody > tr > td {
+	height: 60px !important;
+	line-height: 60px;
+}

@@ -1,0 +1,121 @@
+﻿@model HemenTanitim.Models.GenelBilgiler
+
+
+
+
+<div class="links-social inner-top-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <!-- ============================================================= CONTACT INFO ============================================================= -->
+                <div class="contact-info">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <a href="@Url.Action("Index","Home")">
+
+                                <img src="/Content/uploads/@Model.logo" alt="" height="68">
+                            </a>
+                        </div><!-- /.logo -->
+
+                    </div><!-- /.footer-logo -->
+                    <div class="module-body m-t-20">
+                        <p class="about-us"> @Model.slogan</p>
+
+                        <div class="social-icons">
+
+                            <a href="@Model.facebookAdresi" class='active'><i class="icon fa fa-facebook"></i></a>
+                            <a href="@Model.tweetAdresi"><i class="icon fa fa-twitter"></i></a>
+                            <a href="@Model.linkedAdresi"><i class="icon fa fa-linkedin"></i></a>
+                            @*<a href="#"><i class="icon fa fa-rss"></i></a>
+                                <a href="#"><i class="icon fa fa-pinterest"></i></a>*@
+                        </div><!-- /.social-icons -->
+                    </div><!-- /.module-body -->
+                </div><!-- /.contact-info -->
+                <!-- ============================================================= CONTACT INFO : END ============================================================= -->
+            </div><!-- /.col -->
+            
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="module-heading outer-bottom-xs">
+                    <h4 class="module-title">Kategoriler</h4>
+                </div><!-- /.module-heading -->
+                <div class="module-body">
+                    <ul class='list-unstyled'>
+                        <li><a href="#">Kategoriler</a></li>
+                        <li><a href="#">Kategoriler</a></li>
+                        <li><a href="#">Kategoriler</a></li>
+                        <li><a href="#">Kategoriler</a></li>
+                        <li><a href="#">Kategoriler</a></li>
+                    </ul>
+                </div><!-- /.module-body -->
+            </div><!-- /.col -->  
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+            <!-- ============================================================= LATEST TWEET============================================================= -->
+            @{Html.RenderAction("_LastTweets", "FrontEndModules");}
+            <!-- ============================================================= LATEST TWEET : END ============================================================= -->
+        </div><!-- /.col -->
+            <div class="col-xs-12 col-sm-6 col-md-3">
+            <!-- ============================================================= INFORMATION============================================================= -->
+            <div class="contact-information">
+                <div class="module-heading">
+                    <h4 class="module-title">MOBİLYA.COM</h4>
+                </div><!-- /.module-heading -->
+                <div class="module-body outer-top-xs">
+                    <ul class="toggle-footer" style="">
+                        <li class="media">
+                            <div class="pull-left">
+                                <span class="icon fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </div>
+                            <div class="media-body">
+                                <p>@Model.adres</p>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="pull-left">
+                                <span class="icon fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-mobile fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </div>
+                            <div class="media-body">
+                                <p>Telefon : @Model.telefon<br>Fax : @Model.fax</p>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="pull-left">
+                                <span class="icon fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </div>
+                            <div class="media-body">
+                                <span><a href="#">@Model.mail</a></span><br>
+                                <span><a href="#">@Model.mail2</a></span>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div><!-- /.module-body -->
+            </div><!-- /.contact-timing -->
+            <!-- ============================================================= INFORMATION : END ============================================================= -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+</div><!-- /.links-social -->
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', @Model.GoogleAnalysticId]);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>

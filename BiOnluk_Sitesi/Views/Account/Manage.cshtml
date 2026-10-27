@@ -1,0 +1,64 @@
+﻿@using HemenTanitim.Models;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Şifremi değiştir";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+<div class="ads-info">
+	<div class="row">
+		<div class="col-sm-6 col-md-3">
+			<div class="my-reks section">
+				<div class="padding-left-0">
+					<div class="form-group">
+						<i class="fa fa-gear fa-lg"></i>
+
+						<strong><a href="/MusteriPaneli/BilgileriDegistir_Anasayfa" >Profil Ayarları</a></strong>
+
+					</div>
+				</div>
+				<div>
+					<div class="form-group">
+
+						<i class="fa fa-clock-o fa-lg"></i>  <strong><a href="@Url.Action("Manage", "Account", new { title = "Şifre değiştir" })" class="text-info">Şifre Değiştir</a></strong>
+					</div>
+				</div>
+				<hr />
+				<div>
+					<div class="form-group">
+						<i class="fa fa-heart fa-lg"></i>  <strong><a href="http://gokturkotolastik.xyz/MusteriPaneli/Mesajlarim_">Destek</a></strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-9">
+			<div class="my-reks section">
+
+
+				<h2>@ViewBag.Title</h2>
+
+				<p class="text-success">@ViewBag.StatusMessage</p>
+
+				@if (ViewBag.HasLocalPassword)
+				{
+					@Html.Partial("_ChangePasswordPartial")
+				}
+				else
+				{
+					@Html.Partial("_SetPasswordPartial")
+				}
+
+				@*<section id="externalLogins">
+				@Html.Action("RemoveAccountList")
+				@Html.Partial("_ExternalLoginsListPartial", new HemenTanitim.Models.ExternalLoginViewModel() { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
+			</section>*@
+
+				<br />
+			</div>
+		</div>
+	</div></div>
+
+        @section Scripts {
+
+            @Scripts.Render("~/bundles/jqueryval")
+        }

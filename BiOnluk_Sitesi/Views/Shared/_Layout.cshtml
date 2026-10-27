@@ -1,0 +1,219 @@
+﻿	<!DOCTYPE html>
+	<html>
+    <head>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Language" content="tr" />
+
+
+
+
+
+        @RenderSection("metaTags", required: false)
+
+        @RenderSection("header", required: false)
+
+        @*@Styles.Render("~/Content/css")*@
+
+
+
+        @*@Scripts.Render("/bundles/modernizr")*@
+
+        @*<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'>*@
+        <!-- icons -->
+        <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/favicon/site.webmanifest.json">
+
+
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <!-- icons -->
+        <!-- recaptche -->
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <!-- recaptche -->
+
+
+        @*<script src="https://kendo.cdn.telerik.com/2017.1.223/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>*@
+
+
+     
+
+    </head>
+
+    <body>
+
+        <!--<header id="header" class="clearfix">
+        <nav class="navbar navbar-default   box-shadow-genel">
+            <div class="container" style="width:1445px">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/UrunListesi/3/grafik-tasar%C4%B1m/sosyal-medya-tasar%C4%B1mlar%C4%B1/0/en_yeniler/1"
+                       style="padding-top:0 !important;  margin-left: 0 !important;">
+                        <img class="img-responsive" src="~/Content/FrontEnd/images/logo.png" alt="Logo" style="height:60px">
+                    </a>
+                </div>
+                <div class="navbar-right">
+
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav" style="width:100%">
+
+
+
+                            @{Html.RenderAction("Index", "KategoriListesiGetir");}
+
+
+
+                            @*@if (Request.IsAuthenticated)
+                            {
+                                <li class="pull-right">
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <a class="pull-right" href="javascript:document.getElementById('logoutForm').submit()" role="menuitem" tabindex="-1" title="Çıkış">
+                                            <i class="icon fa fa-sign-out"></i>
+
+                                        </a>
+                                    }
+                                </li>
+                                <li class="pull-right">@{Html.RenderAction("_Sepet", "Home");}</li>
+                            }*@
+                            @*@Html.Partial("_LoginPartial")*@
+
+                            @*<li>
+                                <a href="/">SEKTÖREL YAZILAR</a>
+                            </li>*@
+                        <!--</ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>-->
+
+
+        @RenderBody()
+
+
+
+
+        @*@if (Request.Browser.IsMobileDevice)
+        {
+            <style>
+                .icon-bar {
+                    width: 100%; /* Full-width */
+                    background-color: #555; /* Dark-grey background */
+                    overflow: auto; /* Overflow due to float */
+                    position: fixed;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                }
+
+                    .icon-bar a {
+                        float: left; /* Float links side by side */
+                        text-align: center; /* Center-align text */
+                        width: 25%; /* Equal width (5 icons with 20% width each = 100%) */
+                        padding: 12px 0; /* Some top and bottom padding */
+                        transition: all 0.3s ease; /* Add transition for hover effects */
+                        color: white; /* White text color */
+                        font-size: 14px; /* Increased font size */
+                    }
+
+                        .icon-bar a:hover {
+                            background-color: #000; /* Add a hover color */
+                        }
+
+                    .icon-bar .active {
+                        background-color: #4CAF50; /* Add an active/current color */
+                    }
+            </style>
+
+            <div class="icon-bar">
+                <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/34"><i class="fa fa-arrow-circle-o-right"></i><br />İlanlar</a>
+                <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "AnaKategoriler" ? "active" : "")" href="/Mobile/AnaKategoriler"><i class="fa fa-list-alt"></i><br />Kategoriler</a>
+                <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Arama" ? "active" : "")" href="/Mobile/Arama"><i class="fa fa-search"></i><br />Arama</a>
+                <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Panel" ? "active" : "")" href="/Mobile/Panel"><i class="fa fa-dashboard"></i><br />Panel</a>
+            </div>
+        }
+        else
+        {
+            Html.RenderAction("_Footer", "FrontEndModules"); 
+        }*@
+
+        @*<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+        <script src="~/Scripts/knockout-3.4.2.js"></script>
+
+        <script src="/signalr/hubs"></script>*@
+
+
+        @Scripts.Render("~/bundles/jquery")
+
+        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+        @Scripts.Render("~/bundles/bootstrap")
+
+
+
+
+        @RenderSection("scripts", required: false)
+
+        <script>
+
+            var $LogOff = jQuery.noConflict();
+
+            $LogOff(document).ready(function () {
+
+                $LogOff.ajaxSetup({
+                    cache: false
+                });
+
+                $LogOff(document).ajaxError(
+                    function (e, request) {
+                        if (request.status == 401) {
+                            //alert("Your session has expired. Please login again to continue.");
+                            window.location = "/Account/LogOff";
+                        } else {
+
+                        }
+                    }
+                );
+            });
+        </script>
+
+        <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+
+        @RenderSection("scripts_OnlineUser", required: false)
+
+        @*Kullanıcı girişi denetleme*@
+
+        @*<script src="~/js/online_user_Layout.js"></script>*@
+
+        <script src="/signalr/hubs"></script>
+
+    </body>
+</html>

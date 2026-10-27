@@ -1,0 +1,452 @@
+﻿@using HemenTanitim.Models;
+
+@{
+    ViewBag.Title = "IsIlanlari";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@model List<HemenTanitim.Models.store_procedure_IsIlanlariListesi>
+
+
+@{
+    if (String.IsNullOrEmpty(ViewBag.ibanKontrol))
+    {
+        HemenTanitimContext context = new HemenTanitimContext();
+        var user = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+        ViewBag.IlleriGetir = new SelectList(context.iller, "il_id", "il_ad");
+        ViewBag.KategorileriGetir = new SelectList(context.AnaKategorisEkles, "id", "KategoriAdi");
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="z-index:5000">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>İlan vermek için aşağıdaki bilgileri girmeniz gerekiyor</h4>
+                    </div>
+                    <form id="formIcerik" action="" method="post" class="form-vertical">
+                        <div class="modal-body">
+                            <div class="form-group add-image col-md-6" style="padding-left:0">
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ad" name="user_ad" maxlength="30" required>
+                            </div>
+                            <div class="form-group add-image col-md-6">
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Soyad" maxlength="30" name="user_soyad" required>
+                            </div>
+                            <div class="form-group add-image">
+                                <input type="number" class="form-control" aria-describedby="sehir" placeholder="Şehir" name="user_sehir" required>
+                                @@Html.DropDownList("user_uzmanlik_kategorileri", (IEnumerable<SelectListItem>)ViewBag.KategorileriGetir,
+                               new { @class = "form-control smallElements", @style = "padding:0; width:30%" })
+                            </div>
+                            <div class="form-group add-image">
+                                <input type="number" class="form-control" id="tcKimlikMask" aria-describedby="tcKimlik" placeholder="Tc Kimlik" name="user_tckimlikno" required>
+                            </div>
+
+                            <div class="form-group add-image">
+                                <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adres" maxlength="170" name="user_adres" required></textarea>
+                            </div>
+                            <div class="form-group add-image">
+                                <input type="number" class="form-control" aria-describedby="sehir" placeholder="Şehir" name="user_sehir" required>
+                                @@Html.DropDownList("user_sehir", (IEnumerable<SelectListItem>)ViewBag.IlleriGetir, new { @class = "form-control smallElements", @style = "padding:0; width:30%" })
+                            </div>
+                            <div class="form-group add-image">
+                                <input type="text" id="ibanInput" name="ibanInput" class="form-control" aria-describedby="emailHelp" placeholder="Iban Numarası" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-info pull-left" id="btn_eksik_kaydet">Kaydet</button>
+                        </div>
+                    </form>
+                </div> /.modal-content 
+            </div> /.modal-dialog 
+        </div>
+
+        <script src="~/scripts/jquery-ui-1.8.20.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+        <script src="/Scripts/bootstrap.min.js"></script>
+
+        <script>
+
+            var $c = jQuery.noConflict();
+
+            $c(document).ready(function () {
+                $c('#myModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                $c('#ibanInput').mask('SS00 0000 0000 0000 0000 0000 00', {
+
+                });;
+
+                $c('#tcKimlikMask').mask('00000000000', {
+
+                });;
+            });
+
+            $c("#btn_eksik_kaydet").on("click", function () {
+
+                var $myForm = $c('#formIcerik');
+
+                if ($myForm[0].checkValidity()) {
+
+                    $c.ajax({
+                        url: '/MusteriPaneli/Ilan_Vermek_Icın_Eksikleri_Gir',
+                        type: 'POST',
+                        data: new FormData($c('#formIcerik')[0]),
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response == "success") {
+                                $c('#myModal').modal("hide");
+                            }
+                            else
+                                alert(response);
+
+
+                        }
+                    });
+                }
+            });
+
+        </script>
+    }
+}
+
+@if (!Request.Browser.IsMobileDevice)
+{
+
+    <style>
+        label {
+            font-size: 11px !important;
+        }
+
+        .col-md-6 strong, .col-md-4 strong {
+            font-size: 13px !important;
+        }
+
+        #ilanlarim_active_link, #ilanlarim_active_link a, #ilanlarim_active_link small {
+            background: green;
+            color: white;
+        }
+    </style>
+
+    <div class="ads-info">
+        <div class="row">
+            <div class="col-sm-3 ">
+                <!-- recommended-cta -->
+                @{Html.RenderAction("BilgileriDegistir_PartialView", "MusteriPaneli");}
+
+            </div>
+
+            <div class="col-sm-9">
+                <div class="my-reks section">
+                    <div class="col-md-9 no-gutter">
+
+                    </div>
+                    <div class="col-md-3 no-gutter">
+                        <ul class="pager wizard" style="text-align:right">
+                            <li>
+                                <a href="/MusteriPaneli/IsIlanlari_Duzenle/" class="btn btn-large">
+                                    <i class="fa fa-plus-circle"></i>	Yeni İlan Gir
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ad-item -->
+                    @foreach (var item in Model)
+                    {
+
+                        if (item.ilan_silinmesi == false)
+                        {
+                            <div class="adm-item row" style="margin-bottom:20px">
+                                <!-- item-image -->
+                                <div class="item-image-box col-sm-2">
+                                    <div class="item-image">
+                                        <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+                                            <img src="@item.Fotograflar" alt="" style="height:79px">
+                                        </a>
+                                    </div><!-- item-image -->
+                                </div>
+
+                                <div class="item-info col-sm-10">
+                                    <!-- ad-info -->
+                                    <div class="adm-info">
+
+                                        @if (item.adminOnay)
+                                        {
+                                            if (item.durum)
+                                            {
+                                                <h6 class="display-4">
+
+                                                    <a href="#"><i class="fa fa-check"></i> Aktif</a>
+
+
+                                                    @if (item.oneCikarma == true)
+                                                    {
+                                                        <a href="#" style="margin-left:15px">
+                                                            <i class="fa fa-star" style="color: #ffd800"></i>
+                                                            Bu ilan öne Çıkarılmış
+                                                        </a>
+                                                    }
+
+                                                </h6>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <h6><a href="#" style="color:grey"><i class="fa fa-minus"></i>Onay Bekliyor</a></h6>
+
+                                        }
+                                        @*05383786763*@
+
+                                        <h4 class="display-3">
+
+                                            <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+                                                @item.baslik.TrimFrontIfLongerThan(55)
+                                            </a>
+
+                                        </h4>
+                                        <div class="item-cat">
+                                        </div>
+                                    </div><!-- ad-info -->
+                                    <!-- ad-meta -->
+                                    <div class="ad-meta">
+                                        @*<div class="meta-content">
+                                                <span>
+                                                    <img src="@item.ProfilFotografi" alt="Alternate Text" class=""
+                                                         style="border-radius: 50%; width: 28px; height: 25px;" />
+                                                </span>
+                                                <span>@item.KullaniciAdi</span>
+                                            </div>*@
+
+
+                                        <!-- item-info-right -->
+
+                                        <div class="user-option pull-right">
+
+
+                                            @if (item.durum == true)
+                                            {
+                                                if (ViewBag.onecikarmaKontrol != null)
+                                                {
+                                                    if (ViewBag.onecikarmaKontrol == item.isId)
+                                                    {
+                                                        if (item.oneCikarma == false)
+                                                        {
+                                                            <a href="@Url.Action("IsIlanlari_OneCikarAktif", "MusteriPaneli", new { isilanId = item.isId })" data-toggle="tooltip" data-placement="top" title="Öne Çıkar / Doping">
+                                                                <i class="fa fa-star" style="color: #808080"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("IsIlanlari_OneCikarPasif", "MusteriPaneli", new { isilanId = item.isId })" data-toggle="tooltip" data-placement="top" title="Öne Çıkar / Doping">
+                                                                <i class="fa fa-star" style="color: #ffd800"></i>
+                                                            </a>
+                                                        }
+
+
+                                                    }
+                                                }
+                                                else
+                                                {
+
+                                                    <a href="@Url.Action("IsIlanlari_OneCikarAktif", "MusteriPaneli", new { isilanId = item.isId })" data-toggle="tooltip" data-placement="top" title="Öne Çıkar / Doping">
+                                                        <i class="fa fa-star" style="color: #808080"></i>
+                                                    </a>
+
+                                                }
+
+                                                <a href="@Url.Action("IsIlanlari_Durdur", "MusteriPaneli", new {isilanId = item.isId})" data-toggle="tooltip" data-placement="top" title="Durdur">
+                                                    <i class="far fa-pause-circle" style="font-size:16px"></i>
+                                                </a>
+                                            }
+
+
+                                            else
+                                            {
+                                                <a href="@Url.Action("IsIlanlari_AktifEt", "MusteriPaneli", new {isilanId = item.isId})" data-toggle="tooltip" data-placement="top" title="Aktif Et">
+                                                    <i class="fa fa-play" style="color:green;"></i>
+                                                </a>
+                                            }
+
+                                            <a class="online" href="/MusteriPaneli/IsIlanlari_Duzenle/@item.isId" data-toggle="tooltip" data-placement="top" title="Düzenle"><i class="fa fa-pencil"></i> </a>
+
+                                            <a class="" href="@Url.Action("IsIlanlari_IlanSilinme", "MusteriPaneli", new {isilanId = item.isId})"
+                                               data-toggle="tooltip" data-placement="top" title="Sil"
+                                               onclick="return confirm('Simek istediğinize emin misiniz ?')"><i class="fa fa-times"></i></a>
+
+                                        </div><!-- item-info-right -->
+
+
+                                    </div><!-- ad-meta -->
+                                </div><!-- item-info -->
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+            <!-- recommended-cta-->
+
+        </div>
+    </div><!-- row -->
+}
+
+
+else
+{
+    <div class="ads-info">
+        <div class="row">
+
+            <div class="col-sm-8">
+                <div class="my-reks section">
+                    <div class="col-md-9 col-sm-9  no-gutter">
+                        <h2>İlanlarım</h2>
+                    </div>
+                    <div class="col-md-3 col-sm-3  no-gutter">
+                        <ul class="pager wizard" style="text-align:right">
+                            <li>
+                                <a href="/MusteriPaneli/IsIlanlari_Duzenle/" class="btn btn-large">
+                                    <i class="fa fa-plus-circle"></i>	Yeni İlan Gir
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ad-item -->
+                    @foreach (var item in Model)
+                    {
+
+                        if (item.ilan_silinmesi == false)
+                        {
+                            <div class="adm-item row" style="margin-bottom:20px">
+                                <!-- item-image -->
+                                <div class="item-image-box col-sm-2">
+                                    <div class="item-image">
+                                        <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+                                            <img src="@item.Fotograflar" alt="" style="height:175px">
+                                        </a>
+                                    </div><!-- item-image -->
+                                </div>
+
+                                <div class="item-info col-sm-10">
+                                    <!-- ad-info -->
+                                    <div class="adm-info">
+
+                                        @if (item.adminOnay)
+                                        {
+                                            if (item.durum)
+                                            {
+                                                <h6 class="display-4">
+
+                                                    <a href="#"><i class="fa fa-check"></i> Aktif</a>
+
+
+                                                    @if (item.oneCikarma == true)
+                                                    {
+                                                        <a href="#" style="margin-left:15px">	<i class="fa fa-star" style="color: #ffd800"></i> Bu ilan öne Çıkarılmış</a>
+                                                    }
+
+                                                </h6>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <h6><a href="#" style="color:grey"><i class="fa fa-minus"></i>Onay Bekliyor</a></h6>
+
+                                        }
+                                        @*05383786763*@
+
+                                        <h4 class="display-3">
+
+                                            <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+                                                @item.baslik.TrimFrontIfLongerThan(55)
+                                            </a>
+
+                                        </h4>
+                                        <div class="item-cat">
+                                        </div>
+                                    </div><!-- ad-info -->
+                                    <!-- ad-meta -->
+                                    <div class="ad-meta">
+                                        @*<div class="meta-content">
+                                                <span>
+                                                    <img src="@item.ProfilFotografi" alt="Alternate Text" class=""
+                                                         style="border-radius: 50%; width: 28px; height: 25px;" />
+                                                </span>
+                                                <span>@item.KullaniciAdi</span>
+                                            </div>*@
+
+
+                                        <!-- item-info-right -->
+
+                                        <div class="user-option pull-right">
+
+
+                                            @if (item.durum == true)
+                                            {
+                                                if (ViewBag.onecikarmaKontrol != null)
+                                                {
+                                                    if (ViewBag.onecikarmaKontrol == item.isId)
+                                                    {
+                                                        if (item.oneCikarma == false)
+                                                        {
+                                                            <a href="@Url.Action("IsIlanlari_OneCikarAktif", "MusteriPaneli", new { isilanId = item.isId })" data-toggle="tooltip" data-placement="top" title="Öne Çıkar / Doping">
+                                                                <i class="fa fa-star" style="color: #808080"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("IsIlanlari_OneCikarPasif", "MusteriPaneli", new { isilanId = item.isId })" data-toggle="tooltip" data-placement="top" title="Öne Çıkar / Doping">
+                                                                <i class="fa fa-star" style="color: #ffd800"></i>
+                                                            </a>
+                                                        }
+
+
+                                                    }
+                                                }
+                                                else
+                                                {
+
+                                                    <a href="@Url.Action("IsIlanlari_OneCikarAktif", "MusteriPaneli", new { isilanId = item.isId })" data-toggle="tooltip" data-placement="top" title="Öne Çıkar / Doping">
+                                                        <i class="fa fa-star" style="color: #808080"></i>
+                                                    </a>
+
+                                                }
+
+                                                <a href="@Url.Action("IsIlanlari_Durdur", "MusteriPaneli", new {isilanId = item.isId})" data-toggle="tooltip" data-placement="top" title="Durdur">
+                                                    <i class="fa fa-pause" style="font-size:18px"></i>
+                                                </a>
+                                            }
+
+
+                                            else
+                                            {
+                                                <a href="@Url.Action("IsIlanlari_AktifEt", "MusteriPaneli", new {isilanId = item.isId})" data-toggle="tooltip" data-placement="top" title="Aktif Et">
+                                                    <i class="fa fa-play" style="color:green;"></i>
+                                                </a>
+                                            }
+
+                                            <a class="online" href="/MusteriPaneli/IsIlanlari_Duzenle/@item.isId" data-toggle="tooltip" data-placement="top" title="Düzenle"><i class="fa fa-pencil"></i> </a>
+
+                                            <a class="" href="@Url.Action("IsIlanlari_IlanSilinme", "MusteriPaneli", new {isilanId = item.isId})"
+                                               data-toggle="tooltip" data-placement="top" title="Sil"
+                                               onclick="return confirm('Simek istediğinize emin misiniz ?')"><i class="fa fa-times"></i></a>
+
+                                        </div><!-- item-info-right -->
+
+
+                                    </div><!-- ad-meta -->
+                                </div><!-- item-info -->
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+            <!-- recommended-cta-->
+
+        </div>
+    </div><!-- row -->
+}

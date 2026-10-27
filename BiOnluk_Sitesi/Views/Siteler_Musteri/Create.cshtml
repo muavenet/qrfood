@@ -1,0 +1,133 @@
+﻿@model HemenTanitim.Models.MusteriSiteleri
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@using (Html.BeginForm(new { role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+
+
+
+    @Html.ValidationSummary(true)
+
+    <div class="adpost-details">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- /.modal -->
+                   
+                        <fieldset>
+                            <div class="section postdetails">
+                                <h4>Yeni Site Ekle <span class="pull-right">* Zorunlu Alanlar</span></h4>
+
+                                <div class="row form-group add-title">
+                                    <label class="col-sm-4 label-title">Site Adı<span class="required">*</span></label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.siteAdi, new { @class = "form-control smallElements"  })
+                                        @Html.ValidationMessageFor(model => model.siteAdi)
+                                    </div>
+                                </div>
+
+                                <div class="row form-group add-title">
+                                    <label class="col-sm-4 label-title">Site Url<span class="required">*</span></label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.siteUrl, new { @class = "form-control smallElements", placeholder = "Örn: http://orneksite.com" })
+                                        @Html.ValidationMessageFor(model => model.siteUrl)
+                                    </div>
+                                </div>
+
+                                <div class="row form-group add-title">
+                                    <label class="col-sm-4 label-title">Kategori<span class="required">*</span></label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownList("AnaKategoriId", (IEnumerable<SelectListItem>)ViewBag.KategoriId, "Seçiniz", new { @class = "form-control smallElements", @onchange = "AltKategorileriGetir()" })
+                                    </div>
+                                </div>
+
+                                <div class="row form-group add-title">
+                                    <label class="col-sm-4 label-title">Site Kategorisi<span class="required">*</span></label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownList("AltKategoriId", new SelectList(Enumerable.Empty<SelectListItem>(), "KategoriAdi", "Id"), new { @class = "form-control smallElements" })
+                                
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row form-group add-title">
+                                    <label class="col-sm-4 label-title">Aylık Gösterim<span class="required">*</span></label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.aylikGosterim, new { @class = "form-control smallElements  " })
+                                        @Html.ValidationMessageFor(model => model.aylikGosterim)
+                                    </div>
+                                </div>
+
+                                <p class="lead">Site adresinizin diğer değerleri tarafımızdan incelenip güncellenecetir.</p>
+
+                                <div class="checkbox section agreement">
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div><!-- section -->
+
+                            </div>
+                        </fieldset>
+            </div>
+            <div class="col-md-6">
+                <div class="section quick-rules">
+                    <h4>Mevcut Siteleriniz</h4>
+                    <p class="lead"><a href="/TanitimYazisi_Musteri/Create">Satışlarım </a>sayfasından yayında olan ilanlarınızı görebilirsiniz.</p>
+                      <ul>
+                        @foreach (var item in ViewBag.MusteriSiteleri)
+                        {
+                            <li>@item.siteUrl 
+                             
+                                <a class="delete-item pull-right" href="/Siteler_Musteri/Delete?aid=@item.siteId"><i class="fa fa-remove"></i> Kaldır</a>
+                                <a class="remove pull-right" href="/Siteler_Musteri/Edit?aid=@item.siteId"><i class="fa fa-pencil"></i> Düzenle &nbsp; &nbsp;</a>
+                               
+                          </li>
+                        }
+                         
+                                             
+                    </ul>
+                </div>
+            </div>
+        </div><!-- photos-ad -->
+    </div>
+
+}
+
+
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script>
+    function AltKategorileriGetir() {
+
+        var AnaKatId_ = $("#AnaKategoriId").val();
+       
+        var element = $("#AltKategoriId");
+
+
+        $.ajax({
+            url: '/Filtre/HizliAramaaltKategorileriGetir',
+            type: "GET",
+            dataType: "JSON",
+            data: { anaKatId: AnaKatId_ },
+            success: function (cities) {
+
+                element.html("");
+
+                element.append($('<option></option>').val(0).html("Seçiniz"));
+
+                $.each(cities, function (i, city) {
+
+                    element.append(
+                           $('<option></option>').val(city.Id).html(city.KategoriAdi));
+                 
+                });
+            }
+        });
+    }
+</script>

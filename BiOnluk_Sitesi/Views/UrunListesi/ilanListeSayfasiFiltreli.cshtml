@@ -1,0 +1,122 @@
+﻿
+@model MvcPaging.IPagedList<HemenTanitim.Models.UrunListele2>
+
+@using MvcPaging
+
+
+@{
+    var SiralamfiltreAdi = ViewContext.RouteData.Values["sortorder"];
+    var minF_ = ViewContext.RouteData.Values["minFiyat"];
+    var maxF_ = ViewContext.RouteData.Values["maxFiyat"];
+}
+
+<div class="col-sm-8 col-md-9">
+    <div class="section trending-ads cars-ads recommended-ads">
+
+        <div class="featured-top">
+                    
+                <div class="dropdown pull-left">
+                    <!-- category-change -->
+                    <div class="dropdown category-dropdown">
+                        <h5><i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Sıralama :</h5>
+                        <a data-toggle="dropdown" href="#">
+
+                            <span class='change-text'>
+                                @(ViewContext.RouteData.Values["sortOrder"].ToString() == "fiyat_azalan" ? "Fiyat Azalan" : "")
+                                @(ViewContext.RouteData.Values["sortOrder"].ToString() == "fiyat_artan" ? "Fiyat Artan" : "")
+                                @(ViewContext.RouteData.Values["sortOrder"].ToString() == "en_yeniler" ? "En Yeni Siteler" : "")
+                            </span>
+
+                            <i class="fa fa-caret-square-o-down"></i>
+                        </a>
+
+                        @{Html.RenderAction("_SiralamaDropDownListesi","UrunListesi");}
+                    </div><!-- category-change -->
+                </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+              <div class="reks-item ad-item2 row">
+                <div class="item-image-box col-sm-12 col-md-4">
+                    <div class="item-image">
+                        <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.UrunId })" title="@item.UrunAdi ">
+                            <img src="@item.ResimYolu" alt="" class="img-respocive reks-item-image">
+                        </a>
+                    </div><!-- item-image -->
+                    <div class="ad-info">
+                        <div class="item-cat">
+                            <span><a href="#"></a></span>
+                        </div>
+                        <h6 class="item-title"><a href="#"><small>@item.UrunAdi</small></a></h6>
+                        <h3 class="item-price">@String.Format("{0:N}", item.Fiyat) TL</h3>
+                    </div>
+                </div>
+                <div class="cars-ads-box col-sm-12 col-md-8">
+                    <div class="car-info">
+                        <ul>
+                            <li><img src="/Content/FrontEnd/images/googlefavicon.gif" alt="Moz Rank" /> Index: @String.Format("{0:N0}", item.GoogleIndex)</li>
+                            <li><img src="/Content/FrontEnd/images/googlefavicon.gif" alt="Moz Rank" /> NEWS: @(item.NewsKaydi == true ? Html.Raw("<i class='fa fa-check' aria-hidden='true' style='color:#00a651;'></i>") :  Html.Raw("<i class='fa fa-times' aria-hidden='true' style='color:red;'></i>"))</li>
+                            <li><img src="/Content/FrontEnd/images/alexafavicon.jpg" alt="Moz Rank" /> Alexa (TR) : @String.Format("{0:N0}", item.AlexaPuani)</li>
+                        </ul>
+                    </div>
+                    <div class="car-info">
+                        <ul>
+                            <li><img src="/Content/FrontEnd/images/favicomozn.ico" alt="Moz Rank" /> Moz Rank: @item.MozRank</li>
+                            <li><img src="/Content/FrontEnd/images/favicomozn.ico" alt="Moz Domain Otoristesi" /> Moz DA: @item.MozDa</li>
+                            <li><img src="/Content/FrontEnd/images/favicomozn.ico" alt="Moz Sayfa Otoristesi" /> Moz PA: @item.MozPa</li>
+
+
+                        </ul>
+                    </div>
+                    <div class="car-info">
+                        <ul>
+                            <li><i class="fa fa-hourglass" aria-hidden="true"></i><strong> Domain Yaşı : @item.domainYasi </strong></li>
+                            <li><i class="fa fa-rss-square" aria-hidden="true"></i><strong> Yayın : @item.yayinYasi</strong></li>
+                            <li><img src="/Content/FrontEnd/images/dmozfavicon.gif" alt="Moz Rank" />  DMOZ Kaydı : @(item.DmozKaydi == true ? Html.Raw("<i class='fa fa-check' aria-hidden='true' style='color:#00a651;'></i>") :  Html.Raw("<i class='fa fa-times' aria-hidden='true' style='color:red;'></i>")) </li>
+                        </ul>
+                    </div>
+                    <div class="ad-meta ad-meta2">
+                        <div class="meta-content">
+                            @*<span class="dated"><a href="#">Haber Siteleri</a></span>*@
+
+                        </div>
+                        <!-- item-info-right -->
+
+                        <div class="user-option pull-right">
+
+                            <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.UrunId })" data-toggle="tooltip" data-placement="top" title="Siteyi İncele" data-original-title="Siteyi İncele">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div><!-- item-info-right -->
+                    </div><!-- ad-meta -->
+                </div>
+            </div><!-- reks-item -->
+        }
+
+    </div>
+
+    <div class="pager">
+
+
+
+        @Html.Raw(Html.Pager(
+                        new Options
+                        {
+                            PageSize = Model.PageSize,
+                            TotalItemCount = Model.TotalItemCount,
+                            CurrentPage = Model.PageNumber,
+                            ItemTexts = new ItemTexts() { Next = "<i class='fa fa-chevron-right'></i>", Previous = "<i class='fa fa-chevron-left'></i>" },
+                            //ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+                            Size = Size.normal,
+                            Alignment = Alignment.centered,
+                            IsShowControls = true,
+                            IsShowFirstLast = false,
+                            IsShowPages = true
+                        }, new { controller = "UrunListesi", action = "FiltreliUrunler" }))
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,232 @@
+﻿@model IEnumerable<HemenTanitim.Models.Urunler>
+
+@using GridMvc.Html
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+ <link href="~/Content/bootstrap-checkbox.css" rel="stylesheet" />
+
+
+<script src="~/Scripts/bootstrap-checkbox.js"></script>
+
+
+<script>
+
+         $('input[type="checkbox"].style2').checkbox({
+             buttonStyle: 'btn-base',
+             buttonStyleChecked: 'btn-success',
+             checkedClass: 'icon-check',
+             uncheckedClass: 'icon-check-empty'
+         });
+
+         $('input[type="checkbox"].large').checkbox({
+             buttonStyle: 'btn-link btn-large',
+             checkedClass: 'icon-check',
+             uncheckedClass: 'icon-check-empty'
+         });
+
+         $('.style2').click(function () {
+
+            $('input[type=checkbox]').attr("checked", this.checked);
+
+        });
+
+        $(function () {
+
+            $('#save_value').click(function () {
+                var val = [];
+                var gd = [];
+
+                $(':checkbox:checked').each(function (i) {
+                    if ($(this).attr("id") != "select-all-checkbox")
+                    {
+                        val[i] = $(this).attr("id");
+                        gd[i] = $(this).attr("gd");
+                    }
+
+                });
+
+                $.ajax({
+
+                    url: '@Url.Action("SecilenleriSil")',
+                    type: "POST", dataType: "json",
+                    data: { Id: val, gd: gd},
+                    success: function (data) {
+                        if (data == "hata")
+                            alert("Lütfen seçim yapınız");
+                        else
+                            location.reload();
+                    }
+
+                });
+
+            });
+
+
+        });
+
+</script>
+
+<style>
+    .text-center{text-align:left}
+</style>
+<aside class="right-side">
+
+    @*<div class="form-inline">
+
+        <div class="well well-lg">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="select-all-checkbox" class="style2"> Hepsini seç
+                </label>
+            </div>
+        </div>
+    </div>*@
+
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.SiralamaTuru
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Ürün işlemleri</a></li>
+            <li class="active">Ürün listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <div class="col-md-12"><br />
+                            <a href="@Url.Action("Create", "UrunIslemleri")" class="btn btn-success" style="color:white">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp;Yeni ürün Ekle</a>   &nbsp; 
+                            <button id="save_value" name="save_value" class="btn btn-danger" style="text-align:left" onclick="return confirm('Silmek istediğinizden emin misiniz?')">
+                                <span class="glyphicon glyphicon-trash"></span>&nbsp; Seçilenleri sil
+                            </button>
+
+                            <br />
+                            <br />
+
+                            <div class="lbl-cnt">                              
+                                <div class="fld inline">
+                                    <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                                            Filtreleme seçenekleri ile sırala...
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul role="menu" class="dropdown-menu">
+
+                                           
+                                                    <li role="presentation">
+
+                                                    <a href="@Url.Action("Index", new { siralama = "Vitrin" })">Vitrin ürünleri</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a href="@Url.Action("Index",  new { siralama = "Özel ürünler" })">Özel ürünler</a>
+
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a href="@Url.Action("Index",  new { siralama = "En çok satılan" })">En çok satılan ürünler</a>
+
+                                                    </li>
+
+                                                    <li role="presentation">
+                                                        <a href="@Url.Action("Index",  new { siralama = "" })">Tüm ürünler</a>
+
+                                                    </li>
+
+                                        </ul>
+                                    </div>
+                                </div><!-- /.fld -->
+                            </div><!-- /.lbl-cnt -->
+
+                       
+                                <hr />
+                                <!-- tools box -->
+                          </div><!-- /.box-header -->
+                   
+                     <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                 <th></th>
+                                    <th>@Html.DisplayNameFor(model => model.UrunId)</th>
+                                    <th>Üye Id</th>
+                                    <th>Site Id</th>
+                                    <th>Site Adı</th>
+                                    <th>@Html.DisplayNameFor(model => model.Fiyat)</th>
+                                   
+                                 
+                                    <th>Tarih</th>
+                                    <th></th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.CheckBox("checkKontrol", false, new { Id = item.UrunId, gd = item.Guid })
+                                        </td>
+
+                                        <td>@item.UrunId</td>
+                                        <td>@item.UyeId</td>
+                                        <th>@item.siteId</th>
+                                        <td>@item.UrunAdi</td>
+                                      
+                                        <td style="text-align:right;">
+                                            @item.Fiyat <i class="fa fa-turkish-lira"></i>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            @item.Tarih
+                                        </td>
+                                     
+                                        <td>@Html.ActionLink("Düzenle", "Edit", new { id = item.UrunId }) | @Html.ActionLink("Sil", "Delete", new { id = item.UrunId })</td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                    
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</aside>
+
+
+
+
+@section scriptFooter{
+
+
+
+
+@Scripts.Render("~/bundles/datatables")
+
+<script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#urunler").addClass("active");
+        $("#urunler_menu").css("display", "block");
+        $("#urunler_liste").addClass("active");
+        $("#urunler_arrow").addClass("fa-angle-down");
+    });
+</script>
+
+    }
+

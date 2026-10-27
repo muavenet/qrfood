@@ -1,0 +1,228 @@
+﻿@using Microsoft.AspNet.Identity;
+@using HemenTanitim.Models;
+
+@*@inject Microsoft.AspNet.Identity.UserManager<ApplicationUser> userManager;*@
+
+<img src="">
+
+<style>
+	.dropdown-menu li a {
+		display: block;
+		padding: 3px 20px;
+		clear: both;
+		font-weight: 400;
+		line-height: 1.42857143;
+		color: #848484;
+		white-space: nowrap;
+		line-height: 30px;
+	}
+</style>
+
+@{
+	/**/
+
+	object okundumusonuc, okundumu2 = "";
+	var db = WebMatrix.Data.Database.Open("DB150408011842Entities");
+	var sql = "SELECT okundumu FROM Mesajlar WHERE aliciId='" + User.Identity.GetUserId() + "' and okundumu=0";
+	var sql_message = "SELECT ReadOn FROM Message WHERE receiverId='" + User.Identity.GetUserId() + "' and ReadOn is NULL";
+	okundumu2 = db.QueryValue(sql_message);
+	okundumusonuc = db.QueryValue(sql);
+}
+
+
+@if (Request.IsAuthenticated)
+{
+	if (User.IsInRole("Admin"))
+	{
+		<li>
+			<a href="@Url.Action("Index", "AdminDasboard")" title="Admin Paneli"> <i class="icon fa fa-user"></i> @User.Identity.Name</a>
+		</li>
+		@*<li><a href="@Url.Action("BilgileriDegistir", "Account", new { title = "Bilgilerimi güncelle" })">Bilgilerimi güncelle</a></li>
+			<li><a href="@Url.Action("Manage", "Account", new { title = "Şifre değiştir" })">Şifre değiştir</a></li>*@
+
+	}
+	else
+	{
+
+
+		if (okundumusonuc != null)
+		{
+			<style>
+				.icofont-notification:after {
+					position: absolute;
+					height: 16px;
+					width: 16px;
+					border-radius: 50%;
+					background-color: red;
+					content: "1";
+					font-size: 11px;
+					font-weight: bolder;
+					color: white;
+					top: 14px;
+					right: -10px;
+					text-align: center;
+					line-height: 27px;
+				}
+			</style>
+		}
+		if (okundumu2 != null)
+		{
+			<style>
+				.icofont-ui-text-chat:after {
+					position: absolute;
+					height: 16px;
+					width: 16px;
+					border-radius: 50%;
+					background-color: red;
+					content: "1";
+					font-size: 11px;
+					font-weight: bolder;
+					color: white;
+					top: 8px;
+					right: -12px;
+					text-align: center;
+					line-height: 27px;
+				}
+
+			</style>
+		}
+
+		@*<ul class="sign-in">*@
+
+
+		<a href="/MusteriPaneli/Chat">
+			<i class="icofont icofont-ui-text-chat" style="font-size: 21px;color: #bfc8d2; top: 30px;
+    position: relative; margin-right:15px;"></i>
+		</a>
+
+
+		<a href="/MusteriPaneli/Mesajlarim_">
+			<i class="icofont icofont-notification" style="font-size:24px;color: #bfc8d2; top: 30px;
+    position: relative; margin-right:15px;"></i>
+		</a>
+
+
+
+
+		<li class="dropdown pull-right logpartial_li" style="line-height: 72px;">
+
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+			   style=" margin-left:10px; line-height: 72px;   width: 100%; display:block;  text-align: left;">
+			
+				@{
+
+					HemenTanitimContext context = new HemenTanitimContext();
+					var user = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+				}
+
+				<img src="@user.Fotograf" class="img-circle" style="height:33px;width:33px">
+
+				@User.Identity.Name.TrimFrontIfLongerThan(12) <span class="caret" style="margin-top:32px"></span>
+			</a>
+
+
+
+
+			<ul class="dropdown-menu" style="  width: 212px !important; margin-right:0; min-width:unset;  font-size: 16px; border:none !important">
+				@if (User.IsInRole("Admin"))
+				{
+					<li><a href="@Url.Action("Index", "AdminDasboard")">Admin Paneli</a></li>
+					<li><a href="@Url.Action("BilgileriDegistir", "Account", new { title = "Bilgilerimi güncelle" })">Bilgilerimi güncelle</a></li>
+					<li><a href="@Url.Action("Manage", "Account", new { title = "Şifre değiştir" })">Şifre değiştir</a></li>
+
+				}
+				else
+				{
+
+					<li>
+						<a href="@Url.Action("Kullanici_Ozgecmisi", "CV", new { uid = User.Identity.GetUserId()})" class="btn btn-primary" style="    margin-left: 15px;
+    margin-right: 15px;
+    text-align: left;
+    padding: 3px 8px 3px;
+    color: white;
+    font-size: 15px;">
+							Benim Sayfam
+						</a>
+
+					</li>
+
+					<li>
+						<a href="@Url.Action("IsIlanlari", "MusteriPaneli")">
+							Hesabım
+						</a>
+
+					</li>
+
+
+					<li><a href="@Url.Action("BilgileriDegistir_Anasayfa", "MusteriPaneli", new { title = "Bilgilerimi güncelle" })">Profilim</a></li>
+					<li><a href="@Url.Action("MesajDetay", "MusteriPaneli")">Destek</a></li>
+					<li>
+						@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+						{
+							@Html.AntiForgeryToken()
+							<a href="javascript:document.getElementById('logoutForm').submit()">Çıkış</a>
+						}
+
+					</li>
+
+
+				}
+
+				@*@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+		{
+			@Html.AntiForgeryToken()
+			<li><a href="javascript:document.getElementById('logoutForm').submit()" role="menuitem" tabindex="-1">Çıkış</a></li>
+		}*@
+
+				@*@if (Request.IsAuthenticated)
+		{
+			<li class="pull-right">
+				@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+				{
+					@Html.AntiForgeryToken()
+
+					<a class="pull-right" href="javascript:document.getElementById('logoutForm').submit()" role="menuitem" tabindex="-1" title="Çıkış">
+						<i class="icon fa fa-sign-out"></i>
+
+					</a>
+				}
+			</li>
+			<li class="pull-right">@{Html.RenderAction("_Sepet", "Home");}</li>
+		}*@
+
+			</ul>
+		</li>
+		@*</ul>*@
+		@*<li>
+
+
+				<a href="/MusteriPaneli/Mesajlarim" title="Müşteri Paneli">
+					<i class="icon fa fa-user"></i>
+					@if (okundumusonuc != null)
+					{
+						<label style="color:red">(1)</label>
+					}
+				</a>
+			</li>*@
+	}
+
+
+
+}
+else
+{
+
+	<li style="display:inline-block; padding-right: 10px;  font-size:16px;   vertical-align: -webkit-baseline-middle;     line-height: 72px;">
+		@Html.ActionLink("Üye girişi", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+	</li>
+	<li style="display:inline-block;  padding-left: 10px;  font-size:16px; vertical-align: -webkit-baseline-middle;">
+		@Html.ActionLink("İlan Ver", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary" })
+	</li>
+
+}
+
+<style>
+	.top-bar .cnt-account ul > li:last-child {
+		border-right: none !important;
+	}
+</style>

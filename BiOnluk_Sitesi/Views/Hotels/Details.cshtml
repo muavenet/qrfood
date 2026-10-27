@@ -1,0 +1,76 @@
+﻿@model HemenTanitim.Models.Hotels
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+}
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            @Model.HotelAdi hoteline ait detaylar
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Sipariş detay</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-2">@Model.HotelAdi Detayları</th>
+                                    <th>İçerikler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span>Hotel Adı</span>
+                                    </td>
+                                    <td>
+                                        @Model.HotelAdi
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Oda Sayısı</span>
+                                    </td>
+                                    <td>
+                                        @Model.odaSayisi
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Komisyon Oranı</span>
+                                    </td>
+                                    <td>
+                                        @Model.KomisyonOrani
+                                    </td>
+                                </tr>
+                            </tbody>
+                                </table>
+                    </div>
+                    <p>
+                        @Html.ActionLink("<<Geri Dön", "Index") |
+                        @Html.ActionLink("Düzenle", "Edit", new { id = Model.Id })
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+      
+
+    </section>
+</aside>
+

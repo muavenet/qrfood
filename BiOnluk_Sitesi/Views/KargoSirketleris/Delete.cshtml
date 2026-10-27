@@ -1,0 +1,105 @@
+@model HemenTanitim.Models.KargoSirketleri
+
+@{
+    ViewBag.Title = "Delete";
+
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Kargo firmasý sil
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Kargo firmasý </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+
+
+                    <div class="box-body">
+
+
+
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-2">Basliklar</th>
+                                    <th>Icerikler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                                <tr>
+                                    <td>
+                                        <span>Firma</span>
+                                    </td>
+                                    <td>
+                                        @Model.kargoSirketAdi
+                                    </td>
+                                </tr>
+
+
+
+
+                                <tr>
+                                    <td>
+                                        <span>Fiyat</span>
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:F}", Model.fiyat)
+                                    </td>
+                                </tr>
+
+
+
+
+                                <tr>
+                                    <td>
+                                        <span>Son güncelleme</span>
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:g}", Model.sonGuncelleme)
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        @using (Html.BeginForm())
+                                        {
+                                            <div class="form-group">
+
+                                                <div class="col-lg-4">
+                                                    <input type="submit" value="Sil" class="btn btn-primary btn-sm " /> |
+                                                    @Html.ActionLink("Listeye geri don", "Index")
+
+                                                </div>
+                                            </div>
+
+
+
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+      </div></section></aside>
+
+
+

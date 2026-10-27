@@ -1,0 +1,59 @@
+﻿
+@{
+	ViewBag.Title = "Panel";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	.panel-title {
+		border-bottom: 1px solid #e2e2e2;
+		line-height: 63px;
+		font-weight: 400 !important;
+		display: block;
+		font-size: 19px;
+	}
+
+		.panel-title:last-child {
+			border: none;
+		}
+	.fa-arrow-right {
+		margin-top: 20px;
+		color: #ababab;
+	}
+</style>
+
+<section id="main" class="clearfix category-page main-categories">
+
+	<div class="container">
+		<div class="category-info">
+			<div class="row">
+				<!-- accordion-->
+				<div class="col-md-3 col-sm-4">
+					<div class="accordion box-shadow-genel">
+						<!-- panel-group -->
+						<div class="panel-group" id="accordion" style="margin-top:8px">
+							<div id="yaz"></div>
+							<div class="panel-default panel-faq">
+								<div class="panel-heading" style="    border-bottom: 2px solid #f3f3f3;">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#accordion-one">
+                                        <a href="/MusteriPaneli/IsIlanlari" class="panel-title"><i class="fa fa-list-alt" aria-hidden="true"></i> İlanlarım <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/MusteriPaneli/SatinAldiklarim" class="panel-title"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Aldıklarım <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/MusteriPaneli/GelenSiparisler" class="panel-title"><i class="fa fa-money" aria-hidden="true"></i> Satışlarım <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/MusteriPaneli/FavoriUrunlerim" class="panel-title"><i class="fa fa-heart-o" aria-hidden="true"></i> Favorilerim <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/Portfolyo/Portfolyo_m" class="panel-title"><i class="fa fa-image" aria-hidden="true"></i> Referanslar <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/MusteriPaneli/BilgileriDegistir_Anasayfa" class="panel-title"><i class="fa fa-users" aria-hidden="true"></i> Bilgilerim <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/MusteriPaneli/Mesajlarim_" class="panel-title"><i class="fa fa-envelope" aria-hidden="true"></i> Destek <i class="fa fa-arrow-right pull-right"></i></a>
+                                        <a href="/MusteriPaneli/Chat" class="panel-title"><i class="fa fa-comments" aria-hidden="true"></i> Mesajlarim <i class="fa fa-arrow-right pull-right"></i></a>
+                                    </a>
+								</div>
+
+							</div>
+						</div>
+						<!-- panel-group -->
+					</div><!-- accordion-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

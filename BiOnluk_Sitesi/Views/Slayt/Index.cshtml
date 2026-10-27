@@ -1,0 +1,73 @@
+﻿@model IEnumerable<HemenTanitim.Models.Fotolar>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            Slayt fotoğrafları
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active"> Slayt fotoğrafları</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>@Html.ActionLink("Yeni fotoğraf ekle", "Create")</h3>
+                        <!-- tools box -->
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Baslik1)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Galeri Ekle", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Düzenle", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Sil", "Delete", new { id = item.Id })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+</div>
+</div></div></div>
+    </section>
+</aside>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("li").removeClass("active");
+        $("#foto").addClass("active");
+        $("#foto_menu").css("display", "block");
+        $("#foto_ana").addClass("active");
+        $("#foto_arrow").addClass("fa-angle-down");
+    });
+
+</script>

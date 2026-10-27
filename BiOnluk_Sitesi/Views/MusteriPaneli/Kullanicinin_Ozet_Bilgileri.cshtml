@@ -1,0 +1,190 @@
+﻿@model HemenTanitim.Models.BilgeriDegistir
+
+@using Microsoft.AspNet.Identity;
+
+
+<style>
+	.padding-left-0 {
+		padding-left: 0 !important
+	}
+
+	.padding-bottom-20 {
+		padding-bottom: 20px;
+	}
+
+	.form-horizontal .control-label {
+		text-align: left;
+		padding-top: 0 !important;
+	}
+</style>
+
+<div class="ads-info">
+	<div class="row">
+		<div class="col-sm-6 col-md-12">
+			<div class="my-reks section">
+				<div class="form-horizontal">
+
+
+					<div style="text-align:center;padding-bottom:20px;">
+						<img src="@Model.Fotograf"
+							 style="border-radius: 50%;
+							width: 100px;
+							height: 100px;
+							border: 6px solid #ececec;
+						" />
+					</div>
+
+					<div style="text-align:center;padding-bottom:20px;">
+						<div class="form-group">
+
+
+							@{ var degerlendirme_puani = Model.puan;
+
+
+								int w = 1;
+								var k = 0;
+
+								while (w < 6)
+								{
+									if (k == 0)
+									{
+
+										for (int i = 0; i < degerlendirme_puani; i++)
+										{
+											<span class="fa fa-star checked" style="color:#ffbf00; font-size:large;"></span>
+
+											w++;
+											k++;
+										}
+									}
+
+									if (w == 6)
+
+									{ break; }
+
+									<span class="fa fa-star"></span>
+
+									w++;
+								}
+
+							}
+
+									<span style="    color: #ffbf00;
+    font-weight: bolder;
+    font-size: 16px;">(@Math.Round(Model.puan, 1))</span>
+
+							<br />
+
+							<a href="@Url.Action("Kullanicilar","MusteriPaneli",  new { Id = Model.kullaniciId })" style="font-weight:500; display:block">
+								@Html.DisplayFor(m => m.UserName, new { @class = "form-control" })
+								<a href="@Url.Action("Kullanicilar","MusteriPaneli",  new { Id = Model.kullaniciId })" style="color: #8e8e8e; font-weight: 500; font-style: italic;">
+									@Html.DisplayFor(m => m.kimdenAciklama, new { @class = "form-control" })
+								</a>
+</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-6 padding-left-0">
+							@Html.LabelFor(m => m.EmailAdresi, new { @class = "col-md-12 control-label" })
+						</div>
+						<div class="col-md-6 text-right">
+							<strong>	@Html.DisplayFor(m => m.EmailAdresi, new { @class = "col-md-12 control-label" })</strong>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-md-8 padding-left-0">
+							@Html.LabelFor(m => m.SonGorulmeTarihi, new { @class = "col-md-12 control-label" })
+						</div>
+						<div class="col-md-4 text-right">
+							<strong>	@Html.DisplayFor(m => m.SonGorulmeTarihi, new { @class = "col-md-12 control-label" })</strong>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-8 padding-left-0">
+							@Html.LabelFor(m => m.UyelikTarihi, new { @class = "col-md-12 control-label" })
+						</div>
+						<div class="col-md-4 text-right">
+							<strong>	@Html.DisplayFor(m => m.UyelikTarihi, new { @class = "col-md-12 control-label" })</strong>
+						</div>
+					</div>
+
+					@*<div class="form-group">
+			<div class="col-md-8 padding-left-0">
+				@Html.LabelFor(m => m.OrtalamaYanitSuresi, new { @class = "col-md-12 control-label" })
+			</div>
+			<div class="col-md-4 text-right">
+				@Html.DisplayFor(m => m.OrtalamaYanitSuresi, new { @class = "col-md-12 control-label" })
+			</div>
+		</div>*@
+
+					@*<div class="col-md-12">
+			<hr />
+		</div>*@
+
+					<div class="form-group">
+						<div class="col-md-8 padding-left-0">
+							@Html.LabelFor(m => m.YorumSayisi, new { @class = "col-md-12 control-label" })
+						</div>
+						<div class="col-md-4 text-right">
+							<strong>	@Html.DisplayFor(m => m.YorumSayisi, new { @class = "col-md-12 control-label" })</strong>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-8 padding-left-0">
+							@Html.LabelFor(m => m.OncekiSiparisler, new { @class = "col-md-12 control-label" })
+						</div>
+						<div class="col-md-4 text-right">
+						
+								<strong>@Html.DisplayFor(m => m.OncekiSiparisler, new { @class = "col-md-12 control-label" })</strong>
+						</div>
+					</div>
+
+					@*<div class="form-group">
+			<div class="col-md-8 padding-left-0">
+				@Html.LabelFor(m => m.IptalEdilenler, new { @class = "col-md-12 control-label" })
+			</div>
+			<div class="col-md-4 text-right padding-bottom-20 ">
+				@Html.DisplayFor(m => m.IptalEdilenler, new { @class = "col-md-12 control-label" })
+			</div>
+		</div>*@
+
+					<div class="col-md-12">
+						<hr />
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-12 text-center padding-bottom-20">
+							<a href=@Url.Action("Kullanici_Ozgecmisi","CV", new { uid = Model.kullaniciId }) class="btn btn-primary">
+								<i class="fa fa-user"></i>	Kullanıcı Detaylı Bilgileri
+							</a>
+						</div>						
+					</div>
+
+					<div class="col-md-12">
+						<hr />
+					</div>
+
+
+
+					@*<section id="externalLogins">
+			@Html.Action("RemoveAccountList")
+			@Html.Partial("_ExternalLoginsListPartial", new HemenTanitim.Models.ExternalLoginViewModel() { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
+		</section>*@
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+

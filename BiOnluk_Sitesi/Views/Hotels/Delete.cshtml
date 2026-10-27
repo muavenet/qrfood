@@ -1,0 +1,77 @@
+﻿@model HemenTanitim.Models.Hotels
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+}
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            Kaldırmakta olduğunuz hotelin adı : @Model.HotelAdi
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Sipariş detay</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.HotelAdi)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.HotelAdi)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.odaSayisi)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.odaSayisi)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.KomisyonOrani)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.KomisyonOrani)
+                        </dd>
+
+                    </dl>
+
+                    @if (Model.odaSayisi <= 0)
+                    {
+                        using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-actions no-color">
+                                <a href="@Url.Action("Index","Hotels")" class="btn btn-red"><< Geri Dön</a>
+                                <input type="submit" value="KALDIR" class="btn btn-default" />
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert-danger">
+                            <a href="@Url.Action("Index","Hotels")" class="btn btn-red"><< Geri Dön</a>Hotele bağlı odaları kaldırdıktan sonra silme işlemini gerçekleştirebilirsiniz.
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+       
+    </section>
+</aside>

@@ -1,0 +1,380 @@
+﻿
+@{
+    ViewBag.Title = "FiltreliUrunler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    int minFiyat = 0;
+    int maxFiyat = 0;
+    int minAlexa = 0;
+    int maxAlexa = 0;
+    string dmozKaydi = "0";
+    string newsKaydi = "0";
+    
+    if(int.Parse(ViewContext.RouteData.Values["minFiyat"].ToString()) > 0)
+    {
+        minFiyat = int.Parse(ViewContext.RouteData.Values["minFiyat"].ToString());
+    }
+
+    if (int.Parse(ViewContext.RouteData.Values["maxFiyat"].ToString()) > 0)
+    {
+        maxFiyat = int.Parse(ViewContext.RouteData.Values["maxFiyat"].ToString());
+    }
+
+    if (int.Parse(ViewContext.RouteData.Values["minAlexa"].ToString()) > 0)
+    {
+        minAlexa = int.Parse(ViewContext.RouteData.Values["minAlexa"].ToString());
+    }
+
+    if (int.Parse(ViewContext.RouteData.Values["maxAlexa"].ToString()) > 0)
+    {
+        maxAlexa = int.Parse(ViewContext.RouteData.Values["maxAlexa"].ToString());
+    }
+
+    if (bool.Parse(ViewContext.RouteData.Values["dmozKaydi"].ToString()))
+    {
+        dmozKaydi = "1";
+    }
+    if (bool.Parse(ViewContext.RouteData.Values["newsKaydi"].ToString()))
+    {
+        newsKaydi = "1";
+    }
+
+}
+
+
+
+
+<section id="main" class="clearfix category-page main-categories">
+    <div class="container">
+
+        <div class="breadcrumb-section">
+            <!-- breadcrumb -->
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index","Home")">Anasayfa</a></li>
+                <li>@ViewContext.RouteData.Values["anaKategoriAdi"].ToString().turkceSeoUrlTemizle()</li>    
+            </ol><!-- breadcrumb -->
+            <h2 class="title">@ViewContext.RouteData.Values["AltKategoriAdi"].ToString().turkceSeoUrlTemizle()</h2>
+        </div>
+
+        <div class="banner">
+
+                <div class="banner-form banner-form-full">
+                    @{Html.RenderAction("_BasitArama", "Filtre");}
+                </div>
+                <div class="form-group">
+                        <h4> <span style="color:white; padding-left:5px">Arama Kriterleri  :</span>
+                           
+                            <label class="label label-warning">@ViewContext.RouteData.Values["anaKategoriAdi"].ToString()</label> 
+                        
+                            @{
+                                
+                                if (minFiyat >= 0 & maxFiyat > 0)
+                                {
+                                    <label class="label label-warning">Fiyat  : @minFiyat TL - @maxFiyat TL</label>
+                                }
+                                else if (minFiyat > 0)
+                                { 
+                                  <label class="label label-warning">Min.Fiyat : @minFiyat</label>
+                                }             
+
+                                if (minAlexa >= 0  & maxAlexa > 0)
+                                {
+                                    <label class="label label-warning">Alexa : @minAlexa - @maxAlexa</label>
+                                }
+                                else if (minAlexa > 0)
+                                { 
+                                  <label class="label label-warning">Min.Alexa : @minAlexa</label>
+                                }
+                              
+                                if (dmozKaydi == "0")
+                                {
+                                    <label class="label label-warning">dmoz kaydı : <i class="fa fa-times" aria-hidden="true" style="color:red;"></i></label>
+                                }
+                                else
+                                {  <label class="label label-warning">dmoz kaydı : <i class="fa fa-check" aria-hidden="true" style="color:#00a651;"></i></label> }
+
+                                if (newsKaydi == "0")
+                                {
+                                    <label class="label label-warning">news kaydı : <i class="fa fa-times" aria-hidden="true" style="color:red;"></i></label>
+                                }
+                                else
+                                {  <label class="label label-warning">news kaydı : <i class="fa fa-check" aria-hidden="true" style="color:#00a651;"></i> </label> }
+
+                            }
+
+                       
+                          
+                        </h4>
+                      
+
+                    </div>
+        </div>
+
+        <div class="category-info">
+            <div class="row">
+                <!-- accordion-->
+                <div class="col-md-3 col-sm-4">
+                    <div class="accordion">
+                        <!-- panel-group -->
+                        <div class="panel-group" id="accordion">
+                            <div id="yaz"></div>
+                            <!-- panel -->
+                            @{Html.RenderAction("AltKategoriListesi", "KategoriListesiGetir");}
+                            <form>
+                                <div class="panel-default panel-faq">
+                                    <!-- panel-heading -->
+                                    <div class="panel-heading">
+
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#accordion-fiyat">
+                                            <h4 class="panel-title">
+                                                Fiyat Aralığı
+                                                <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                            </h4>
+                                        </a>
+                                    </div><!-- panel-heading -->
+
+
+                                    <div id="accordion-fiyat" class="panel-collapse collapse in">
+                                        <!-- panel-body -->
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Min. fiyat" value="@minFiyat" id="minfiyat" class="form-control input-sm currency">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Maks. fiyat" value="@maxFiyat" id="maxfiyat" class="form-control  input-sm currency">
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div><!-- panel -->
+                                </div>
+
+                                <div class="panel-default panel-faq">
+                                    <!-- panel-heading -->
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#accordion-alexa">
+                                            <h4 class="panel-title">
+                                                Alexa Puanı (TR)
+                                                <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                            </h4>
+                                        </a>
+                                    </div><!-- panel-heading -->
+
+
+
+                                    <div id="accordion-alexa" class="panel-collapse collapse in">
+                                        <!-- panel-body -->
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Min. Puan" value="@minAlexa" id="minAlexa" class="form-control input-sm currency">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Maks. Puan" value="@maxAlexa" id="maxAlexa" class="form-control  input-sm currency">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div><!-- panel -->
+                                </div>
+                                <!-- panel -->
+                                <div class="panel-default panel-faq">
+                                    <!-- panel-heading -->
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#accordion-two">
+                                            <h4 class="panel-title">DMOZ Kaydı<span class="pull-right"><i class="fa fa-plus"></i></span></h4>
+                                        </a>
+                                    </div><!-- panel-heading -->
+
+                                    <div id="accordion-two" class="panel-collapse collapse in">
+                                        <!-- panel-body -->
+                                        <div class="panel-body">
+
+
+                                            <div class="user-type">
+                                                <input type="radio" name="dmozKaydi" value="True" id="dmozKaydiVar" @(dmozKaydi == "1" ? "checked" : "")> <label for="dmozKaydiVar">Dmoz kaydı var</label>
+                                                <input type="radio" name="dmozKaydi" value="False" id="dmozKaydiYok" @(dmozKaydi == "0" ? "checked" : "")> <label for="dmozKaydiYok">Dmoz kaydı yok</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- panel -->
+                                <!-- panel -->
+                                <div class="panel-default panel-faq">
+                                    <!-- panel-heading -->
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#accordion-four">
+                                            <h4 class="panel-title">
+                                                NEWS Kaydı
+                                                <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                            </h4>
+                                        </a>
+                                    </div><!-- panel-heading -->
+
+                                    <div id="accordion-four" class="panel-collapse collapse in">
+                                        <!-- panel-body -->
+                                        <div class="panel-body">
+                                            <div class="user-type">
+                                                <input type="radio" name="newsKaydi" value="True" id="newsKaydiVar" @(newsKaydi == "1" ? "checked" : "")> <label for="newsKaydiVar">News kaydı var</label>
+                                                <input type="radio" name="newsKaydi" value="False" id="newsKaydiYok" @(newsKaydi == "0" ? "checked" : "")> <label for="newsKaydiYok">News kaydı yok</label>
+                                            </div>
+                                        </div><!-- panel-body -->
+                                    </div>
+                                </div>
+                                <!-- panel -->
+                                <div class="panel-default panel-faq">
+                                    <!-- panel-heading -->
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#accordion-five">
+                                            <h4 class="panel-title">
+                                                Kelime ile arama
+                                                <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                            </h4>
+                                        </a>
+                                    </div><!-- panel-heading -->
+
+                                    <div id="accordion-five" class="panel-collapse collapse in">
+                                        <!-- panel-body -->
+                                        <div class="panel-body">
+                                            <input type="text" placeholder="Url, İlan No v.s " class="form-control" id="arananKelime">
+
+                                        </div><!-- panel-body -->
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="panel-default panel-faq">
+                                    <div class="panel-heading">
+                                        <div class="sticky-search-button fixed" id="hesaplanacakAccord">
+                                            <button class="btn btn-block btn-primary search-submit" id="FiltreteGoreArama">Ara</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                          </div><!-- panel-group -->
+                    </div>
+                   
+                    <div id="AramaButonuFixedSon"></div>
+                </div><!-- accordion-->
+                <!-- recommended-ads -->
+                
+               @{Html.RenderAction("ilanListeSayfasiFiltreli", "UrunListesi");}
+            </div>
+        </div>
+
+    </div><!-- container -->
+</section><!-- main -->
+
+
+@*@{
+        if (Model.Item4 != null)
+        {
+            var s = Model.Item4.tags;
+
+            if (!string.IsNullOrEmpty(s))
+            {
+                string[] words = s.Split(',');
+                foreach (var item in words)
+                {
+                    <small><a class="item" title="@item.ToSeoUrl()" href="@Url.RouteUrl("Arama", new { sortOrder = "alfabetik", altKategoriId = 0, AnaKategoriId = 0, aramaString = item, tags= 1 })">@item</a></small>
+
+                }
+            }
+
+
+        }
+
+    }*@
+
+@if (ViewContext.RouteData.Values.Keys.Contains("anaKategoriAdi"))
+{
+    @Html.Hidden("hdnanaKategoriAdi", ViewContext.RouteData.Values["anaKategoriAdi"].ToString())
+    @Html.Hidden("hdnanaKategoriId", ViewContext.RouteData.Values["anaKategoriId"])
+    @Html.Hidden("hdnanaAltKategoriAdi", ViewContext.RouteData.Values["AltKategoriAdi"].ToString())
+    @Html.Hidden("hdnanaAltKategoriId", ViewContext.RouteData.Values["AltKategoriId"])
+}
+
+@section scripts{
+    <script>
+
+        var $fArama = jQuery.noConflict();
+
+        $fArama('.currency').on('keyup', function () {
+            jQuery(this).val(jQuery(this).val().split('.').join(''));
+            jQuery(this).val((jQuery(this).val()).replace(/\B(?=(?:\d{3})+(?!\d))/g, "."));
+
+        });
+
+        $fArama('#FiltreteGoreArama').click(function () {
+
+            //alert($fArama("#arananKelime").val());
+
+            var minfiyat = $fArama("#minfiyat").val().replace(/\./g, "");
+            var maxfiyat = $fArama("#maxfiyat").val().replace(/\./g, "");
+            var minAlexa = $fArama("#minAlexa").val().replace(/\./g, "");
+            var maxAlexa = $fArama("#maxAlexa").val().replace(/\./g, "");
+            var dmozDegeri = $fArama('input[name=dmozKaydi]:checked').val();
+            var newsDegeri = $fArama('input[name=newsKaydi]:checked').val();
+
+            if (minfiyat == "")
+                minfiyat = 0;
+
+            if (maxfiyat == "")
+                maxfiyat = 0;
+
+            if (minAlexa == "")
+                minAlexa = 0;
+
+            if (maxAlexa == "")
+                maxAlexa = 0;
+
+
+            var url = "/UrunListesi/FiltreliUrunler/" + $fArama("#hdnanaKategoriAdi").val() + "/" + $fArama("#hdnanaKategoriId").val() + "/" + $fArama("#hdnanaAltKategoriAdi").val() + "/" + $fArama("#hdnanaAltKategoriId").val() + "/" + minfiyat + "/" + maxfiyat + "/" + minAlexa + "/" + maxAlexa + "/" + dmozDegeri + "/" + newsDegeri + "/en_yeniler" + "";
+
+            window.location.href = url;
+
+            return false;
+        });
+
+        function checkOffset() {
+            if ($fArama('#hesaplanacakAccord').offset().top + $fArama('#hesaplanacakAccord').height() >= $fArama('#yaz').offset().top - 10) {
+
+                $fArama('#hesaplanacakAccord').css('display', 'block');
+            }
+
+            if ($fArama('#hesaplanacakAccord').offset().top + $fArama('#hesaplanacakAccord').height() >= $fArama('#AramaButonuFixedSon').offset().top - 10) {
+                $fArama('#hesaplanacakAccord').css('position', 'absolute');
+            }
+
+            if ($fArama(document).scrollTop() + window.innerHeight < $fArama('#AramaButonuFixedSon').offset().top) {
+                $fArama('#hesaplanacakAccord').css('position', 'fixed');  // restore when you scroll up
+            }
+
+            //$fArama('#hesaplanacakAccord').text($fArama(document).scrollTop() + window.innerHeight);
+        }
+
+        $fArama(document).scroll(function () {
+            checkOffset();
+        });
+
+        
+    </script>
+}
+

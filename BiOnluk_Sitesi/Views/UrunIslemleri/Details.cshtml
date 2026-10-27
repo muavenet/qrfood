@@ -1,0 +1,58 @@
+﻿@model HemenTanitim.Models.Urunler
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Urunler</h4>
+    	<hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UrunAdi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UrunAdi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UrunIcerik)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UrunIcerik)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Fiyat)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Fiyat)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.KategoriId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.KategoriId)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

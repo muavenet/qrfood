@@ -1,0 +1,53 @@
+﻿
+@model IEnumerable<HemenTanitim.Models.AnaKategoriler>
+
+@*BU SAYFANIN JQUERY YÖNLENDİRME İŞLEMİ URUNLER VE FİLTRELİ ÜRÜNLER SAYFALARINDAN YAPILMAKTADIR*@
+
+<form action="#">
+
+    <div class="dropdown category-dropdown">
+
+
+
+        <a data-toggle="dropdown" href="#"><span class="change-text" id="hizliAramaSiteKategori">Kategori Seçiniz</span> <i class="fa fa-angle-down"></i></a>
+        <ul class="dropdown-menu category-change" id="dropdownKategori">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="#" onclick="HAltKatlariGetir(@item.Id)">
+                        <span id="firstKatAd">@item.KategoriAdi</span>
+                        <span id="secondKatI" style="visibility:hidden">@item.Id</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="dropdown category-dropdown">
+
+        @*@Html.DropDownList("HAltKat", new SelectList(Enumerable.Empty<SelectListItem>(), "altKatId", "altKatAd"), new { @class = "required form-control" })*@
+
+        <a data-toggle="dropdown" href="#">
+
+            <span class="change-text" id="hizliAramaSiteAltKategori">Site Kategorisi Seçiniz</span>
+            <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="dropdown-menu category-change" id="HAltKat"></ul>
+
+
+    </div>
+
+    <div class="dropdown category-dropdown">
+        <input type="text" class="form-control currency" placeholder="Max. Alexa Puanı" id="hizliAramaMaxAlexa">
+    </div>
+
+
+
+    <button class="form-control" value="Search" id="btnHizliMenuArama">Ara</button>
+</form>
+
+@*BU SAYFANIN JQUERY YÖNLENDİRME İŞLEMİ URUNLER VE FİLTRELİ ÜRÜNLER SAYFALARINDAN YAPILMAKTADIR*@
+
+
+

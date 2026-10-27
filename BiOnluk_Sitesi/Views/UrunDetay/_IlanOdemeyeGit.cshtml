@@ -1,0 +1,153 @@
+﻿@model HemenTanitim.Models.IsIlanlariListele_IlanDetay
+
+@*<script src="~/scripts/jquery-1.7.1.js" type="text/javascript"></script>*@
+@*<script src="~/scripts/knockout-2.1.0.js" type="text/javascript"></script>
+    <script src="~/scripts/jquery-ui-1.8.20.js" type="text/javascript"></script>
+    <script src="~/js/utils.js" type="text/javascript"></script>
+    <script src="~/js/ajaxservice.js" type="text/javascript"></script>
+    <script src="~/js/dataservice.shopping.js" type="text/javascript"></script>
+    <script src="~/js/sepet_index.js"></script>*@
+
+
+<div class="px-3 pt-3">
+    <div class="recepie-body">
+        <div class="p-3">
+            <h6 class="font-weight-bold">Description</h6>
+            <p class="text-muted">@Model.aciklama</p>
+            @*<h6 class="font-weight-bold mt-4">Extras</h6>
+            <div class="rounded border radio-btn-list filter">
+                <div class="custom-control border-bottom px-0 custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheck1" checked>
+                    <label class="custom-control-label py-3 w-100 px-3" for="defaultCheck1">Tuna</label>
+                </div>
+                <div class="custom-control border-bottom px-0 custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheck2">
+                    <label class="custom-control-label py-3 w-100 px-3" for="defaultCheck2">class</label>
+                </div>
+                <div class="custom-control px-0 custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheck3">
+                    <label class="custom-control-label py-3 w-100 px-3" for="defaultCheck3">Wasabi</label>
+                </div>
+            </div>*@
+            <h6 class="font-weight-bold mt-4">Quantity</h6>
+            <div class="d-flex align-items-center">
+                <p class="m-0">1 Item</p>
+                <div class="ml-auto">
+                    <select class="custom-select custom-select-sm my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                    
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                        <option value="5">Five</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="fixed-bottom p-3">
+    <a id="SepeteAt" class="btn btn-success btn-block btn-lg text-white rounded shadow text-decoration-none d-flex align-items-center shadow">
+        <div class="border-right pr-3">
+            <h4 class="m-0"><i class="feather-shopping-bag" aria-hidden="true" id="thickOlacak"></i></h4>
+        </div>
+        <div class="ml-3 text-left">
+            <p class="mb-0 font-weight-bold text-white">
+                <span id="spFiyat" class="notranslate"> @String.Format("{0:N}", Model.MinFiyat) TL</span> 
+            </p>
+        </div>
+        <div class="ml-auto">
+            <p class="mb-0 text-white" id="">
+                Add to cart <i class="feather-chevron-right pl-2" aria-hidden="true"></i>
+            </p>
+        </div>
+    </a>
+</div>
+
+
+<!--<span>
+    <span>
+        <small class="teslimat_Suresi">-->
+@*( @Model.teslimatSuresi günde teslim )*@
+<!--(Gün)
+        </small> <label id="spFiyat" class="fiyat_tasarim">@String.Format("{0:N}", Model.MinFiyat) <small>TL </small></label>
+    </span>
+
+    <a href="#" class="sepeteAt btn btn-lg btn-info"
+       style="border-radius:0; display:block" id="SepeteAt">
+        GARANTİLİ ÖDEME
+    </a>
+    <br />
+
+</span>-->
+
+
+
+<input type="hidden" id="spisId" value="@Model.isId" />
+<input type="hidden" id="spilanAdi" value="@Model.baslik" />
+<input type="hidden" id="spAciklama" value="@Model.aciklama" />
+<input type="hidden" id="spteslimat" value="@Model.teslimatSuresi" />
+<input type="hidden" id="spguid" value="@Model.Guid" />
+<input type="hidden" id="spilanSahibiId" value="@Model.kullaniciId" />
+<input type="hidden" id="spilanGereksinimleri" value="@Model.ilanGereksinimleri" />
+<input type="hidden" id="spilanResim" value="@Model.ResimYolu" />
+<input type="hidden" id="spilanKullaniciFoto" value="@Model.KullaniciFoto" />
+<input type="hidden" value="@Model.AySayisi" id="hdAySayisi">
+
+
+<script type="text/javascript">
+
+    var $sepetUrunDetay = jQuery.noConflict();
+
+    $sepetUrunDetay("#SepeteAt").click(function () {
+
+        //var urunSahibiId = $sepetUrunDetay("#spurunSahibiId").val();
+
+        //var urunGuid = $sepetUrunDetay("#spguid").val();
+
+        var ilanAdi = $sepetUrunDetay("#spilanAdi").val().trim();
+
+        var ilan_Id = $sepetUrunDetay("#spisId").val();
+
+        var teslimatSuresi = $sepetUrunDetay("#spteslimat").val();
+
+        var ilan_Aciklama = $sepetUrunDetay("#spAciklama").val().trim();
+
+        var ilan_Gereksinimleri = $sepetUrunDetay("#spilanGereksinimleri").val().trim();
+
+        var spFiyat = $sepetUrunDetay("#spFiyat").text().trim().slice(0, - 2);
+
+        var ilanSahibiId = $sepetUrunDetay("#spilanSahibiId").val();
+
+        var spilanResim = $sepetUrunDetay("#spilanResim").val();
+
+        var spilanKullaniciFoto = $sepetUrunDetay("#spilanKullaniciFoto").val();
+
+        var hdAdet = $sepetUrunDetay("#inlineFormCustomSelectPref option:selected").val();
+
+        console.log($sepetUrunDetay("#inlineFormCustomSelectPref option:selected").val());
+
+        ilanAdi = ilanAdi.split(':').reverse();
+
+        ilanAdi.splice(1, 1);
+
+        ilanAdi = ilanAdi.join(',');
+
+        //UrunDetay.js içerisinde
+        MYLIBRARY.init([ilanAdi, ilan_Id, spFiyat, ilan_Aciklama, teslimatSuresi, ilanSahibiId, ilan_Gereksinimleri, spilanResim, spilanKullaniciFoto, hdAdet]);
+        MYLIBRARY.sepeteAtFonksiyonu();
+        //UrunDetay.js içerisinde
+
+        //MYLIBRARY.init([$sepetUrunDetay("#spilanAdi").text(), urun_Id]);
+
+        //MYLIBRARY.ziyaretciKaydetFonskiyonu();
+
+        //MYLIBRARY.carouselFonksiyonu();
+
+    });
+
+
+
+</script>

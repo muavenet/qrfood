@@ -1,0 +1,80 @@
+﻿@model List<HemenTanitim.Models.AnaKategoriler>
+
+
+@{
+	ViewBag.Title = "AnaKategoriler";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .panel-title {
+        border-bottom: 1px solid #e2e2e2;
+        line-height: 63px;
+        font-weight: 400 !important;
+        display: block;
+        font-size: 19px;
+    }
+
+        .panel-title:last-child {
+            border: none;
+        }
+
+
+
+    section {
+        padding: 0;
+    }
+
+</style>
+
+<section id="main" class="clearfix category-page main-categories">
+
+    <div class="col-md-12 col-sm-4" style="        background-color: white;padding: 7px;">
+        <div class="container">
+            <div class="col-md-3 col-sm-4">
+                <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                    <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height:45px; margin: 0 auto; ">
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="category-info">
+            <div class="row">
+                <!-- accordion-->
+                <div class="col-md-3 col-sm-4">
+
+                    <div class="accordion box-shadow-genel">
+                        <!-- panel-group -->
+                        <div class="panel-group" id="accordion" style="margin-top:8px">
+
+
+                            <div id="yaz"></div>
+                            <div class="panel-default panel-faq">
+                                <div class="panel-heading" style="    border-bottom: 2px solid #f3f3f3;">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#accordion-one">
+                                        @foreach (var item in Model)
+                                        {
+                                            <a href="@item.link" class="panel-title" title="@item.KategoriAdi">@item.KategoriAdi</a>
+                                        }
+
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- panel-group -->
+                        <div id="AramaButonuFixedSon"></div>
+                    </div><!-- accordion-->
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

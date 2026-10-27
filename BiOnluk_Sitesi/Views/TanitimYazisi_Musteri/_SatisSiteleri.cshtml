@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HemenTanitim.Models.Urunler>
+
+<div class="col-md-6">
+    <div class="section quick-rules">
+        <h4>Satışta Olan İlanlarım</h4>
+        <p class="lead">İlanlarınız onaylandıktan sonra yayına alınır !</p>
+
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><small>@item.Tarih.ToShortDateString()</small>
+    @if (item.Onay)
+    {   <a class="delete-item" href="/TanitimYazisi_Musteri/Edit?aid=@item.Guid">@item.UrunAdi</a>}
+    else
+    {    @item.UrunAdi <small>
+        (Onay bekliyor)
+    </small>}
+
+
+    <a class="delete-item pull-right" href="/TanitimYazisi_Musteri/Delete?aid=@item.Guid"><i class="fa fa-remove"></i> Kaldır</a>
+    <a class="remove pull-right" href="/TanitimYazisi_Musteri/Edit?aid=@item.Guid"><i class="fa fa-pencil"></i> Düzenle &nbsp; &nbsp;</a>
+
+</li>
+            }
+        </ul>
+    </div>
+</div>
+

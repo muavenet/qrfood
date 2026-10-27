@@ -1,0 +1,133 @@
+﻿@model HemenTanitim.Models.Portfolyo_m
+
+@{
+	ViewBag.Title = "Create";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@using (Html.BeginForm("Portfolyo_Create", "Portfolyo", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+
+{
+
+		@Html.AntiForgeryToken()
+		@Html.ValidationSummary()
+
+		<div class="adpost-details"  style="background-color: white;">
+			<div class="row">
+				<div class="col-md-6">
+					<!-- /.modal -->
+
+					<fieldset>
+						<div class="section postdetails" >
+							<h4>
+								Referans Ekle <span class="pull-right">
+									<a href="/Portfolyo/Portfolyo_m/" class="btn btn-large">
+										<i class="fa fa-plus-circle"></i>	Yeni Ekle
+									</a>
+								</span>
+							</h4>
+
+							<div class="row form-group add-image">
+								<label class="col-sm-4 label-title">Fotoğraf </label>
+								<div class="col-sm-8">
+									<h5><i class="fa fa-upload" aria-hidden="true"></i>Bir fotoğraf seçiniz </h5>
+
+									<label class="btn-bs-file btn btn-default">
+										<i class="fa fa fa-plus-circle  text-success"></i> Fotoğrafı Ekle		
+					
+										@Html.TextBoxFor(model => model.PostedFile, new { type = "file" })
+									</label>
+
+								</div>
+							</div>
+
+
+							<div class="row form-group add-title">
+								<label class="col-sm-4 label-title">Başlık<span class="required">*</span></label>
+								<div class="col-sm-8">
+									@Html.TextBoxFor(model => model.baslik, new { @class = "form-control smallElements" })
+									@Html.ValidationMessageFor(model => model.baslik)
+								</div>
+							</div>
+
+							<div class="row form-group add-title">
+								<label class="col-sm-4 label-title">Url</label>
+								<div class="col-sm-8">
+									@Html.TextBoxFor(model => model.demoUrl, new { @class = "form-control smallElements", placeholder = "Örn: http://orneksite.com" })
+									@Html.ValidationMessageFor(model => model.demoUrl)
+								</div>
+							</div>
+
+							<div class="row form-group add-title">
+								<label class="col-sm-4 label-title">Kategori<span class="required">*</span></label>
+								<div class="col-sm-6">
+									@Html.DropDownList("AnaKategoriId", (IEnumerable<SelectListItem>)ViewBag.KategoriId, "Seçiniz", new { @class = "form-control smallElements", @onchange = "AltKategorileriGetir()" })
+								</div>
+							</div>
+
+							<div class="row form-group add-title">
+								<label class="col-sm-4 label-title">Site Kategorisi<span class="required">*</span></label>
+								<div class="col-sm-6">
+									@Html.DropDownList("AltKategoriId", new SelectList(Enumerable.Empty<SelectListItem>(), "KategoriAdi", "Id"), new { @class = "form-control smallElements" })
+
+								</div>
+							</div>
+
+
+
+							<div class="checkbox section agreement">
+								<button type="submit" class="btn btn-primary">Kaydet</button>
+							</div><!-- section -->
+
+						</div>
+					</fieldset>
+				</div>
+				
+					<div class="section quick-rules">
+						<h4>Referanslar</h4>
+
+						@{ Html.RenderAction("Portfolyo_m_Liste", "Portfolyo"); }
+
+					</div>
+			
+			</div><!-- photos-ad -->
+		</div>
+
+	}
+
+
+	@*<script src="/Scripts/jquery-1.10.2.js"></script>*@
+	<script src="/Scripts/jquery.validate.js"></script>
+	<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+	<script>
+		function AltKategorileriGetir() {
+
+			var $pp = jQuery.noConflict();
+
+			var AnaKatId_ = $pp("#AnaKategoriId").val();
+
+			var element = $pp("#AltKategoriId");
+
+
+			$pp.ajax({
+				url: '/Filtre/HizliAramaaltKategorileriGetir',
+				type: "GET",
+				dataType: "JSON",
+				data: { anaKatId: AnaKatId_ },
+				success: function (cities) {
+
+					element.html("");
+
+					element.append($pp('<option></option>').val(0).html("Seçiniz"));
+
+					$pp.each(cities, function (i, city) {
+
+						element.append(
+							$pp('<option></option>').val(city.Id).html(city.KategoriAdi));
+
+					});
+				}
+			});
+		}
+	</script>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<HemenTanitim.Models.EnCokZiyaretEdenler>
+@{
+    ViewBag.Title = "SayfaZiyaretcileri";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+           Sayfa ziyaretçi sayısı
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Sayfa ziyaretçi sayısı</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+                    <div class="box-header">
+                        <div class="box-title">
+                            <a href="@Url.Action("ExceleAktar", new { paramaterName = "sayfaZiyaretcileri" })" class="btn btn-default btn-flat">
+                                <i class="fa fa-download"></i>&nbsp;
+                                Excel'e aktar
+                            </a>
+                        </div>
+                     </div>
+
+
+                        <div class="box-body table-responsive" style="overflow:hidden">
+
+                            <table id="tblListe" class="table table-bordered table-striped">
+
+
+                                <thead>
+                                    <tr>
+
+                                        <th>
+                                            Ürün adı
+                                        </th>
+                                        <th>
+                                            Ziyaretçi sayısı
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+
+                                            <td>
+                                                @item.UrunAdi
+                                            </td>
+                                            <td>
+                                                @item.ZiyaretciSayisi
+                                            </td>
+
+                                        </tr>
+                                    }
+                                <tbody>
+                            </table>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+@Scripts.Render("~/bundles/raphael")
+@Scripts.Render("~/bundles/morris")
+
+
+<script>
+
+      
+        $(document).ready(function () {
+
+
+
+            $("li").removeClass("active");
+            $("#raporlar").addClass("active");
+            $("#raporlar_menu").css("display", "block");
+            $("#ziyaretci_genel").addClass("active");
+            $("#raporlar_arrow").addClass("fa-angle-down");
+        });
+
+</script>
+
+ }

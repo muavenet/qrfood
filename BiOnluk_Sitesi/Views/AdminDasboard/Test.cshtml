@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+
+      
+    </section>
+    <!-- Main content -->
+    <section class="content">
+       
+        <div class="row col-lg-12 ">
+            <!-- Left col -->
+            <section class="connectedSortable">
+          @{Html.RenderAction("_Chat", "AdminDasboard");}
+            </section>
+
+        </div><!-- /.row (main row) -->
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->

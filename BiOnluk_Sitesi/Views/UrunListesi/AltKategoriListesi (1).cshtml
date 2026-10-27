@@ -1,0 +1,6 @@
+﻿@model IEnumerable<HemenTanitim.Models.KategoriSayi>
+@foreach (var item in Model)
+{
+    <a class="item" title="Phone" href="/UrunListesi/Index?Id=@item.Id&anakategori=@item.AnaKategoriId">@item.KategoriAdi</a>
+
+}

@@ -1,0 +1,82 @@
+﻿
+
+@model IEnumerable<HemenTanitim.Models.SiparisBilgileri>
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>a4_lastik_bilgiFisi</title>
+    <link rel="stylesheet" href="/Content/FrontEnd/css/fatura_.css" media="all" />
+</head>
+<body>
+    <style>
+    </style>
+    <header class="clearfix">
+        @*<div id="logo">
+            <img src="~/Content/images/logo_siyah-yazi.png">
+        </div>*@
+        <div id="company">
+            <h2 class="name">TYP FOOD DELIVERY DAILY REPORT</h2>
+            <div>
+                Tarih : @DateTime.Now.ToShortDateString()
+            </div>
+        
+        </div>
+    </header>
+    <main>
+        @*<div id="details" class="clearfix">
+            <div id="client">
+                <div class="to">Müşteri Bilgileri</div>
+                <h2 class="name">@Model.Ad_Soyad</h2>
+                <div class="address">Tel : @Model.Telefon</div>
+                <div class="email"><a href="">Plaka : @Model.Plaka</a></div>
+                <div class="email"><a href="">Marka : @Model.Marka</a></div>
+            </div>
+            <div id="invoice">
+                <h1>Bilgi Fişi</h1>
+                <div class="date">Fatura kesim tarihi: @Model.Tarih.ToShortDateString()</div>
+                <div class="date">Fiş geçerlilik tarihi:  @Model.Tarih.AddMonths(6).ToShortDateString()</div>
+            </div>
+        </div>*@
+        <table border="0" cellspacing="0" cellpadding="0">
+
+            <tbody>
+                @{int sayi = 1; decimal? fiyat = 0;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="no">@sayi</td>
+                        <td class="desc">@Html.Raw(item.IlanAciklama) <br /> <small>@item.SiparisTarihi</small></td>
+                        <td class="unit">@item.hotelId</td>
+                        <td class="qty">@item.odaNo</td>
+                        <td class="total">@item.Tutar TL</td>
+                    </tr>
+                    fiyat += item.Tutar;
+                    sayi++;
+                }
+
+
+
+            </tbody>
+
+        </table>
+        <table>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">GENEL TOPLAM : @fiyat TL</td>
+           
+            </tr>
+        </table>
+        <div id="">Bu liste otomatik olarak gönderilmektedir.</div>
+
+    </main>
+  
+</body>
+</html>

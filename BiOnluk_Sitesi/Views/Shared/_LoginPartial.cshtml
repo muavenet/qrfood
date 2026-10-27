@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNet.Identity;
+@using HemenTanitim.Models;
+
+@*@inject Microsoft.AspNet.Identity.UserManager<ApplicationUser> userManager;*@
+
+
+
+@*@{
+        /**/
+
+        object okundumusonuc, okundumu2 = "";
+        var db = WebMatrix.Data.Database.Open("DB150408011842Entities");
+        var sql = "SELECT okundumu FROM Mesajlar WHERE aliciId='" + User.Identity.GetUserId() + "' and okundumu=0";
+        var sql_message = "SELECT ReadOn FROM Message WHERE receiverId='" + User.Identity.GetUserId() + "' and ReadOn is NULL";
+        okundumu2 = db.QueryValue(sql_message);
+        okundumusonuc = db.QueryValue(sql);
+    }*@
+
+
+@if (User.IsInRole("Admin"))
+{
+    <nav id="main-nav">
+        <ul class="second-nav">
+            <li>
+                <a href="@Url.Action("Index", "AdminDasboard")" title="Admin Paneli"> <i class="feather-user"></i> System Dashboard</a>
+            </li>
+        </ul>
+    </nav>
+}
+else if (User.IsInRole("Hotel"))
+{
+    <nav id="main-nav">
+        <ul class="second-nav">
+            <li>
+                <a href="@Url.Action("Index", "HotelDasboard")" title="Admin Paneli"> <i class="feather-user"></i> My Dashboard</a>
+            </li>
+        </ul>
+    </nav>
+}
+else
+{
+    <nav id="main-nav">
+        <ul class="second-nav">
+            <li><a href="@Url.Action("SatinAldiklarim", "MusteriPaneli")"><i class="feather-clock"></i> My Orders</a>
+            <li><a href="@Url.Action("FavoriUrunlerim", "MusteriPaneli")"><i class="feather-heart"></i> My Favorites</a>
+            <li><a href="@Url.Action("Index", "Sepet")"><i class="feather-shopping-cart"></i> My Cart</a>
+        </ul>
+    </nav>
+}
+

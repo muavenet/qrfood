@@ -1,0 +1,185 @@
+﻿@model List<HemenTanitim.Models.Portfolyo>
+
+
+@if (!Request.Browser.IsMobileDevice)
+{
+
+	<style>
+		label {
+			font-size: 11px !important;
+		}
+
+		.col-md-6 strong, .col-md-4 strong {
+			font-size: 13px !important;
+		}
+
+		#potfolyo_active_link, #potfolyo_active_link a, #potfolyo_active_link small {
+			background: green;
+			color: white;
+		}
+		.adpost-details h4 {
+		border-bottom:none;
+		}
+	</style>
+
+	<div class="ads-info">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="my-reks section">
+				
+					<!-- ad-item -->
+					@foreach (var item in Model)
+					{
+
+							<div class="adm-item row" style="margin-bottom:20px">
+								<!-- item-image -->
+								<div class="item-image-box col-sm-2">
+									<div class="item-image">
+										<a href="/Portfolyo/Portfolyo_edit/@item.port_Id">
+											<img src="@item.Fotograflar" alt="" style="height:79px">
+										</a>
+									</div><!-- item-image -->
+								</div>
+
+								<div class="item-info col-sm-10">
+									<!-- ad-info -->
+									<div class="adm-info">
+
+										<h4 class="display-3">
+
+											<a href="/Portfolyo/Portfolyo_edit/@item.port_Id">
+												@item.baslik.TrimFrontIfLongerThan(55)											
+											</a>
+
+										</h4>
+										<div class="item-cat">
+										</div>
+									</div><!-- ad-info -->
+									<!-- ad-meta -->
+									<div class="ad-meta">
+										<div class="meta-content">
+											<span>
+												<small>	@item.demoUrl</small>
+
+												<small><i>(@item.eklenmeTarihi.ToShortDateString())</i></small>
+											</span>
+										
+										</div>
+
+
+										<!-- item-info-right -->
+
+										<div class="user-option pull-right">
+
+											<a class="online" href="/Portfolyo/Portfolyo_edit/@item.port_Id" data-toggle="tooltip" data-placement="top" title="Düzenle">
+												<i class="fa fa-pencil"></i> </a>
+
+											<a class="" href="@Url.Action("Delete", "Portfolyo", new {Id = item.port_Id})"
+											   data-toggle="tooltip" data-placement="top" title="Sil"
+											   onclick="return confirm('Simek istediğinize emin misiniz ?')"><i class="fa fa-times"></i></a>
+
+										</div><!-- item-info-right -->
+
+
+									</div><!-- ad-meta -->
+								</div><!-- item-info -->
+							</div>
+						}
+
+				</div>
+			</div>
+			<!-- recommended-cta-->
+
+		</div>
+	</div><!-- row -->
+}
+
+
+else
+{
+	<div class="ads-info">
+		<div class="row">
+			<h4>İş İlanlarım</h4>
+			<div class="col-sm-8">
+				<div class="my-reks section">
+					<div class="col-md-9 no-gutter">
+					</div>
+					<div class="col-md-3 no-gutter">
+						<ul class="pager wizard" style="text-align:right">
+							<li>
+								<a href="/MusteriPaneli/IsIlanlari_Duzenle/" class="btn btn-large">
+									<i class="fa fa-plus-circle"></i>	Yeni İlan Gir
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!-- ad-item -->
+					@foreach (var item in Model)
+					{
+
+						
+							<div class="adm-item row" style="margin-bottom:20px">
+								<!-- item-image -->
+								<div class="item-image-box col-sm-2">
+									<div class="item-image">
+										<a href="/Portfolyo/Portfolyo_edit/@item.port_Id">
+											<img src="@item.Fotograflar" alt="" style="height:175px">
+										</a>
+									</div><!-- item-image -->
+								</div>
+
+								<div class="item-info col-sm-10">
+									<!-- ad-info -->
+									<div class="adm-info">
+
+								
+										@*05383786763*@
+
+										<h4 class="display-3">
+
+											<a href="/Portfolyo/Portfolyo_edit/@item.port_Id">
+												@item.baslik.TrimFrontIfLongerThan(55)
+											</a>
+
+										</h4>
+										<div class="item-cat">
+										</div>
+									</div><!-- ad-info -->
+									<!-- ad-meta -->
+									<div class="ad-meta">
+										@*<div class="meta-content">
+												<span>
+													<img src="@item.ProfilFotografi" alt="Alternate Text" class=""
+														 style="border-radius: 50%; width: 28px; height: 25px;" />
+												</span>
+												<span>@item.KullaniciAdi</span>
+											</div>*@
+
+
+										<!-- item-info-right -->
+
+										<div class="user-option pull-right">
+
+
+											<a class="online" href="/Portfolyo/Portfolyo_edit/@item.port_Id"
+											   data-toggle="tooltip" data-placement="top" title="Düzenle"><i class="fa fa-pencil"></i> </a>
+
+											<a class="" href="@Url.Action("Delete", "Portfolyo", new {port_Id = item.port_Id})"
+											   data-toggle="tooltip" data-placement="top" title="Sil"
+											   onclick="return confirm('Simek istediğinize emin misiniz ?')"><i class="fa fa-times"></i></a>
+
+										</div><!-- item-info-right -->
+
+
+									</div><!-- ad-meta -->
+								</div><!-- item-info -->
+							</div>
+						
+					}
+				</div>
+			</div>
+			<!-- recommended-cta-->
+
+		</div>
+	</div><!-- row -->
+}

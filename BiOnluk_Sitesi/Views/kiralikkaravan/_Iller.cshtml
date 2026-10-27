@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HemenTanitim.Models.Il>
+<style>
+    .il {
+        font-size: 11px;
+    }
+</style>
+@{
+    string urunAdiRoute = "";
+    if (ViewContext.RouteData.Values["kelimeadi"] != null)
+    {
+        urunAdiRoute = ViewContext.RouteData.Values["kelimeadi"].ToString();
+    }
+
+    else
+    {
+        urunAdiRoute = "Kiralık Karavan";
+    }
+}
+
+<div class="panel panel-warning">
+    <div class="panel-body bg-warning">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-1">
+            <a href="@Url.RouteUrl("MDetay", new { kelimeadi = urunAdiRoute.ToSeoUrl(), il = item.il_ad.ToSeoUrl() })" class="il">
+            @item.il_ad
+        </a>
+     
+        </div>
+        }
+    </div>
+</div>
+
+@*<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script>
+            $(".il").click(function (e) {
+
+            var txt = $(e.target).text().trim();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ResultSetSessionSehir", "KategoriListesiGetir")',
+                data: { id: txt },
+                async: true
+            });
+
+        });
+    </script>*@
+
+
+
+

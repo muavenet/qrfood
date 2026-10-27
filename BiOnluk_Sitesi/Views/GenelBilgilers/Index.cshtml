@@ -1,0 +1,295 @@
+
+@model HemenTanitim.Models.GenelBilgiler
+
+@using Resources;
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center{text-align:left}
+</style>	
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Genel Bilgiler
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("Index")">GenelBilgiler</a></li>
+           
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'><a href="@Url.Action("Edit", new { aid = Model.Id })">D&#252;zenle</a></h3>
+                    </div>
+
+                  
+
+                    <div class="box-body">
+                        <div class="box-body table-responsive" style="overflow:hidden">
+                            <div class="form-group">
+
+
+                                <img src="@Url.Content("~/Content/uploads/" + Model.logo)" height="68" class="img img-thumbnail" />
+
+
+                            </div>
+                            <table id="tblListe" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-2">Ba&#351;l&#305;klar</th>
+                                        <th>&#304;&#231;erikler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.firmaResmiAdi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.firmaResmiAdi
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.firmaAdi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.firmaAdi
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.yetkiliAdi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.yetkiliAdi
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.mail)</label>
+                                        </td>
+                                        <td>
+                                            @Model.mail
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.mail2)</label>
+                                        </td>
+                                        <td>
+                                            @Model.mail2
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.telefon)</label>
+                                        </td>
+                                        <td>
+                                            @Model.telefon
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.fax)</label>
+                                        </td>
+                                        <td>
+                                            @Model.fax
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.canliDestekNumarasi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.canliDestekNumarasi
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.adres)</label>
+                                        </td>
+                                        <td>
+                                            @Model.adres
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.vergiNo)</label>
+                                        </td>
+                                        <td>
+                                            @Model.vergiNo
+                                        </td>
+                                    </tr>
+                               
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.vergiDairesi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.vergiDairesi
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.slogan)</label>
+                                        </td>
+                                        <td>
+                                            @Model.slogan
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.facebookAdresi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.facebookAdresi
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.TwitterKullaniciAdi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.TwitterKullaniciAdi
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.tweetAdresi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.tweetAdresi
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.linkedAdresi)</label>
+                                        </td>
+                                        <td>
+                                            @Model.linkedAdresi
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.haftaIciCalismaSaatleri)</label>
+                                        </td>
+                                        <td>
+                                            @Model.haftaIciCalismaSaatleri
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.cumartesiIciCalismaSaatleri)</label>
+                                        </td>
+                                        <td>
+                                            @Model.cumartesiIciCalismaSaatleri
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.pazarIciCalismaSaatleri)</label>
+                                        </td>
+                                        <td>
+                                            @Model.pazarIciCalismaSaatleri
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.haritaKonu)</label>
+                                        </td>
+                                        <td>
+                                            @Model.haritaKonu
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <a href="@Url.Action("Edit", new { aid = Model.Id })">D&#252;zenle</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $(document).ready(function () {
+            $("li").removeClass("active");
+            $("#ayarlar").addClass("active");
+            $("#ayarlar_menu").css("display", "block");
+            $("#ayarlar_footer").addClass("active");
+            $("#ayarlar_arrow").addClass("fa-angle-down");
+        });
+
+       
+
+    });
+</script>

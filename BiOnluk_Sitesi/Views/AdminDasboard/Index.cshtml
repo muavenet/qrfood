@@ -1,0 +1,79 @@
+﻿ 
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+
+        <label style="color:red">@TempData["MailGonderildi"]</label>
+
+        <label style="color:red">@TempData["YapilacaklarEklendi"]</label>
+        <h1>
+            <i class="fa fa-dashboard"></i> Gösterge Paneli <small>Anasayfa</small>
+        </h1>
+    
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            @{Html.RenderAction("_UstMenu", "AdminDasboard");}
+        </div><!-- /.row -->
+        <!-- Main row -->
+       
+            <!-- Left col -->
+            <section class="connectedSortable">
+
+                <div class="item_dasboard col-lg-12">
+                        @{Html.RenderAction("_GunlukSatisGrafigi", "AdminDasboard");}
+               </div>
+
+                <div class="item_dasboard col-lg-12">
+                    @{Html.RenderAction("_AylikSatisGrafigi", "AdminDasboard");}
+                </div>
+
+                @*<div class="item_dasboard col-lg-12">
+                    @{Html.RenderAction("_QuickEmail", "AdminDasboard");}
+                </div>*@
+
+                <div class="item_dasboard col-lg-12">
+                    @{Html.RenderAction("_Yapilacaklar", "AdminDasboard");}
+                </div>
+               
+              
+            </section>
+
+        
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+@Scripts.Render("~/bundles/AdminLTE_Dashboard")
+@Scripts.Render("~/bundles/raphael")
+@Scripts.Render("~/bundles/morris")
+@Scripts.Render("~/bundles/sparkline")
+@Scripts.Render("~/bundles/jvectormap")
+@Scripts.Render("~/bundles/jqueryKnob")
+@Scripts.Render("~/bundles/daterangepicker")
+@Scripts.Render("~/bundles/datepicker")
+@Scripts.Render("~/bundles/iCheck")
+<script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        CKEDITOR.replace('mailIcerik',
+        {
+            
+            height: '200px'
+        });
+
+        $("li").removeClass("active");
+        $("#dashboard").addClass("active");
+    });
+</script>
+

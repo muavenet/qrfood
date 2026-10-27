@@ -1,0 +1,137 @@
+﻿@model IEnumerable<HemenTanitim.Models.UrunListele2>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Askbootstrap">
+    <meta name="author" content="Askbootstrap">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>TYP - Online Food Ordering </title>
+    <!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick-theme.min.css" />
+    <!-- Feather Icon-->
+    <link href="~/Content/UI/vendor/icons/feather.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/UI/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+    <!-- Sidebar CSS -->
+    <link href="~/Content/UI/vendor/sidebar/demo.css" rel="stylesheet">
+</head>
+<body class="fixed-bottom-bar">
+    <div class="osahan-trending">
+        <div class="p-3 osahan-inner-header bg-white shadow-sm">
+            <div class="d-flex align-items-center">
+                <a class="font-weight-bold text-dark text-back text-decoration-none " href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="back-page bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                    </svg>
+                </a>
+                <span class="ml-3 h6 mb-0">Products of  @(ViewContext.RouteData.Values["AnaKategoriAdi"].ToString())</span>
+                <div class="ml-auto d-flex align-items-center">
+
+                    <a class="toggle ml-2 text-dark hc-nav-trigger hc-nav-1" href="#" role="button" aria-controls="hc-nav-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            @{Html.RenderAction("_BasitArama", "Filtre");}
+        </div>
+        <!-- Most popular -->
+        <div class="most_popular p-3">
+
+            @{int ikininKatlari = 0;}
+            @foreach (var items in Model)
+            {
+
+
+
+                if ((ikininKatlari % 2) == 0)
+                {
+                    @Html.Raw("<div class='row pt-2'>")
+                }
+
+                <div class="col-6 pr-1">
+                    <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                        <div class="list-card-image">
+
+                            <div class="favourite-heart position-absolute"><a href="#"><i class="feather-bookmark"></i></a></div>
+
+                            @if (items.Hot)
+                            {
+                                <div class="member-plan position-absolute"><span class="badge badge-danger">HOT</span></div>
+                            }
+                            else if (items.Promoted)
+                            {
+                                <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
+                            }
+                            else if (items.Trending)
+                            {
+                                <div class="member-plan position-absolute"><span class="badge badge-info">Trending</span></div>
+                            }
+                            <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = items.baslik.ToSeoUrl().Trim(), isId = items.isId })">
+                                <img src="@items.ResimYolu" class="img-fluid item-img w-100">
+                            </a>
+
+                        </div>
+                        <div class="p-3 position-relative">
+                            <div class="list-card-body">
+                                <h6 class="mb-1">
+                                    <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = items.baslik.ToSeoUrl().Trim(), isId = items.isId })"
+                                       class="text-black">
+                                        @items.baslik
+                                    </a>
+                                </h6>
+                                <p class="text-gray mb-1 small">@items.AnaKategoriAdi, @items.AltKategoriAdi</p>
+                                <p class="text-gray mt-3 mb-3 time">
+                                    <span class="bg-light text-dark rounded-sm  pb-1 pt-1 pr-2">
+                                        <i class="feather-clock"></i> @items.TeslimSuresi
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="list-card-badge d-flex align-items-center">
+                                <span class="badge badge-danger mr-2">OFFER</span> <small>@items.indirimOrani% off</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                if ((ikininKatlari % 2) == 1)
+                {
+                    @Html.Raw("</div>")
+                }
+
+                ikininKatlari++;
+            }
+
+
+
+
+        </div>
+        <!-- Footer -->
+        @{Html.RenderAction("_Footer", "FrontEndModules");}
+    </div>
+    @Html.Partial("_LoginPartial")
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Content/UI/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/UI/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- slick Slider JS-->
+    <script type="text/javascript" src="~/Content/UI/vendor/slick/slick.min.js"></script>
+    <!-- Sidebar JS-->
+    <script type="text/javascript" src="~/Content/UI/vendor/sidebar/hc-offcanvas-nav.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/Content/UI/js/osahan.js"></script>
+
+    @Scripts.Render("~/bundles/kendo")
+</body>
+</html>

@@ -1,0 +1,226 @@
+﻿@model MvcPaging.IPagedList<HemenTanitim.Models.Yapilacaklar>
+@using MvcPaging;
+
+
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+    <div class="box box-primary" id="refreshBody">
+        <div class="box-header">
+     
+            <i class="fa fa-clipboard"></i>
+            <h3 class="box-title">Notlar</h3>
+            @*<div class="box-tools pull-right">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>*@
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <ul class="todo-list">
+
+                @{string deger = "";}
+                @foreach (var item in Model)
+                {
+
+                    if (item.durum)
+                    {
+                        deger = "done";
+                    }
+
+                    else
+                    {
+                        deger = "";
+                    }
+
+                    <li class="@deger list_item" id="@item.Id">
+
+
+                        <span class="handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+
+                        <input type="checkbox" name="@item.Id.ToString()" checked="@item.durum" />
+
+                        <span class="text" id="lblyapilacak">@item.yapilacak</span>
+
+                        <label class="label label-info" id="lblTarih">
+                            <i class="fa fa-clock-o"></i>
+                            @item.tarih.ToShortDateString()
+                            @Html.Hidden("hdn", String.Format("{0:yyyy-MM-dd}", item.tarih), new { id = "hdn" })
+                        </label>
+
+                        <div class="tools">
+                            <i class="fa fa-edit btnDuzenle" id="@item.Id"></i>
+                            <i class="fa fa-trash-o btnSil" id="@item.Id"></i>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- /.box-body -->
+        <ul data-bind='foreach: gifts' style="list-style:none">
+            <li>
+                <div class="form-group col-md-10">
+                    <input class='required form-control' data-bind='value: name, uniqueName: true' placeholder="Görev tanımı" />
+                </div>
+                <div class="form-group col-md-6">
+                    <input class='required number form-control' type="date" data-bind='value: tarih, uniqueName: true' />
+                    <br />
+
+                    <button data-bind='enable: gifts().length > 0' type='submit' class="btn btn-default" onclick="kayitEkle();" name="" id="btnDegisken">Kaydet</button>
+                    <button data-bind='enable: gifts().length > 0, click: removeGift' type='submit' class="btn btn-default" id="btnRemove">İptal</button>
+                </div>
+            </li>
+
+
+        </ul>
+
+        <div class="box-footer clearfix no-border">
+            <button class="btn btn-default pull-right" data-bind='click: addGift' id="btnGorevEkle">
+                <i class="fa fa-plus"></i>
+                Görev ekle
+            </button>
+
+         
+        </div>
+
+    </div><!-- /.box -->
+
+  
+    <script src="~/Scripts/knockout-3.4.0.js"></script>
+  
+    <script>
+
+
+       
+
+        $(document).ready(function () {
+
+            $(".pagination").removeClass().addClass("pagination pagination-sm inline");
+        });
+
+        var GiftModel = function (gifts) {
+
+        var self = this;
+
+        self.gifts = ko.observableArray(gifts);
+
+        self.addGift = function () {
+
+            $("#btnGorevEkle").css("display", "none");
+
+            self.gifts.push({
+                name: "",
+                tarih: ""
+            });
+        };
+
+        self.removeGift = function (gift) {
+
+            $("#btnGorevEkle").css("display", "block");
+
+            self.gifts.remove(gift);
+        };
+
+        $('.btnDuzenle').on('click', function (event) {
+
+            var tarih_ = $(this).closest('li').find('#hdn').val();
+
+            var yapilacak = $(this).closest('li').find('#lblyapilacak').text();
+
+            var id = event.currentTarget.id;
+
+            $("#btnRemove").click();
+
+            self.gifts.push({
+
+                name: yapilacak,
+                tarih: tarih_
+            });
+
+            
+
+            $("#btnDegisken").attr("name",id);
+            $("#btnDegisken").text("Düzelt");
+
+        });
+
+        $('.btnSil').on('click', function (event) {
+
+            var id = event.currentTarget.id;
+           
+            $.ajax({
+                url: '@Url.Action("GorevSil")',
+                data: "id=" + id,
+                type: "POST",
+                success: function (data) {
+                    window.location.href = data.Url
+                },
+                error: function (request, status, error) {
+                    console.log("hata" + error);
+                }
+            });
+
+        });
+
+
+    };
+
+
+    $('input').on('ifChanged', function (event) {
+
+        var Id = event.currentTarget.name;
+        var durum = event.currentTarget.checked;
+
+        $.ajax({
+            url: '@Url.Action("GorevTamamlandi")',
+            data: "Id=" + Id + "&durum=" + durum,
+            type: "POST",
+            success: function (data) {
+
+            },
+            error: function (request, status, error) {
+                console.log("hata" + error);
+            }
+        });
+    });
+
+
+        function kayitEkle() {
+            
+         var data_;
+
+         if ($("#btnDegisken").text() == "Düzelt")
+             data_ = "yapilacak=" + self.gifts()[0].name + "&tarih=" + self.gifts()[0].tarih + "&id=" + $("#btnDegisken").attr("name");             
+         else
+             data_ = "yapilacak=" + self.gifts()[0].name + "&tarih=" + self.gifts()[0].tarih;
+
+         console.log(data_);
+
+        $.ajax({
+            url: '@Url.Action("GorevEkle")',
+            data: data_,
+            type: "POST",
+            success: function (data) {
+
+                //$("#btnGorevEkle").css("display", "block");
+
+                //self.gifts.remove(self.gifts()[0]);
+
+                window.location.href = data.Url
+
+            },
+            error: function (request, status, error) {
+                console.log("hata" + error);
+            }
+        });
+    };
+
+
+    ko.applyBindings(GiftModel);
+
+
+
+    </script>

@@ -1,0 +1,20 @@
+﻿<!-- ============================================== BRANDS CAROUSEL ============================================== -->
+<div id="brands-carousel" class="logo-slider wow fadeInUp">
+    <h3 class="section-title">BİZİ TERCİH EDEN FİRMALAR</h3>
+    <div class="logo-slider-inner">
+        <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+
+          
+                        @foreach (var item in @ViewBag.biziTercihEdenFirmalar)
+            {
+                <div class="item" style="max-width:145px">
+                    <a href="#" class="image">
+                        <img data-echo="/Content/uploads/@item.Text" src="/Content/uploads/@item.Text" alt="@item.Text" width="137" height="80">
+                    </a>
+                </div><!--/.item-->
+            }
+        </div><!-- /.owl-carousel #logo-slider -->
+    </div><!-- /.logo-slider-inner -->
+
+</div><!-- /.logo-slider -->
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->

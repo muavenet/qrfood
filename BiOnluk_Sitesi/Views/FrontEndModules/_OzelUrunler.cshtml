@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HemenTanitim.Models.VitrinUrunleri>
+<section class="section featured-product wow fadeInUp center">
+    <h3 class="section-title">Özel Ürünler</h3>
+    <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs" data-item="4">
+        @foreach (var item in Model)
+        {
+            <div class="item item-carousel">
+                <div class="products center" style="height: 340px; max-width: 273px; margin-bottom:20px;  background: #f0f0f0; border: 1px solid #e8e8e8; ">
+
+                    <div class="product">
+                        <div class="product-image">
+                            <div class="image">
+                                <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.Id })" title="@item.UrunAdi">
+                                    <img src="@item.ThumbYolu" alt="@item.tag" class="img img-responsive center" style="height: 158px; width: 260px; margin-top: 5px; margin-left:auto; margin-right:auto;" />
+                                </a>
+
+                            </div><!-- /.image -->
+                            @if (item.IndirimOrani != null)
+                            {
+
+                                <div class="tag hot"><span>%@item.IndirimOrani</span></div>
+                            }
+                            else
+                            {
+                               <div class="tag ozel"><span>Özel</span></div>
+                            }
+                          
+                        </div><!-- /.product-image -->
+                        <div class="product-info text-left" style="padding: 10px 10px 10px; ">
+                            <h3 class="name"><a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.Id })" title="@item.UrunAdi" class="pricetext"> @item.UrunAdi</a></h3>
+                            <div class="product-price" style="padding-top: 20px;">
+                                <span class="price">
+                                  @String.Format("{0:N}", item.Fiyat) <i class="fa fa-turkish-lira"></i>
+                                </span>
+                                <span class="price-before-discount">@String.Format("{0:N}", item.UstuCiziliFiyat)  <i class="fa fa-turkish-lira"></i></span>
+
+                            </div><!-- /.product-price -->
+
+                        </div><!-- /.product-info -->
+                        <div class="cart-button button-group" style=" padding: 10px 10px 10px; ">
+
+                            <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.Id })" title="cafe-sandalyesi-ucs-03" class="btn btn-cart">
+                                <i class=" fa fa-shopping-cart">
+                                </i>
+                                Ürün detay
+                            </a>
+
+                            <a class="btn btn-wishlist" href="#" id="@item.Id" title="Favorilerime ekle" onclick="FavorilerimeEkle(this); return false">
+                                <i class="fa fa-heart"></i>
+                            </a>
+
+                            <button type="button" title="Karşılatır" id="@item.Id" onclick="KarsilastirmaEkle(this); return false" class="btn btn-compare">
+                                <i class="fa fa-bar-chart-o"></i>
+                            </button>
+                        </div>
+
+                    </div><!-- /.product -->
+
+                </div><!-- /.products -->
+            </div><!-- /.item -->
+        }
+
+
+    </div><!-- /.home-owl-carousel -->
+</section><!-- /.section -->

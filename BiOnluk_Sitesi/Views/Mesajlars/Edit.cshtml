@@ -1,0 +1,66 @@
+
+
+
+@model HemenTanitim.Models.Mesajlar
+@using Resources;
+@{
+    ViewBag.Title = "Edit düzenleme";
+          Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+           Mesajlar d&#252;zenle
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("Index")">Mesajlar  i&#351;lemleri</a></li>
+            <li class="active">Mesajlar  d&#252;zenle</li>
+        </ol>
+    </section>
+
+ <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>                 
+
+                    <div class="box-body">
+
+
+
+ @using (Html.BeginForm("Edit", "Mesajlars", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+                    {
+
+    @Html.ValidationSummary(true)
+    
+     
+
+        @Html.HiddenFor(model => model.id)
+					@Html.Partial("_CreateOrEdit", Model)
+
+					<div class="form-actions no-margin-bottom" style="text-align:center;">
+                            <input type="submit" value="Kaydet" class="btn btn-primary btn-lg " />
+                        </div>
+						 }
+						</div>
+                </div>
+            </div>
+        </div>
+        <div>
+         	<a href="@Url.Action("Index")">Listeye d&#246;n</a>
+        </div>
+        </section></aside>
+
+@section scriptFooter{
+    @Scripts.Render("~/bundles/bootstrap-wysihtml5")
+    <script>
+
+        $(document).ready(function () {
+
+            $("#wysihtml5").wysihtml5();
+
+        });
+    </script>
+}
+

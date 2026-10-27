@@ -1,0 +1,85 @@
+﻿@model List<HemenTanitim.Models.MusteriSiteleri>
+
+@{
+    ViewBag.Title = "MusteriSiteleri";
+    Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@Styles.Render("~/Content/css/datatables")
+
+<div class="ads-info">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="my-reks section">
+                <h2>Kayıtlı  Siteleriniz</h2>
+                <!-- ad-item -->
+                <table class="table table-bordered table-striped" id="tblListe">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                Site No
+                            </th>
+                            <th>
+                               Site Adı
+                            </th>
+                            <th>
+                                Site Url
+                            </th>                            
+                            <th>
+                                Url Gösterimi
+                            </th>
+                            <th>
+                               Kategori
+                            </th>                            
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{string sonuc = ""; }
+                        @foreach (var item in Model)
+                        {
+                            if (item.UrlGosterim == true)
+                            { sonuc = "<i class='fa fa-check' aria-hidden='true' style='color:#00a651;'></i>"; }
+                            else
+                            { sonuc = "<i class='fa fa-times' aria-hidden='true' style='color:red;'></i>"; }
+
+                            <tr>
+                                <td>
+                                    @item.siteId
+                                </td>
+                                <td>
+                                    @item.siteAdi
+                                </td>
+                                <td>
+                                    @item.siteUrl
+                                </td>                              
+                                <td>
+                                    @Html.Raw(sonuc)
+                                </td>
+                                <td>
+                                   
+                                </td> 
+                                <td>
+                                    <a href="@Url.Action("Edit", new { aid=item.siteId })">D&#252;zenle</a>|                                   
+                                    @Html.ActionLink("Sil", "Delete", new { aid = item.siteId })
+                                </td>
+                            </tr>
+                        }
+
+                </table>
+
+
+            </div>
+        </div>
+    </div><!-- row -->
+</div><!-- row -->
+@section scripts{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+}
+
+

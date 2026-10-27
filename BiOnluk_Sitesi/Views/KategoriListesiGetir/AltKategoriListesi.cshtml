@@ -1,0 +1,22 @@
+﻿@model IEnumerable<HemenTanitim.Models.AltKategoriEkle>
+
+
+ 
+
+    <div id="accordion-one" class="panel-collapse collapse in">     
+        <div class="panel-body">
+			<ul>
+				
+				@foreach (var item in Model)
+				{
+					<li>
+						<a href="@Url.RouteUrl("Kategoriler", new { anaKategoriId = item.AnaKategoriId, anaKategoriAdi = ViewContext.RouteData.Values["anaKategoriAdi"].ToString().ToSeoUrl(),
+								 AltKategoriAdi = item.KategoriAdi.ToSeoUrl(), AltKategoriId = item.Id, sortOrder = "en_yeniler", page = 1 })">
+								 @item.KategoriAdi
+						</a>
+					</li>
+				}
+			</ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+﻿@model List<HemenTanitim.Models.SiparisBilgileri>
+
+@{
+    ViewBag.Title = "Siparişler";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<style>
+
+    .myDIV {
+        cursor: pointer;
+        animation: mymove 2s infinite;
+    }
+
+    @@keyframes mymove {
+        from {box-shadow: 0px 0px 10px  #d0d0d0;
+        }
+        to {
+           
+            box-shadow: 0px 0px 10px #343448;
+        }
+    }
+
+    .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 12px !important;
+    }
+  /*  tr:hover td{
+        background-color: #FEFEFE !important;
+    }*/
+
+
+    td {
+        vertical-align: middle !important;
+        font-size:17px;
+    }
+    .text-center {
+        text-align: left;
+    }
+
+</style>
+
+
+<aside class="right-side strech">
+        <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="ui celled table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Siparis No
+                                    </th>
+                                    <th style="text-align:center">
+                                        Sipariş durumu
+                                    </th>
+                                    <th style="text-align:center">
+                                        Ödeme Tipi
+                                    </th>
+                                    <th style="text-align:right">
+                                        Tutar
+                                    </th>
+                                </tr>
+                            </thead>                        
+                           
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+@Html.Hidden("Get", Url.Action("GetSiparisler", "AdminSiparisIslemleri"))
+
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/jquery")
+
+
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+
+
+    @Scripts.Render("~/bundles/datatables")
+
+
+    <script type="text/javascript">
+
+        var $conf = jQuery.noConflict();
+
+        $conf('#tblListe').dataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": false,
+            "bSort": false,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "destroy": false
+        }); 
+
+        var audioElement = document.createElement('audio');
+        audioElement.setAttribute('src', '/Content/Sounds/ring.mp3');
+        //audioElement.load()
+        $.get();
+   
+        $conf(function () {
+
+            // Proxy created on the fly
+            var job = $conf.connection.siparisHub;
+
+            // Declare a function on the job hub so the server can invoke it
+            job.client.displaySiparisler = function () {
+                getData();
+                audioElement.play();
+            };
+
+            //Start the connection
+            $conf.connection.hub.start();
+            getData();
+        });
+
+        function getData() {
+            var $tbl = $('#tblListe');
+            var $odemetipi;
+            $.ajax({
+                //HomeController/GetSiparişler içerisinden çekiyorum.
+                url: $("#Get").val(),
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+
+                    if (data.length > 0) {
+
+                        $('#tblListe tbody').empty();
+
+                        for (var i = 0; i < data.length; i++) {
+
+                            if (data[i].OdemeTipi == 1)
+                                $odemetipi = "Kredi Kartı";
+                            else
+                                $odemetipi = "Kapıda Ödeme";
+
+                            if (data[i].Okundumu) {
+                                $tbl.append('<tr style="cursor: pointer; cursor: hand;" onclick=window.location="/AdminSiparisIslemleri/Detay/' + data[i].siparisId + '"><td>' + data[i].siparisId + '</td><td style="text-align:center">' + data[i].IlanAdi + '</td><td style="text-align:center"><strong>'
+                                    + $odemetipi + '</strong></td><td style="text-align:right;font-weight:bold">' + data[i].Tutar + 'TL</td></tr>');
+                            }
+                            else
+                                $tbl.append('<tr class="myDIV" onclick=window.location="/AdminSiparisIslemleri/Detay/' + data[i].siparisId + '"><td>' + data[i].siparisId + '</td><td style="text-align:center"><strong>' + data[i].IlanAdi + '</strong></td><td style="text-align:center"><strong>' + $odemetipi + '</strong></td><td style="text-align:right;font-weight:bold">' + data[i].Tutar + 'TL</td></tr>');
+
+                        }
+                         
+                    }
+
+
+                }
+            });
+        }
+
+
+        //Teslim durumu değişitilmesi
+        function ddlTes(e) {
+
+            var val = $(e).val();
+
+            $.ajax({
+                url: "/AdminSiparisIslemleri/TeslimDurumuDegistir",
+                data: { selectedValue: val, Id: e.id },
+                type: "POST",
+                dataType: "json",
+                success: function (result) { },
+                error: function (error) { alert(error); }
+            });
+
+        }
+        //Teslim durumu değişitilmesi
+
+        $conf(document).ready(function () {
+            $conf(".left-side").addClass("collapse-left");
+        });
+    </script>
+
+
+
+}
+
+

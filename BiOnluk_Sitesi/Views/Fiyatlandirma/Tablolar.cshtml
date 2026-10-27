@@ -1,0 +1,447 @@
+﻿
+@model MvcPaging.IPagedList<HemenTanitim.Models.Fiyatlandirma>
+@using MvcPaging;
+
+
+@{
+	ViewBag.Title = "Tablolar";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:Condensed" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800' rel='stylesheet' type='text/css'>
+
+
+<style>
+
+	a {
+		font-size: 18px;
+		font-family: 'Open Sans';
+		color: white;
+		text-decoration: none;
+	}
+
+	input:focus, textarea:focus, select:focus {
+		border: 1px solid #fafafa;
+		-webkit-box-shadow: 0 0 6px #007eff;
+		-moz-box-shadow: 0 0 5px #007eff;
+		box-shadow: 0 0 5px #007eff;
+		outline: none;
+	}
+
+	sup {
+		font-size: 40px;
+	}
+
+	ul {
+		list-style: none;
+		font-size: 15px;
+		font-family: 'Open Sans';
+		color: #9095aa;
+		padding: 0px;
+		margin: 0px;
+	}
+
+
+	li {
+		border-bottom: 1px solid #494a5a;
+		padding: 0px;
+		margin: 0px;
+		text-align: center;
+		height: 52px;
+		line-height: 52px;
+	}
+
+
+	#container {
+		width: 100%;
+		text-align: center;
+	}
+
+	.whole {
+		display: inline-block;
+	}
+
+
+
+	.type {
+		width: 300px;
+		border-radius: 5px 5px 0px 0px;
+		background-color: #eac80d;
+		height: 62px;
+		border-bottom: 3px solid #bfa30c;
+	}
+
+		.type p {
+			font-family: 'Open Sans';
+			font-weight: 800;
+			font-size: 29px;
+			text-transform: uppercase;
+			color: white;
+			text-align: center;
+			padding-top: 10px;
+		}
+
+	.plan {
+		width: 300px;
+		background-color: #2b2937;
+		border-radius: 0px 0px 5px 5px;
+		font-family: 'Open Sans';
+		font-style: condensed;
+		font-size: 90px;
+		color: white;
+		text-align: center;
+	}
+
+	.standard {
+		background-color: #1abc9c;
+		border-bottom: 3px solid #18937b;
+	}
+
+	.ultimate {
+		background-color: #5d6a9a;
+		border-bottom: 3px solid #474f6f;
+	}
+
+
+
+
+
+	.header {
+		border-bottom: 1px solid #494a5a;
+		padding-bottom: 39px;
+	}
+
+		.header span {
+			font-size: 32px;
+		}
+
+	.month {
+		font-size: 14px;
+		color: #575757;
+		padding: 0px;
+		margin: -10px;
+	}
+
+	.price {
+		height: 80px;
+	}
+
+	.cart {
+		color: white;
+		position: relative;
+		top: 16px;
+	}
+
+	.bottom {
+	}
+
+	.content {
+	}
+
+	.login_c {
+		width: 500px;
+		background-color: #2b2937;
+		height: 300px;
+		margin: 0 auto;
+		margin-top: 40px;
+		border-radius: 5px;
+	}
+
+		.login_c input {
+			width: 350px;
+			height: 40px;
+			border: 1px solid #494a5a;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			padding-left: 10px;
+		}
+
+
+	.login {
+		background-color: #BC4B1A;
+		border-bottom: 3px solid #7C3618;
+		width: 100%;
+	}
+
+	.top {
+		margin-top: 35px;
+	}
+
+	.nodisplay {
+		opacity: 0.1;
+	}
+
+	.selected {
+		background-color: #1F1B36;
+		margin: 0px;
+		padding: 0px;
+	}
+	.box .box-body {
+	padding:0 !important;
+	}
+	.box {
+		position: relative !important;
+		background: none !important;
+		border-top: 0 !important;
+		margin-bottom: 20px !important;
+		-webkit-border-radius: 3px !important;
+		-moz-border-radius: 3px !important;
+		border-radius: 0 !important;
+		width: 100% !important;
+		box-shadow: none !important;
+	}
+		.box .todo-list > li {
+			text-align: left;
+			border-radius: 0 !important;
+			padding: 0 !important;
+			background: none !important;
+			margin-bottom: 0 !important;
+			border-left: 0 !important;
+			color: inherit !important;
+		}
+</style>
+
+
+<div id="container">
+	<div class="whole">
+		<div class="type">
+			<p>Basic</p>
+		</div>
+		<div class="plan">
+
+			<div class="header">
+				<span>$</span>29<sup>99</sup>
+				<p class="month">YILLIK</p>
+
+				@*<input class='required number form-control' data-bind='value: fiyat, uniqueName: true' />*@
+			</div>
+			<div class="content">
+
+				<div class="box " id="refreshBody">
+			
+					<div class="box-body">
+						<ul class="todo-list">
+
+							@foreach (var item in Model)
+							{
+								<li class="list_item" id="@item.Id">
+
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+
+									<span class="" id="lblyapilacak">@item.BasisIcerik</span>
+
+									<div class="tools">
+										<i class="fa fa-edit btnDuzenle" id="@item.Id"></i>
+										<i class="fa fa-trash-o btnSil" id="@item.Id"></i>
+									</div>
+								</li>
+							}
+						</ul>
+					</div>
+					<!-- /.box-body -->
+
+
+				</div><!-- /.box -->
+
+				<ul data-bind='foreach: gifts' style="list-style:none">
+					<li>
+						<input class='required form-control' data-bind='value: name, uniqueName: true' placeholder="Madde içerik" />
+
+						<div class="form-group col-md-6">
+							<button data-bind='enable: gifts().length > 0' type='submit' class="btn btn-default" onclick="kayitEkle();" name="" id="btnDegisken">Kaydet</button>
+							<button data-bind='enable: gifts().length > 0, click: removeGift' type='submit' class="btn btn-default" id="btnRemove">İptal</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="price">
+
+				<a class="bottom" data-bind='click: addGift' id="btnGorevEkle">
+					<p class="cart">
+						Görev ekle
+						</p>
+				</a>			
+			</div>
+		</div>
+	</div>
+	<div class="whole">
+		<div class="type standard">
+			<p>Standard</p>
+		</div>
+		<div class="plan">
+
+			<div class="header">
+				<span>$</span>49<sup>99</sup>
+				<p class="month">per month</p>
+			</div>
+			<div class="content">
+				<ul>
+					<li>15 Email Accounts</li>
+					<li>100GB Space</li>
+					<li>1 Domain Name</li>
+					<li>500GB Bandwidth</li>
+				</ul>
+			</div>
+			<div class="price">
+				<a href="#" class="bottom"><p class="cart">Add to cart</p></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="whole">
+		<div class="type ultimate">
+			<p>Ultimate</p>
+		</div>
+		<div class="plan">
+
+			<div class="header">
+				<span>$</span>49<sup>99</sup>
+				<p class="month">per month</p>
+			</div>
+			<div class="content">
+				<ul>
+					<li>15 Email Accounts</li>
+					<li>100GB Space</li>
+					<li>1 Domain Name</li>
+					<li>500GB Bandwidth</li>
+				</ul>
+			</div>
+			<div class="price">
+				<a href="#" class="bottom"><p class="cart">Add to cart</p></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<link href="~/Content/Admin/css/AdminLTE.css" rel="stylesheet" />
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+	<script src="~/Scripts/knockout-3.4.0.js"></script>
+
+	<script>
+
+
+
+		var $tablolar = jQuery.noConflict();
+
+	
+
+
+
+        $tablolar(document).ready(function () {
+
+            $tablolar(".pagination").removeClass().addClass("pagination pagination-sm inline");
+        });
+
+        var GiftModel = function (gifts) {
+
+        var self = this;
+
+        self.gifts = ko.observableArray(gifts);
+
+        self.addGift = function () {
+
+            $tablolar("#btnGorevEkle").css("display", "none");
+
+            self.gifts.push({
+				name: "",
+				fiyat: ""
+            });
+        };
+
+        self.removeGift = function (gift) {
+
+            $tablolar("#btnGorevEkle").css("display", "block");
+
+            self.gifts.remove(gift);
+        };
+
+        $tablolar('.btnDuzenle').on('click', function (event) {
+
+            var yapilacak = $tablolar(this).closest('li').find('#lblyapilacak').text();
+
+            var id = event.currentTarget.id;
+
+            $tablolar("#btnRemove").click();
+
+            self.gifts.push({
+
+				name: yapilacak,
+				fiyat: ""
+
+            });
+
+
+            $tablolar("#btnDegisken").attr("name",id);
+            $tablolar("#btnDegisken").text("Düzelt");
+
+        });
+
+        $tablolar('.btnSil').on('click', function (event) {
+
+            var id = event.currentTarget.id;
+
+            $tablolar.ajax({
+                url: '@Url.Action("GorevSil")',
+                data: "id=" + id,
+                type: "POST",
+                success: function (data) {
+                    window.location.href = data.Url
+                },
+                error: function (request, status, error) {
+                    console.log("hata" + error);
+                }
+            });
+
+        });
+
+
+    };
+
+
+        function kayitEkle() {
+
+         var data_;
+
+         if ($tablolar("#btnDegisken").text() == "Düzelt")
+             data_ = "yapilacak=" + self.gifts()[0].name + "&tarih=" + self.gifts()[0].tarih + "&id=" + $tablolar("#btnDegisken").attr("name");
+         else
+             data_ = "yapilacak=" + self.gifts()[0].name + "&tarih=" + self.gifts()[0].tarih;
+
+         console.log(data_);
+
+        $tablolar.ajax({
+            url: '@Url.Action("GorevEkle")',
+            data: data_,
+            type: "POST",
+            success: function (data) {
+
+                //$tablolar("#btnGorevEkle").css("display", "block");
+
+                //self.gifts.remove(self.gifts()[0]);
+
+                window.location.href = data.Url
+
+            },
+            error: function (request, status, error) {
+                console.log("hata" + error);
+            }
+        });
+    };
+
+
+    ko.applyBindings(GiftModel);
+
+
+
+	</script>

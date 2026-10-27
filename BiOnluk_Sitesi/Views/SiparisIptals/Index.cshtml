@@ -1,0 +1,135 @@
+@model IEnumerable<HemenTanitim.Models.SiparisIptalBilgileri>
+
+@using Resources;
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            Ýptal talepleri
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Ýptal talepleri</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                 
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+                            <thead>
+                                <tr>
+                                    
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TalepKodu)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SiparisId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.iptalTarihi)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Tutar)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.OdemeTipi)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TeslimDurumu)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.UserName)
+                                    </th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        
+                                        <td>
+                                             @item.TalepKodu
+                                        </td>
+                                        <td>
+                                            @item.SiparisId
+                                        </td>
+                                        <td>
+                                            @String.Format("{0:g}", item.iptalTarihi)
+                                        </td>
+                                        <td>
+                                          @String.Format("{0:N}", item.Tutar) TL
+                                        </td>
+                                        <td>
+                                            @item.OdemeTipi
+                                        </td>
+                                        <td>
+                                            @item.TeslimDurumu
+                                        </td>
+                                        <td>
+                                            @item.UserName
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink("Sil", "Delete", new { aid = item.Id })
+                                        </td>
+                                       
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+
+        $("li").removeClass("active");
+        $("#raporlar").addClass("active");
+        $("#raporlar_menu").css("display", "block");
+        $("#siparisiptal").addClass("active");
+        $("#raporlar_arrow").addClass("fa-angle-down");
+    });
+
+</script>
+
+}
+
+

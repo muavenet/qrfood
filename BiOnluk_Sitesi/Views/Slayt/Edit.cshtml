@@ -1,0 +1,177 @@
+﻿@model HemenTanitim.Models.Fotolar
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Slayt düzenle
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">  Slayt fotoğrafı düzenle</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class="box-body">
+
+                        @using (Html.BeginForm(Html.BeginForm("Edit", "Slayt", FormMethod.Post, new { enctype = "multipart/form-data" })))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.ResimYolu)
+
+                            <div class="form-group">
+                               
+
+
+
+                                    <img src="@Url.Content("~/Content/uploads/" + Model.ResimYolu)" width="200" height="105" class="img img-thumbnail" alt="Geçerli slayt" />
+
+
+                            </div>
+                            
+                               
+                            
+                            <div class="form-group">
+                              
+                                <input type="file" name="photo" id="photo" />
+
+                            </div>
+                        
+                            <div class="form-group">
+
+                                <small class="bg-info">Ana sayfa slayt fotoğraf boyutu : Uzunluk : 1900px - Genişlik : 520px </small>
+                            </div>
+
+                            <div class="form-group">
+                                <strong>Resim alt tagı</strong>
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Baslik1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Baslik1)
+                            </div>
+
+
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.Baslik2)
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Baslik2, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Baslik2)
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Icerik)
+                            </div>
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Icerik, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Icerik)
+                            </div>*@
+                            
+                               <div class="form-group">
+                                @Html.LabelFor(model => model.link)
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.link, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.link)
+                            </div>
+                             <div class="form-group">
+
+                                   <small class="bg-danger">Aşağıdaki seçeneklerden birini seçmesseniz slayt anasayfaya eklenecektir.</small>
+                            </div>
+
+                             <div class="form-group">
+
+                                 Kategori slayt (846px x 248px) &nbsp;&nbsp; @Html.CheckBoxFor(model => model.KategoriSlayt_h248, new { @class = "checkbox margin-left-10 pull-right" })
+
+
+                                @Html.ValidationMessageFor(model => model.KategoriSlayt_h248)
+
+                            </div>
+                            
+                            
+                             <div class="form-group">
+
+                                 Dikey slayt (430px x 263px)  &nbsp;&nbsp; @Html.CheckBoxFor(model => model.KategoriSlayt_h430, new { @class = "checkbox margin-left-10 pull-right" })
+
+
+                                @Html.ValidationMessageFor(model => model.KategoriSlayt_h430)
+
+                            </div>
+                             <div class="form-group">
+
+                              
+                                Anasayfa cift banner (kısa olan) 470px x 146px : &nbsp;&nbsp; @Html.CheckBoxFor(model => model.SlaytKucukAnasayfa1, new { @class = "checkbox margin-left-10 pull-right" })
+
+
+                                @Html.ValidationMessageFor(model => model.SlaytKucukAnasayfa1)
+                            </div>
+                            
+                              <div class="form-group">
+
+
+                                  Anasayfa cift banner (geniş olan) 670px x 146px : &nbsp;&nbsp; @Html.CheckBoxFor(model => model.SlaytKucukAnasayfa2, new { @class = "checkbox margin-left-10 pull-right" })
+
+
+                                @Html.ValidationMessageFor(model => model.SlaytKucukAnasayfa2)
+                            </div>
+                            
+                              <div class="form-group">
+
+
+                                  Anasayfa en uzun banner 1155px x 183px : &nbsp;&nbsp; @Html.CheckBoxFor(model => model.AnasayfaEnUzunBanner, new { @class = "checkbox margin-left-10 pull-right" })
+
+
+                                @Html.ValidationMessageFor(model => model.AnasayfaEnUzunBanner)
+                            </div>
+                             <div class="form-group">
+                              Bizi tercih eden firmalar &nbsp;&nbsp; @Html.CheckBoxFor(model => model.BiziTercihEdenFirmalar, new { @class = "checkbox margin-left-10 pull-right" })
+                                @Html.ValidationMessageFor(model => model.BiziTercihEdenFirmalar)
+                            </div>
+
+                            
+                            <div class="form-group">
+                               
+                                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                               
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+                <div>
+                    @Html.ActionLink("<< Geri dön", "Index")
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("li").removeClass("active");
+        $("#foto").addClass("active");
+        $("#foto_menu").css("display", "block");
+        $("#foto_ana").addClass("active");
+        $("#foto_arrow").addClass("fa-angle-down");
+    });
+
+</script>

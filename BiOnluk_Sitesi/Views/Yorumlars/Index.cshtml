@@ -1,0 +1,180 @@
+
+@model IEnumerable<HemenTanitim.Models.Yorumlar>
+
+@using Resources;
+
+
+
+@{
+    ViewBag.Title = "Index";
+          Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center{text-align:left}
+</style>	
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.YorumTuru
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Yorumlar listesi</li>
+        </ol>
+    </section>
+
+	 <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class="col-md-12">
+                        <br />
+                        <div class="lbl-cnt">
+                            <div class="fld inline">
+                                <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                    <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                                        Filtreleme seçenekleri ile sýrala...
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul role="menu" class="dropdown-menu">
+
+                                        <li role="presentation">
+                                            <a href="@Url.Action("Index", new { yorumturu = "" })">Onay beklyen yorumlar</a>
+                                        </li>
+
+                                        <li role="presentation">
+
+                                            <a href="@Url.Action("Index", new { yorumturu = "Onaylý" })">Onaylý yorumlar</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="@Url.Action("Index", new { yorumturu = "Tumu" })">Tümü</a>
+
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div><!-- /.fld -->
+                        </div><!-- /.lbl-cnt -->
+
+
+                        <hr />
+                        <!-- tools box -->
+                    </div><!-- /.box-header -->
+
+         
+
+     <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+ <thead>
+    <tr>
+       <th></th>
+     
+        <th>
+            Kullanýcý Adý
+        </th>
+        <th>
+            Aciklama
+        </th>
+        <th>
+            Giris Tarihi
+        </th>
+        <th>
+            Onay
+        </th>
+ 
+    </tr>
+	 </thead>
+	  <tbody>
+@foreach (var item in Model) {
+		  <tr>
+		  	<td>
+		  		@Html.ActionLink("Detaylar", "Details", new { aid = item.Id }) |
+		  	@Html.ActionLink("Sil", "Delete", new { aid = item.Id })
+		  </td>
+		
+		  <td>
+		  	@item.kullaniciAdi
+		  </td>
+		  <td>
+		  	@item.Aciklama
+		  </td>
+		  <td>
+		  	@String.Format("{0:g}", item.GirisTarihi.ToShortDateString())
+		  </td>
+		  <td>
+		  	@Html.DropDownList("ddlTes",
+
+				   new SelectList(ViewBag.Onay, "Value", "Text", item.Onay),
+
+				   new { @id = item.Id, onchange = "ddlTes(this)" })
+
+
+		  </td>
+		  <td>
+		  	<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.isBaslik.ToSeoUrl().Trim(), isId =  @item.isId })" >	Ýlana Git
+				 </a>
+
+		  </td>
+		  </tr>
+}
+ <tbody>
+</table>
+   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+@Scripts.Render("~/bundles/datatables")
+
+<script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+
+
+
+
+<script type="text/javascript">
+
+    function ddlTes(e) {
+
+        var val = $(e).val();
+
+        $.ajax({
+            url: "/Yorumlars/OnayDurumuDegistir",
+            data: { selectedValue: val, Id: e.id },
+            type: "POST",
+            dataType: "json",
+            success: function (result) { },
+            error: function (error) { alert(error); }
+        })
+
+    }
+
+    
+       $(document).ready(function () {
+
+           $("li").removeClass("active");
+           $("#yorumlar").addClass("active");
+       });
+    
+
+</script>
+}
+
+    }
+
+

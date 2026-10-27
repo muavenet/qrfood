@@ -1,0 +1,60 @@
+﻿@model IEnumerable<HemenTanitim.Models.Fotolar>
+
+
+
+<div class="bs-example">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Carousel indicators -->
+        <ol class="carousel-indicators">
+        @{int sayi = 0;}
+        @foreach (var item in Model)
+        {
+             if (item.Slayt)
+                {
+                    if(sayi == 0){
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>           
+                    }
+                    else{
+                        <li data-target="#myCarousel" data-slide-to="@sayi"></li>  
+                    }
+                    sayi++;
+                }
+           
+        }
+        </ol>
+        <!-- Wrapper for carousel items -->
+        <div class="carousel-inner">
+            @{ sayi = 0;}
+            @foreach (var res in Model)
+             {
+                if (res.Slayt)
+                {
+                    if(sayi == 0)
+                    {
+                        <div class="item active">
+                            <a href="@res.link" title="@res.Baslik1">
+                                <img src="/Content/uploads/@res.ResimYolu" alt="@res.Baslik1">
+                            </a>    
+                        </div>
+                    }
+                    else{
+                        <div class="item">
+                            <a href="@res.link" title="@res.Baslik1">
+                                <img src="/Content/uploads/@res.ResimYolu" alt="@res.Baslik1">
+                             </a>
+                        </div>
+                    }
+                    sayi++;
+                    
+                }
+            }
+        </div>
+        <!-- Carousel controls -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>

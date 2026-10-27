@@ -1,0 +1,118 @@
+﻿@model IEnumerable<HemenTanitim.Models.UrunListele2>
+
+
+
+<style>
+	.baslik_ {
+		padding: 8px 15px 0px;
+		color: #000000;
+		vertical-align: -webkit-baseline-middle;
+		overflow: hidden;
+		float: left;
+		font-size: 16px;
+		font-weight: 500;
+		min-height: 53px;
+		width: 100%;
+	}
+
+	.kullanicifoto_ {
+		padding: 8px 15px 0px;
+		color: #545454;
+		vertical-align: -webkit-baseline-middle;
+		line-height: 44px;
+	}
+
+	.item-cat, hr {
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+
+	#urunler_row {
+		padding: 40px 5px 0px 22px;
+	}
+    .owl-carousel .owl-next, .owl-carousel .owl-prev {
+		color:black;
+	}
+    .resim_100 {
+        object-fit: cover;
+        min-width: 260px;
+        height: 154px !important;
+    }
+</style>
+
+<div class="section featureds" style="margin: 20px 0; ">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="featured-top">
+				<h4>SON EKLENENLER</h4>
+			</div>
+		</div>
+	</div>
+
+	<!-- featured-slider -->
+	<div class="featured-slider">
+        <div id="featured-slider-two">
+            <!-- featured -->
+            @foreach (var item in Model)
+            {
+
+
+                <div class="col-sm-6 col-md-4 col-lg-4" style="margin-bottom:40px; margin-right:30px; padding:0; width:263px">
+                    <div class="featured">
+                        <div class="featured-image" style="background-color:white;">
+
+                            <div style="border-bottom: 1px solid rgb(232, 232, 232);  margin:0 auto;">
+                                <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })" title="@item.isId">
+
+                                    @if (item.oneCikarma == true)
+                                    {
+                                        <span class="notify-badge">Öne çıkan</span>
+                                    }
+
+                                    @if (item.ResimYolu != "")
+                                    {<img src="@item.ResimYolu" alt="@item.isId" class="img-responsive center-block resim_100" width="263" height="148" style="max-height:148px;min-height:148px">}
+                                    else
+                                    { }
+
+                                </a>
+                            </div>
+
+                            <a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })" class="baslik_">
+                                @item.baslik.FirstCharToUpper().TrimFrontIfLongerThan(50)
+                            </a>
+
+                            <a href="@Url.Action("Kullanicilar","MusteriPaneli",  new { Id = item.KullaniciId })" title="@item.KullaniciAdi" class="kullanicifoto_">
+                                <img src="@item.KullaniciFoto" class="img-circle" style="width: 33px; display: inline-block; " /> @item.KullaniciAdi.TrimFrontIfLongerThan(22)
+                            </a>
+
+                            @*<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.UrunId })" class="verified" data-toggle="Detay" data-placement="top" title="Detay"><i class="fa fa-dot-circle-o"></i></a>*@
+                        </div>
+
+                        <!-- ad-info -->
+                        <div class="ad-info" style="padding-right: 5px; padding-left: 5px; text-align: right; background-color: white; padding-bottom: 10px;">
+
+							<!--<div class="item-cat">
+								<span>
+									<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })"
+									   title="@item.siteUrl">-->
+										@*@item.siteUrl.TrimFrontIfLongerThan(25)*@
+									<!--</a>
+
+								</span>
+							</div>-->
+
+									@*<a href="@Url.RouteUrl("Kategoriler", new { anaKategoriId = item.AnaKategoriId, anaKategoriAdi = item.AnaKategoriAdi.turkceSeoUrl(),
+												   AltKategoriAdi = item.AltKategoriAdi.turkceSeoUrl(), AltKategoriId = item.AltKategoriId, sortOrder = "en_yeniler", page = 1 })"
+									   title="@item.baslik" style="position:relative; float:right;line-height:50px;">*@
+                            <strong style="font-size:17px;"> @item.MinFiyat TL </strong>
+                            @*</a>*@
+
+
+                        </div><!-- ad-info -->
+                    </div><!-- featured -->
+                </div><!-- featured -->
+            }
+         
+        </div><!-- featured-slider -->
+	</div><!-- #featured-slider -->
+</div><!-- featureds -->

@@ -1,0 +1,207 @@
+﻿
+
+<style>
+    /*.dropdown-header {
+        border-width: 0 0 1px 0;
+        text-transform: uppercase;
+    }
+
+        .dropdown-header > span {
+            display: inline-block;
+            padding: 10px;
+        }
+
+            .dropdown-header > span:first-child {
+                width: 50px;
+            }
+
+    #customers-list .k-item {
+        line-height: 1em;
+        min-width: 300px;
+        padding:15px 0 0px 15px;
+    }
+
+    Material Theme padding adjustment
+
+    .k-material #customers-list .k-item,
+    .k-material #customers-list .k-item.k-state-hover,
+    .k-materialblack #customers-list .k-item,
+    .k-materialblack #customers-list .k-item.k-state-hover {
+        padding-left: 5px;
+        border-left: 0;
+    }
+
+    #customers-list .k-item > span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+        margin: 20px 10px 10px 35px;
+    }
+
+    .k-block, .k-draghandle, .k-grid-header, .k-grouping-header, .k-header, .k-pager-wrap, .k-toolbar, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: transparent !important;
+    }
+
+        .k-gantt-toolbar .k-state-default, .k-grid .k-grouping-header, .k-grid-header, .k-grid-header-wrap, .k-grouping-header .k-group-indicator,
+        .k-header, .k-pager-wrap, .k-pager-wrap .k-link, .k-pager-wrap .k-textbox {
+            border: unset !important;
+        }
+
+    .k-state-default a {
+        font-size: 13px !important;
+    }*/
+    /*  #customers-list .k-item > span:first-child {
+            -moz-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+            -webkit-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+            box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+            margin: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }*/
+    /*#customers-list h3 {
+        font-size: 1em;
+        font-weight: normal;
+        margin: 0 0 1px 0;
+        padding: 0;
+    }
+
+    #altKategoriAdi_span {
+        margin: 0;
+        padding: 0;
+        font-size: 1.1em;
+        display: block !important;
+    }
+
+    .k-animation-container {
+        width: 100% !important;
+        left: 0 !important;
+    }
+
+    .k-list-container {
+        width: 100% !important;
+    }
+
+    .k-item {
+        z-index: 9999999 !important;
+        display: block;
+    }*/
+</style>
+
+@Styles.Render("~/Content/kendo/css")
+
+
+<script src="http://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script src="https://kendo.cdn.telerik.com/2017.1.223/js/jquery.min.js"></script>
+
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+
+<div class="input-group border osahan-search mt-3 rounded-lg shadow-sm overflow-hidden">
+
+    <div class="input-group-prepend">
+        <button class="border-0 btn btn-outline-secondary text-primary bg-white btn-block"><i class="feather-search"></i></button>
+    </div>
+
+
+            @(Html.Kendo().AutoComplete()
+
+         .Name("customers")
+         .DataTextField("baslik")
+         .NoDataTemplate("Sorry, not found any result.")
+         .MinLength(3)
+
+
+          .DataSource(source => source
+                .Custom()
+                .Group(g => g.Add("AnaKategoriAdi", typeof(string)))
+                .Transport(transport => transport
+                .Read(read =>
+                {
+                    read.Action("Template_GetCustomers", "Filtre")
+                        .Data("onAdditionalData");
+                }))
+                .ServerFiltering(true))
+
+            .HtmlAttributes(new { @class = "shadow-none border-0 form-control pl-0", placeholder = "Search for dishes" })
+                 .Filter("startswith")
+                 .Height(400)
+             
+                            //.Template(
+                            // "<a href =\"/Filtre/BasitAramaSonuc/#: data.ArananKelime #/10/#: data.AltKategoriId#\" style=\"z-index:9999999999!important;\" class=\"linkler\" " +
+                            // "name=\"/Filtre/BasitAramaSonuc/#: data.ArananKelime #/10/#: data.AltKategoriId#\"  >" +
+                            // "<strong> '#: data.ArananKelime #'</strong> in <strong>#: data.AltKategoriAdi #</strong> Menu</a>")
+                            .Events(events =>
+                            events
+                            .Select("onSelect")
+                            .Filtering("onFiltering")
+                            .Open("OpenC")
+                            .Close("openClose")
+                         )
+)
+        </div>
+        
+        <script type="text/javascript">
+
+            var j5 = $.noConflict(true);
+
+            function sds() {
+                console.log("xx");
+            }
+
+            function onAdditionalData() {
+                console.log(j5("#customers").html());
+                return { text: j5("#customers").val() };
+            }
+
+            function openClose(e) { console.log(j5(".k-item").attr("aria-selected")); }
+
+            function OpenC(e) { console.log("open"); j5("#customers_listbox li").attr("onclick", "sds()"); j5("div.k-animation-container").removeAttr("style"); }
+
+            function onSelect(e) {
+                window.location.replace(e.item[0].childNodes[0].firstElementChild.attributes[1].nodeValue);
+            }
+
+            function onFiltering(e) {
+                if (e.filter.value == "") {
+                    e.preventDefault();
+                    e.sender.dataSource.data([]);
+                }
+            }
+
+            //$g("#altKategoriAdi_span").add("#auto_class").bind("keypress click", function (e) {
+            //	alert("huhu");
+            //	e.preventDefault();
+            //});
+
+        </script>
+
+
+
+
+        @*@model IEnumerable<HemenTanitim.Models.AnaKategoriler>
+
+            @*BU SAYFANIN JQUERY YÖNLENDİRME İŞLEMİ URUNLER VE FİLTRELİ ÜRÜNLER SAYFALARINDAN YAPILMAKTADIR*@
+
+        @*@using (Html.BeginForm("BasitAramaSonuc", "Filtre"))*@
+        @*{
+
+            <div class="dropdown category-dropdown">
+
+                <input type="text" class="form-control currency" placeholder="Aramak istediğiniz terimi giriniz" id="hizliAramaMaxAlexa" name="aramaTerimi">
+
+            </div>
+
+            <input type="submit" name="name" value="Ara" class="form-control" />*@
+
+        @*<button class="form-control" value="Search" id="btnHizliMenuArama">Ara</button>*@
+        @*  *@
+
+        @*BU SAYFANIN JQUERY YÖNLENDİRME İŞLEMİ URUNLER VE FİLTRELİ ÜRÜNLER SAYFALARINDAN YAPILMAKTADIR*@
+
+
+

@@ -1,0 +1,52 @@
+
+@model HemenTanitim.Models.MusteriSiteleri
+@using Resources;
+
+
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.uyeId)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.uyeId, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.uyeId)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.siteUrl)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.siteUrl, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.siteUrl)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.UrlGosterim)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.UrlGosterim, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.UrlGosterim)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.AnaKategoriId)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.AnaKategoriId, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.AnaKategoriId)
+                                </div>
+                            </div>
+
+

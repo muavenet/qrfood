@@ -1,0 +1,72 @@
+@model HemenTanitim.Models.Blog
+@using Resources;
+
+
+
+
+
+
+<div class="form-group">
+    <div class="col-md-10">
+        <label for="foto">Fotoðraf:</label>
+        <input type="file" name="foto" id="file1" />
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-10">
+        @Html.LabelFor(model => model.title)
+        @Html.TextBoxFor(model => model.title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.title)
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-10">
+        @Html.LabelFor(model => model.metaDescription)
+        @Html.TextBoxFor(model => model.metaDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.metaDescription)
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-10">
+        @Html.LabelFor(model => model.keywords)
+        @Html.TextBoxFor(model => model.keywords, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.keywords)
+    </div>
+</div>
+
+
+
+<div class="form-group">
+
+    <div class="col-lg-6">
+        @Html.TextBoxFor(model => model.Baslik, new { @class = "form-control", @id = "required2", @name = "required2", @placeholder = "Baþlýðý giriniz" })
+        @Html.ValidationMessageFor(model => model.Baslik)
+    </div>
+</div>
+
+<div class="form-group">
+
+    <div class="col-lg-12">
+        @Html.TextAreaFor(model => model.Icerik, new { @id = "wysihtml5", @class = "form-control", @rows = "10" })
+        @Html.ValidationMessageFor(model => model.Icerik)
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-10">
+        @Html.LabelFor(model => model.tags)
+        @Html.TextBoxFor(model => model.tags, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.tags)
+    </div>
+</div>
+
+
+
+
+
+
+

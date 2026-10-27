@@ -1,0 +1,114 @@
+﻿@model IEnumerable<HemenTanitim.Models.MesajKaydetme>
+
+
+<script src="~/Scripts/knockout-3.3.0.js"></script>
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/js/chat.js"></script>
+    
+    
+<div class="box box-success">
+   
+    <div class="box-header">
+        <div id="users">
+
+            <div data-bind="foreach: users" style="padding-top:15px">
+                <span class="text text-bold text-blue col-lg-2" style="line-height:35px">Online : </span>
+                <div data-bind="click: setAsPrivateChat, css: { privateChatUser: isPrivateChatUser }">
+                    <a class="btn btn-success text-capitalize text-bold" style="color:white" data-bind="text: name"></a>
+                </div>
+                <hr />
+            </div>
+
+        </div>
+    </div>
+    <div class="box-header">
+        <div data-bind="visible: isInPrivateChat" class="alert alert-info" style="margin-right:15px">
+            <span data-bind="text: privateChatUser" class="text-danger text-bold"></span> ile özel konuşuyorsunuz! <a href="#" class="text-bold text-blue" data-bind="click: exitFromPrivateChat"> Genel konuşmaya geç?</a>
+        </div>
+        <i class="fa fa-comments-o"></i>
+        <h3 class="box-title">Canlı destek paneli</h3>
+        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
+            <div class="btn-group" data-toggle="btn-toggle">
+                <small>Son 300 mesajlaşma gösterilmektedir</small>
+            </div>
+        </div>
+       
+    </div>
+ 
+    <div class="box-body chat" id="chat-box" style="height: 355px !important; overflow-y: scroll; /*">
+        @foreach (var item in Model)
+        {
+            <div class="item">
+                <img src="@Url.Content("~/Content/Admin/img/comment.png")" alt="user image" class="online" />
+                <p class="message">
+                    <a href="#" class="name">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>@item.tarih</small>
+                        @item.userName
+                    </a>
+                    @item.mesaj
+                </p>
+            </div>
+        }
+        <hr />
+        <div id="messages" class="item" data-bind="foreach: messages">
+            <br />
+            <img src="@Url.Content("~/Content/Admin/img/comment.png")" alt="user image" class="online" />
+            <p class="message">
+                <span class="label label-danger" data-bind="visible: isPrivate">Özel</span>
+
+                <strong><span data-bind="text: from"></span>: </strong>
+
+                <span data-bind="text: message"></span>
+            </p>
+        </div>
+        <!-- chat mesajı buraya düşer -->
+    </div><!-- /.chat -->
+  
+    <div class="box-footer">
+        <div class="input-group">
+
+            <input class="form-control" placeholder="Mesajınızı giriniz..." id="txtMsg" />
+            <div class="input-group-btn">
+                <button class="btn btn-success" id="btnSend"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+   
+    
+  
+</div><!-- /.box (chat box) -->
+
+
+
+
+
+
+
+@*DOSYA GÖNDERİMLİ KULLANIM
+
+@*<div class="item">
+        <img src="@Url.Content("~/Content/img/avatar.png")" alt="user image" class="online" />
+        <p class="message">
+            <a href="#" class="name">
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 2:15</small>
+                Mike Doe
+            </a>
+            I would like to meet you to discuss the latest news about
+            the arrival of the new theme. They say it is going to be one the
+            best themes on the market
+        </p>
+        <div class="attachment">
+            <h4>Attachments:</h4>
+            <p class="filename">
+                Theme-thumbnail-image.jpg
+            </p>
+            <div class="pull-right">
+                <button class="btn btn-primary btn-sm btn-flat">Open</button>
+            </div>
+        </div><!-- /.attachment -->
+    </div><!-- /.item -->*@

@@ -1,0 +1,126 @@
+﻿@model List<HemenTanitim.Models.Mesajlar>
+
+
+
+@{
+	ViewBag.Title = "Siparişlerim";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+@*<h4>Mesajlaşma Kuralları</h4>*@
+
+
+@Styles.Render("~/Content/css/datatables")
+@Styles.Render("~/Content/css/datatables_With_Image")
+
+<style>
+	#mesajlarim_active_link, #mesajlarim_active_link a, #mesajlarim_active_link small {
+		background: green;
+		color: white;
+	}
+</style>
+
+
+<div class="ads-info">
+	<div class="row">
+
+		@if (!Request.Browser.IsMobileDevice)
+		{
+			<div class="col-sm-4 ">
+				<!-- recommended-cta -->
+				@{Html.RenderAction("BilgileriDegistir_PartialView", "MusteriPaneli");}
+
+			</div>
+		}
+
+
+		<div class="col-sm-8">
+			<div class="my-reks section">
+
+				<a href="/MusteriPaneli/MesajDetay/" class="btn btn-default right">Yeni Talep Aç</a>
+
+				@if (TempData["SiparisIptalBilgisi"] != null)
+				{
+					<h4>@TempData["SiparisIptalBilgisi"]</h4>
+				}
+				<!-- ad-item -->
+				<table class="table table-bordered table-striped" id="tblListe">
+					<thead>
+						<tr>
+							<th>
+							</th>
+							<th>
+							</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							int sayi = 1;
+
+
+
+							string href = "/MusteriPaneli/MesajDetay?konuId=" + item.konuId;
+
+							if (!item.konuAcikMi)
+							{
+								href = "/MusteriPaneli/MesajDetay?konuId=" + item.konuId + "&k=false";
+							}
+
+							<tr data-href=@href>
+
+								<td style="text-align:left !important; font-size:15px; font-weight:400;">
+
+									@if (!item.okundumu)
+									{
+
+										<strong>@Html.Raw(item.mesaj.Replace("<br/>", " ").TrimFrontIfLongerThan(65))</strong>
+									}
+									else
+									{
+										@Html.Raw(item.mesaj.Replace("<br/>", " ").TrimFrontIfLongerThan(65))
+									}
+
+
+								</td>
+
+								<td style="text-align:right !important; font-size:15px; font-weight:400">
+									<small style="color:#c1c1c1;"><i>@item.tarih.ToShortDateString()</i></small>
+								</td>
+
+
+
+							</tr>
+
+							sayi = 1;
+
+						}
+
+				</table>
+
+
+			</div>
+		</div><!-- my-reks -->
+		<!-- recommended-cta-->
+
+
+	</div><!-- row -->
+</div><!-- row -->
+
+@section scripts{
+
+	@Scripts.Render("~/bundles/datatables")
+
+	<script src="~/Scripts/plugins/datatables/dataTablesConfigurations_With_Images.js"></script>
+
+	<script>
+
+		var $dhref = jQuery.noConflict();
+
+		$dhref('tr[data-href]').on("click", function () {
+			document.location = $dhref(this).data('href');
+		});
+	</script>
+}
+

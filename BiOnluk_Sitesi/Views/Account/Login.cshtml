@@ -1,0 +1,247 @@
+﻿@model HemenTanitim.Models.LoginViewModel
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Askbootstrap">
+    <meta name="author" content="Askbootstrap">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>TYP- Online Food Ordering</title>
+    <!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/UI/vendor/slick/slick-theme.min.css" />
+    <!-- Feather Icon-->
+    <link href="~/Content/UI/vendor/icons/feather.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/UI/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+    <!-- Sidebar CSS -->
+    <link href="~/Content/UI/vendor/sidebar/demo.css" rel="stylesheet">
+    <!-- Flag Mobile Number -->
+    <link rel="stylesheet" href="~/Content/UI/vendor/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="~/Content/UI/vendor/build/css/demo.css">
+</head>
+<body>
+    <div class="login-page vh-100">
+        <video loop autoplay muted id="vid">
+            <source src="~/Content/UI/img/bg.mp4" type="video/mp4">
+            <source src="~/Content/UI/img/bg.mp4" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+        <div class="p-4 login-page-form">
+            <h2 class="text-white my-0">Welcome Back</h2>
+            <p class="text-white text-50">Sign in to continue</p>
+
+            <div class="mt-5 mb-4">
+
+                @Html.HiddenFor(x => x.hotelId, new { @Id = "hotelId" })
+                @Html.HiddenFor(x => x.odaGuidId, new { @Id = "odaGuidId" })
+
+                @*<div class="form-group phone-z mb-3 position-relative">
+                        @Html.TextBoxFor(m => m.UserName, new
+                       {
+                           @class = "form-control-flag-osahan",
+                           type = "tel",
+                           id = "phone",
+                           @placeholder = "Phone Number"
+                       })
+                    </div>*@
+                <div class="form-group phone-z mb-3 position-relative">
+                    <label id="lblBildirim" style="color:white;font-size:small; opacity:1;"></label>
+                    @Html.TextBoxFor(m => m.Email, new
+                       {
+                           @class = "form-control-flag-osahan",
+                           type = "email",
+                           id = "email",
+                           @placeholder = "Email Address",
+                           @style = "width:100%;"
+                       })
+
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" onclick="verif()">
+                    <span class="font-decoration-none" id="otp_btn">Send OTP</span>
+                </button>
+            </div>
+        </div>
+        <div class="fixed-bottom text-center p-3">
+
+            <p class="text-white mb-1">
+              <input type="checkbox" checked/>  By continuing, you agree to our 
+            </p>
+
+            <p class="small">
+                <a class="text-white-50 border-bottom" href="terms.html">Terms of Service</a>
+                <a class="text-white-50 border-bottom mx-3" href="privacy.html">Privacy Policy</a>
+                <a class="text-white-50 border-bottom" href="terms.html">Content Policies</a>
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Content/UI/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/UI/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- slick Slider JS-->
+    <script type="text/javascript" src="~/Content/UI/vendor/slick/slick.min.js"></script>
+    <!-- Sidebar JS-->
+    <script type="text/javascript" src="~/Content/UI/vendor/sidebar/hc-offcanvas-nav.js"></script>
+    <!-- Flag Number-->
+    <script src="~/Content/UI/vendor/build/js/intlTelInput.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/Content/UI/js/osahan.js"></script>
+</body>
+</html>
+
+
+
+
+@*@Scripts.Render("~/bundles/jqueryval")*@
+
+
+
+<script>
+
+    var $con = jQuery.noConflict();   
+    var cnt = false;
+
+    var tel = $con("#phone").val();
+  
+    var hotelId_ = $con("#hotelId").val();
+    var odaGuidId = $con("#odaGuidId").val();
+   
+
+    $con(document).ready(function () {
+        $con.ajax({
+            url: "/Account/hotelKordinatlariGetir",
+            data: { hotelId: hotelId_ },
+            type: "POST",
+            async: false,
+            dataType: "json",
+            beforeSend: function () {
+                $con("#otp_btn").text("Your location is being checked, please Wait...");
+            },
+            success: function (result) {
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                }
+                else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+
+                function showPosition(position) {
+
+                    var lat = parseInt(position.coords.latitude.toString().substring(0, 4).replace('.', ''));
+                    var longt = parseInt(position.coords.longitude.toString().substring(0, 4).replace('.', ''));
+
+                    console.log(lat, longt, result.Lat, result.log );
+                    if ((parseInt(result.Lat) == lat && parseInt(result.log) == longt))
+                    //if (   (parseInt(result.Lat) == lat && parseInt(result.log) == longt)
+                    //    || (parseInt(result.Lat) == lat + 1 && parseInt(result.log) == longt + 1)
+                    //    || (parseInt(result.Lat) == lat - 1 && parseInt(result.log) == longt - 1)
+                    //    || (parseInt(result.Lat) == lat + 1 && parseInt(result.log) == longt - 1)
+                    //    || (parseInt(result.Lat) == lat - 1 && parseInt(result.log) == longt + 1)
+                    //    || (parseInt(result.Lat) == lat - 1 && parseInt(result.log) == longt)
+                    //    || (parseInt(result.Lat) == lat + 1 && parseInt(result.log) == longt)
+                    //    || (parseInt(result.Lat) == lat && parseInt(result.log) == longt - 1)
+                    //    || (parseInt(result.Lat) == lat && parseInt(result.log) == longt + 1))
+                    {
+                        cnt = true
+                        $con("#otp_btn").text("Send OTP");
+                    }
+                    else {
+                        cnt = false
+                        $con("#otp_btn").text("* Your location is wrong !");
+                    }
+                }
+            },
+            error: function (error) { }
+        });
+
+    });
+
+    function verif() {
+    
+        if (cnt) {
+
+            var eml = $con("#email").val();
+            $con.ajax({
+             
+                url: "/Account/Register",
+                data: { email: eml },
+                type: "POST",
+                dataType: "json",
+                beforeSend: function () {
+                    $con("#otp_btn").text("Sending code to your email");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        window.location.href = "/account/Verification/" + eml + "/" + hotelId_ + "/" + odaGuidId;
+                    }
+                    else {
+                        $con("#otp_btn").text("Send again");
+                        $con("#lblBildirim").text("* PLEASE, Enter correctly your email");
+                    }
+                },
+                error: function (error) { }
+            });
+        }
+        else
+            $con("#lblBildirim").text("* Your location is wrong !");
+    };
+
+
+
+    function OnInterval(targetlat, targetlong, lat1, long1) {
+
+        // Get the coordinates they are at
+      
+        var distance = CalculateDistance(targetlat, targetlong, lat1, long1);
+        // Is it in the right distance? (100m)
+        if (distance <= 200) {
+            // Stop the interval        
+            // Do something here cause they reached their destination          
+            console.log(cnt = true);
+        }
+        else {
+            $con("#lblBildirim").text("* Your location is wrong !");
+        }
+    }
+
+    function CalculateDistance(lat1, long1, lat2, long2) {
+        // Translate to a distance
+        var distance =
+            Math.sin(lat1 * Math.PI) * Math.sin(lat2 * Math.PI) +
+            Math.cos(lat1 * Math.PI) * Math.cos(lat2 * Math.PI) * Math.cos(Math.abs(long1 - long2) * Math.PI);
+        // Return the distance in miles
+        //return Math.acos(distance) * 3958.754;
+
+        // Return the distance in meters
+        return Math.acos(distance) * 6370981.162;
+    } // CalculateDistance
+
+    function showError(error) {
+        if (error.code == 1) {
+            alert("User denied the request for Geolocation.");
+        }
+        else if (err.code == 2) {
+            alert("Location information is unavailable.");
+        }
+        else if (err.code == 3) {
+            alert("The request to get user location timed out.");
+        }
+        else {
+            alert("An unknown error occurred.");
+        }
+    }
+
+  
+</script>
+

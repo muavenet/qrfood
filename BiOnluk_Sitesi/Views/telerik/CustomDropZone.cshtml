@@ -1,0 +1,116 @@
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html>
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title></title>
+
+	@Styles.Render("~/Content/kendo/css")
+
+	<script src="/Scripts/kendo/jquery.min.js"></script>
+
+	@Scripts.Render("~/bundles/kendo")
+
+	<script src="https://code.jquery.com/jquery-1.5.min.js"></script>
+	<script type="text/javascript">
+		var j5 = $.noConflict(true);
+	</script>
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript">
+		var j21 = $.noConflict(true);
+	</script>
+
+
+	<script>
+		j5(document).ready(function () {
+			j5('#btnOld').live("click", function () {
+				alert("i am older version of jquery");
+			});
+		})(j5);
+	</script>
+	<script>
+		j21(document).ready(function () {
+			j21('#btnNew').on("click", function () {
+				alert("i am newer version of jquery");
+			});
+		})(j21);
+	</script>
+
+</head>
+
+<div class="box">
+	<h4>Information</h4>
+	<p>
+		The Upload can be used as a drop-in replacement
+		for file input elements. This "synchronous" mode does not require
+		special handling on the server.
+	</p>
+</div>
+<form method="post" action='@Url.Action("Basic_Usage_Submit","Telerik")'>
+	<div class="demo-section k-content">
+		@(Html.Kendo().Upload()
+													.Name("files")
+													.HtmlAttributes(new { aria_label = "files" })
+		)
+
+		<p style="padding-top: 1em; text-align: right">
+			<button type="submit" class="k-button k-primary">Submit</button>
+		</p>
+
+	</div>
+</form>
+
+<a id="tooltip" class="tooltip" style="visibility:hidden; left:237px; margin-top:17px; " href="#" title="Kapak resmi">
+	<img src="~/Content/Resim_Editor/images/icons/kapak.png" />
+</a>
+<div id="preview" style="width:99%; float:none; padding-left:0;" title="Fotoğrafları buraya sürükleyipte yükleyebilirsiniz">
+	<div id="resimUp">
+		<input type="file" name="file[]" multiple onchange="javascript:handleFileSelectBtn(event)" />
+		<br /><br /><br />
+		<span>Yüklenen dosya <br /> <span id="dosya_adet"></span> / 16 </span><br /><br />
+		<progress value="0" max="16" style="width: 90px" id="progress_file"></progress>
+	</div>
+	<div id="pr_content" class="pr_content">
+
+	</div>
+	<div id="progress_bar" style="position:absolute; bottom:0px;width:86%; right:0px; "><div class="percent">0%</div></div>
+</div>
+
+<div class="col-md-12">
+	<img src="~/Content/Resim_Editor/images/ilanver_load.GIF" width="40" alt="Yükleniyor" id="load_ilanver" style="visibility:hidden;" title="Bekleyiniz" />
+
+	<button type="button" id="btnDevam" value="devam" onclick="servisGonder('param1');">DEVAM</button>
+</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var j5 = $.noConflict(true);
+	</script>
+
+<script src="~/js/Resim_Editor.js"></script>
+
+<link href="~/Content/Resim_Editor/resim_dondur.css" rel="stylesheet" />
+
+<div id="cerceve_arka">
+	<div id="cerceve">
+		<div id="icerik">
+			<div id="serit">
+
+				<%--<input type="button" id="btnVitrin" title="Vitrin" value="    İlk resim yap" />--%>
+				<input type="button" id="btnDondur" value="    Dondur" />
+				<input type="button" id="btnGom" value="    Kaydet" />
+				<input type="button" id="btnVazgec" value="    Vazgeç" />
+			</div>
+			<div style="clear:both;"></div>
+			<div id="resim"></div>
+			<div id="canvas_div">
+				<img id="rot_image" width="480" height="360" />
+			</div>
+
+
+		</div>
+	</div>
+</div>
+

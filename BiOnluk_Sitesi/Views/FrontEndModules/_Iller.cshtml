@@ -1,0 +1,79 @@
+﻿@model IEnumerable<HemenTanitim.Models.Il>
+
+
+<style>
+    #myInput {
+        box-sizing: border-box;
+        background-image: url('/Content/FrontEnd/images/searchicon.png');
+        background-position: 14px 12px;
+        background-repeat: no-repeat;
+        padding: 3px 0px 0px 44px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+        #myInput:focus {
+            outline: 3px solid #ddd;
+        }
+</style>
+
+
+
+@{
+    var anaKategoriAdi_ = ViewContext.RouteData.Values["AnaKategoriAdi"].ToString().ToSeoUrl();
+    var anaKategoriId_ = ViewContext.RouteData.Values["AnaKategoriId"].ToString();
+
+    var altKategoriId_ = 0;
+
+    if (ViewContext.RouteData.Values.ContainsKey("AltKategoriId"))
+    {
+        altKategoriId_ = Convert.ToInt32(ViewContext.RouteData.Values["AltKategoriId"]);
+    }
+
+}
+
+<a data-toggle="dropdown" href="#" >
+    <i class="fa fa-map-marker" style="clear:both"></i>
+    <span class="change-text" id="drop_value_Selected_il">Tüm Şehirler</span>
+    <i class="fa fa-angle-down" style="clear:both"></i>
+</a>
+
+<ul id="myDropdown" class="dropdown-menu category-change " style="max-height: 200px;width: 234px;overflow: auto;">
+
+    <li>
+        <input type="text" placeholder="İl" id="myInput" onkeyup="filterFunction()" />
+    </li>
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="#" onclick="filtreleme_clickler_iller('@item.il_ad',@item.il_id)">@item.il_ad</a>
+        </li>
+    }
+</ul>
+
+<script>
+ 
+
+    function filterFunction() {
+
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase().replace("I", "İ"); ;
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+
+            txtValue = a[i].textContent || a[i].innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                a[i].style.display = "";
+
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+</script>
+

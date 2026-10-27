@@ -1,0 +1,134 @@
+﻿@model HemenTanitim.Models.GenelBilgiler
+
+
+@{
+    ViewBag.Title = "İletişim sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section id="main" class="clearfix contact-us">
+    <div class="col-md-12" style="border-bottom: 2px solid #ffffff; background-color: white;">
+
+        <div class="parallax-section">
+            <div class="row text-center">
+                <div class="col-sm-12 ">
+
+                    <div class="col-md-3 col-sm-4">
+                        <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                            <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height: 41px; margin-top: 10px; margin-left: -15px;">
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-sm-4">
+
+                        @{Html.RenderAction("_BasitArama", "Filtre");}
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+
+
+                    <div class="banner">
+                        <h1 style="line-height:inherit; padding-top:150px;" class="title">Türkiye'nin karavan kiralama<strong> platfomu</strong> </h1>
+                        <h3 style="color:black">Bir <strong>karavan kiralamak</strong> veya kendi karavanızı <strong>kiraya vermek </strong> mi istiyorsunuz</h3>
+
+
+                        <br /><br /><br />
+
+                    </div>
+                </div><!-- banner -->
+            </div><!-- row -->
+        </div><!-- world -->
+
+    </div>
+    <div class="container">
+
+
+        <h2 class="title">İletişim ve geri bildirim</h2>
+
+
+
+        <div class="corporate-info">
+            <div class="row">
+                <!-- contact-info -->
+                <div class="col-sm-4">
+                    <div class="contact-info">
+
+                        <h2>Şirket Bilgileri</h2>
+                        <address>
+                            <p>Initiative Trade </p>
+                            <p>Büyükdere Cad. Meydan Sok. No:1 Beybi Giz Plaza Kat:15 Maslak, Şişli / İstanbul</p>
+                            <p>0850 346 81 06</p>
+                            <p><strong>Email: </strong><a href="#">info@esiluet.com</a></p>
+                        </address>
+
+                        <ul class="social">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div><!-- contact-info -->
+                <!-- feedback -->
+                <div class="col-sm-8">
+                    <div class="feedback">
+                        <h2>Geri Bildirim Formu</h2>
+                        @using (Html.BeginForm("Iletisim", "Home", FormMethod.Post, new { @class = "contact-form" }))
+                        {
+                            @Html.ValidationSummary()
+
+                            if (ViewBag.Message != null)
+                            {
+                                <div class="col-md-12 text-center"><h5>@ViewBag.Message</h5></div>
+                            }
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.TextBox("ad", "", new { @class = "form-control", @name = "firstname", @placeholder = "Adınız", @autofocus = "autofocus" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.TextBox("kimden", "", new { @class = "form-control", @name = "email", @placeholder = "E-mail", @required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        @Html.TextBox("konu", "", new { @class = "form-control", @name = "email", @placeholder = "Konu", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        @Html.TextArea("body", "", new { @class = "form-control", @name = "comment", @placeholder = "Mesaj", @rows = "4", @required = "required" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn">Gönder</button>
+                            </div>
+                        }
+                    </div>
+                </div><!-- feedback -->
+            </div><!-- row -->
+        </div>
+        <iframe class="img img-thumbnail" src="@Model.haritaKonu" width="100%" height="420" frameborder="0" style="height:420px !important"></iframe>
+    </div><!-- container -->
+</section><!-- main -->
+
+
+
+
+
+@section scripts
+{
+    <script>
+        $("#btDevam").click(function () {
+            $("#kaydetspan").addClass("glyphicon glyphicon-refresh glyphicon-refresh-animate");
+        });
+    </script>
+}

@@ -1,0 +1,76 @@
+﻿@model List<HemenTanitim.Models.KarsilastirmaUrunlerFotolarla>
+
+@{
+    ViewBag.Title = "Karsilastirmalarim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/css/datatables")
+
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+<div class="body-content" id="top-banner-and-menu">
+
+    <div class="container">
+
+
+        <h3>Karşılaştırmalarım</h3>
+        <hr />
+        <table id="tblListe" class="table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Ürün adı
+                    </th>
+                    <th>
+                        Fiyat
+                    </th>
+                    <th>
+
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a href="@Url.Action("Index", "UrunDetay", new { id = item.UrunId })"><img src="@item.ResimYolu" alt="@item.UrunAdi" height="50" /></a>
+        </td>
+        <td style="vertical-align:middle">
+            <a href="@Url.Action("Index", "UrunDetay", new { id = item.UrunId })">@item.UrunAdi</a>
+        </td>
+        <td align="right" style="vertical-align:middle">
+            @String.Format("{0:N}", item.Fiyat) <i class="fa fa-turkish-lira"></i>
+        </td>
+        <td align="right" style="vertical-align:middle;">
+            <a href="@Url.Action("Index", "UrunDetay", new { id = item.UrunId })" class="btn btn-success" onclick="return confirm('Kaydını silmek istediğinize emin misiniz ?');">Sitenin detayına git</a>
+            <a href="@Url.Action("KarsilastirmaSil", "Home", new { uid = item.KarsilastirmaUrunId })" class="btn btn-danger" onclick="return confirm('Kaydını silmek istediğinize emin misiniz ?');"><i class="icon fa fa-times"></i>&nbsp;Favorilerimden kaldır</a>
+        </td>
+    </tr>
+}
+            <tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+@section scripts{
+
+
+
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+}

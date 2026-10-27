@@ -1,0 +1,72 @@
+﻿@model List<HemenTanitim.Models.Yorumlar>
+
+
+	
+
+	<div class="product-reviews">
+		<div class="reviews">
+			<div class="description">
+				@foreach (var item in Model)
+				{
+				<div class="col-md-12">
+
+					@{ var degerlendirme_puani = item.puan;
+
+
+						int w = 1;
+						var k = 0;
+
+						while (w < 6)
+						{
+							if (k == 0)
+							{
+
+								for (int i = 0; i < degerlendirme_puani; i++)
+								{
+									<span class="fa fa-star checked"></span>
+
+									w++;
+									k++;
+								}
+							}
+
+							if (w == 6)
+
+							{ break; }
+
+							<span class="fa fa-star"></span>
+
+							w++;
+						}
+
+					}
+
+					<br /><br />
+
+					<div class="text" style="font-size: 19px; color: #999797;">@item.Aciklama</div>
+					<br />
+					<div class="author col-md-6 padding-left-0">
+
+					
+							<a href="#">
+								<img src="@item.KullaniciFoto" class="img-circle" style="height:30px; width:35px">
+								<span style="vertical-align:bottom;     color: #868585;    padding-left: 5px; line-height:28px;">
+									@char.ToUpper(item.kullaniciAdi.First())@item.kullaniciAdi.Substring(1).ToLower()
+								</span>
+							</a>
+					
+
+
+
+					</div>
+					<div class="author col-md-6 text-right padding-right-0">
+						<span class="date" style="font-size: 13px; color: #999797;">@item.GirisTarihi.ToShortDateString()</span>
+					</div>
+					<div class="col-md-12 padding-left-0 padding-right-0">	<hr /></div>
+				</div>
+
+				}
+
+			</div>
+		</div>
+	</div>

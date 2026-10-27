@@ -1,0 +1,61 @@
+﻿@model HemenTanitim.Models.AltKategoriEkle
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Bu kaydı silmek istediğinizden emin misiniz?
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active"> Ana kategori sil</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class="box-body">
+                        @Html.DisplayNameFor(model => model.AnaKategoriler.KategoriAdi)<br />
+                       
+
+                       
+                            @Html.DisplayFor(model => model.AnaKategoriler.KategoriAdi)<br />
+                        
+
+                        
+                            @Html.DisplayNameFor(model => model.KategoriAdi)<br />
+                        
+                        
+                            @Html.DisplayFor(model => model.KategoriAdi)<br />
+                       
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="btn btn-default" /> |
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+<script>
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#kategoriler").addClass("active");
+        $("#kategoriler_menu").css("display", "block");
+        $("#kategoriler_altKategori").addClass("active");
+        $("#kategoriler_arrow").addClass("fa-angle-down");
+    });
+</script>

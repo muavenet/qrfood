@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<HemenTanitim.Models.RouteModel_Tum>
+
+
+
+<div class="list-group bg-warning">
+
+    @{
+        int sayi = 1;
+
+        if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+
+
+                if (sayi == 1)
+                {
+                    <a href title="Uncu @item.ilce_ad" class="list-group-item" style="background-color: #337ab7; color:white;">
+                        Kiralık Karavan, Motokaravan  @item.Kelime_adi
+                    </a>
+                }
+
+                <a href="@Url.RouteUrl("MDetay", new { kelimeadi = item.Kelime_adi.ToSeoUrl(), il = item.il_ad.ToSeoUrl(), ilce = item.ilce_ad.ToSeoUrl() })"
+                   class="list-group-item list-group-item-warning ilce" title="Ciravan @item.ilce_ad @item.Kelime_adi">
+                    Motokaravan <mark>@item.ilce_ad</mark> @item.Kelime_adi
+                </a>
+
+                sayi++;
+            }
+        }
+    }
+
+</div>

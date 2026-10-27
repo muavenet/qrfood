@@ -1,0 +1,185 @@
+﻿@{
+    Layout = null;
+}
+
+
+@RenderSection("header", required: false)
+
+
+<link href="/Scripts/plugins/fixedheader/fixedHeader.css" rel="stylesheet" />
+
+@Scripts.Render("~/bundles/jquery")
+<script src="/Content/FrontEnd/js/bootstrap.min.js"></script>
+
+<meta name="robots" content="NOINDEX, NOFOLLOW" />
+@*<link href="/Content/FrontEnd/css/bootstrap.min.css" rel="stylesheet" />*@
+<style>
+    .field-validation-valid {
+        display: none;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+
+    body {
+        background-color: #f4f5f7;
+    }
+</style>
+
+@Styles.Render("~/Content/css")
+
+@if (!Request.Browser.IsMobileDevice)
+{
+    @*<section id="main" class="clearfix myads-page">
+
+            <div class="col-md-12 col-sm-4" style="border-bottom: 2px solid #ffffff;background-color: white;">
+
+                <div class="col-md-3 col-sm-4">
+                    <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                        <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height: 40px; margin-top: 10px; margin-left: -15px;">
+                    </a>
+                </div>
+                <div class="col-md-5 col-sm-4">
+
+                    @RenderSection("sepet", required: false)
+
+                    @{Html.RenderAction("_BasitArama", "Filtre");}
+
+                </div>
+                <div class="col-md-4 col-sm-4 text-right">
+                    @Html.Partial("_LoginPartial")
+                </div>
+
+
+            </div>
+        </section>*@
+
+    <section id="main" class="clearfix myads-page">
+
+
+
+        <div class="container">
+
+            <div class="ad-profile section" style="    box-shadow: 0px -2px 12px #efecec;">
+
+
+                <div class="user-profile">
+                    @*<div class="user-images">
+                            <img src="images/user.jpg" alt="User Images" class="img-responsive">
+
+                        </div>*@
+
+                    @*<div class="user">
+                            <h2>Merhaba, <a href="#">@User.Identity.Name</a></h2>
+                        </div>*@
+
+
+                    @{Html.RenderAction("NotificationMusteriPaneli", "MusteriPaneli");}
+
+                </div><!-- user-profile -->
+                @*<ul class="user-menu">
+
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Siteler_Musteri" ? "active" : "")">
+                            <a href="/Siteler_Musteri/Create"><strong>Yeni Site/Sitelerim</strong></a>
+                        </li>
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Mesajlarim" ? "active" : "")"><a href="/MusteriPaneli/Mesajlarim">Mesajlar</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "FavoriUrunlerim" ? "active" : "")"><a href="/MusteriPaneli/FavoriUrunlerim">Favorilerim</a></li>
+
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Sepetim</a></li>
+
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li class="pull-right"><a href="javascript:document.getElementById('logoutForm').submit()">Çıkış</a></li>
+                        }
+
+
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "BilgileriDegistir" ? "active" : "")  pull-right"><a href="@Url.Action("IsIlanlari", "MusteriPaneli", new { title = "Bilgilerimi güncelle" })">Bilgilerim</a></li>
+
+
+                    </ul>*@
+
+                @*<ul class="user-menu">
+
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Siteler_Musteri" ? "active" : "")">
+                            <a href="/Siteler_Musteri/Create"><strong>Benim İşim Acil !</strong></a>
+                        </li>
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Mesajlarim" ? "active" : "")"><a href="/MusteriPaneli/Mesajlarim">Akış</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "FavoriUrunlerim" ? "active" : "")"><a href="/MusteriPaneli/FavoriUrunlerim">Yapılacaklar</a></li>
+
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Mesajlarım</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Aldıklarım</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Özel Alıcı İsteklerim</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Favorilerim</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Finans</a></li>
+
+
+
+                    </ul>
+
+                    <ul class="user-menu">
+
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Siteler_Musteri" ? "active" : "")"><a href="/Siteler_Musteri/Create"><strong>FREELANCER</strong></a>		</li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Mesajlarim" ? "active" : "")"><a href="/MusteriPaneli/Mesajlarim">Satışlarım</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "FavoriUrunlerim" ? "active" : "")"><a href="/MusteriPaneli/FavoriUrunlerim">Portfolyom</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "IsIlanlari" ? "active" : "")"><a href="/MusteriPaneli/IsIlanlari/">İş İlanlarım</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Özel Alıcı İsteklerim</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Sepet" ? "active" : "")"><a href="/Sepet/">Tekliflerim</a></li>
+
+
+
+                    </ul>*@
+
+
+            </div><!-- ad-profile -->
+
+
+            @RenderBody()
+
+        </div><!-- container -->
+    </section><!-- myads-page -->
+}
+else
+{
+    <section id="main" class="clearfix myads-page" style=" padding: 0;">
+
+        @*<div class="col-md-12 col-sm-4" style="border-bottom: 2px solid #ffffff;background-color: white;">
+                <div class="container" style="padding-right:0;">
+                    <div class="col-md-3 col-sm-4">
+                        <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                            <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo"
+                style="height:45px; margin: 0 auto; ">
+                        </a>
+                    </div>
+                </div>
+            </div>*@
+
+
+
+        @RenderSection("sepet", required: false)
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+
+}
+
+@RenderSection("scripts", required: false)
+
+
+
+<script src="~/Scripts/plugins/fixedHeader/fixedHeader.js"></script>
+
+
+
+
+
+
+

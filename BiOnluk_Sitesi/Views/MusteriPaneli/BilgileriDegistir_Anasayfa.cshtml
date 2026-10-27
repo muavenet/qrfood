@@ -1,0 +1,239 @@
+﻿@model HemenTanitim.Models.BilgileriDegistir_Anasayfa
+@using HemenTanitim.Helpers
+
+@using Microsoft.AspNet.Identity;
+@{
+	ViewBag.Title = "Bilgilerimi güncelle";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+<style>
+	.padding-left-0 {
+		padding-left: 0 !important
+	}
+
+	.btn-bs-file {
+		position: relative;
+	}
+
+		.btn-bs-file input[type="file"] {
+			position: absolute;
+			top: -999;
+			filter: alpha(opacity=0);
+			opacity: 0;
+			width: 0;
+			height: 0;
+			outline: none;
+			cursor: inherit;
+		}
+
+	#bilgilerim_active_link, #bilgilerim_active_link a, #bilgilerim_active_link small {
+		background: green;
+		color: white;
+	}
+</style>
+
+
+<div class="ads-info">
+	<div class="row">
+		<div class="col-sm-6 col-md-3">
+			<div class="my-reks section">
+				<div class="padding-left-0">
+					<div class="form-group">
+						<i class="fa fa-gear fa-lg"></i>
+
+						<strong><a href="/MusteriPaneli/BilgileriDegistir_Anasayfa" class="text-info">Profil Ayarları</a></strong>
+
+					</div>
+				</div>
+				<div>
+					<div class="form-group">
+
+						<i class="fa fa-clock-o fa-lg"></i>  <strong><a href="@Url.Action("Manage", "Account", new { title = "Şifre değiştir" })">Şifre Değiştir</a></strong>
+					</div>
+				</div>
+				<hr />
+				<div>
+					<div class="form-group">
+						<i class="fa fa-heart fa-lg"></i>  <strong><a href="/MusteriPaneli/MesajDetay">Destek</a></strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-9">
+            <div class="my-reks section">
+
+
+                <div class="col-md-12 text-center">
+                    <p class="text-primary">@ViewBag.StatusMessage</p>
+                </div>
+
+                @Html.HiddenFor(model => model.Fotograf)
+
+                @*<section id="externalLogins">
+            @Html.Action("RemoveAccountList")
+            @Html.Partial("_ExternalLoginsListPartial", new HemenTanitim.Models.ExternalLoginViewModel() { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
+        </section>*@
+
+                @using (Html.BeginForm("BilgileriDegistir_Anasayfa", "MusteriPaneli", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @*<h4>Hesabımı güncelleştir</h4>*@
+
+                    @Html.ValidationSummary()
+
+                    <div style="text-align:center;padding-bottom:20px;">
+
+                        <img src="@Model.Fotograf" style="border-radius: 50%;width: 95px;height: 95px; border: 6px solid #d8d8d8;" />
+                        @*@Html.DrawImage(Model.Fotograf, "Visual Studio")*@
+
+                        <small style="display:block;"><strong>(96 x 96)</strong>Fotoğrafızın formatı jpeg/png olmalıdır.</small>
+                        <br />
+                        <label class="btn-bs-file btn btn-default">
+                            <i class="fa fa fa-plus-circle  text-success"></i> Fotoğrafı Değiştir
+                            <input type="file" name="ProfilFotografi" id="ProfilFotografi" />
+                        </label>
+
+
+                        <input type="submit" value="Kaydet" class="btn btn-default" />
+                    </div>
+
+
+                    <div style="text-align:center;padding-bottom:20px;">
+                        <div class="form-group">
+                            <strong>@Html.DisplayFor(m => m.UserName, new { @class = "form-control" })</strong>
+                            <br />
+                            @Html.DisplayFor(m => m.KimdenAciklama, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Kimden, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+
+                            @Html.DropDownList("user_uzmanlik_kategorileri", new List<SelectListItem>(ViewBag.Resmiyet), new { @class = "form-control smallElements" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmailAdresi, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.EmailAdresi, new { @class = "form-control" })
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Telefon, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Konum, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("konum", (IEnumerable<SelectListItem>)ViewBag.IlleriGetir, new { @class = "form-control smallElements", @style = "padding:0; width:30%" })
+
+                            @Html.ValidationMessageFor(model => model.Konum)
+                            <input type="hidden" name="hdnUzmanlikAciklama" id="hdnUzmanlikAciklama" />
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Hakkimda, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @*<small>(Max. 250 karater)</small>*@
+                            @Html.TextAreaFor(m => m.Hakkimda, new { @class = "form-control", @rows = "10", @id = "mailIcerik" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Sozlesme_icerigi, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @*<small>(Max. 250 karater)</small>*@
+                            @Html.TextAreaFor(m => m.Sozlesme_icerigi, new { @class = "form-control", @rows = "10", @id = "sozcerik" })
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ad, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+
+                            @Html.TextBoxFor(m => m.ad, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.soyad, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+
+                            @Html.TextBoxFor(m => m.soyad, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.tckimlik, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+
+                            @Html.TextBoxFor(m => m.tckimlik, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.adres, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+
+                            @Html.TextBoxFor(m => m.adres, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.iban, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.iban, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Kaydet" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </div>
+		</div>
+	</div>
+</div>
+
+
+
+<script src="https://cdn.ckeditor.com/4.14.0/basic/ckeditor.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        CKEDITOR.replace('mailIcerik',
+        {
+            height: '200px'
+            });
+
+        CKEDITOR.replace('sozcerik',
+            {
+                height: '200px'
+            });
+		      
+	});
+
+</script>

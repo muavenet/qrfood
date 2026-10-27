@@ -1,0 +1,229 @@
+﻿@model HemenTanitim.Models.IsIlanlari
+
+@{
+	ViewBag.Title = "IsIlanlari_Duzenle";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+<style>
+	.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+		color: #00a651 !important;
+	}
+
+	.select-category > li > a {
+		display: inline !important;
+	}
+
+	/*.select-category li:before {
+		position: absolute;
+		top: 0 !important;
+		right: 0;
+		font-size: 15px;
+		content: "\f105";
+		font-family: 'FontAwesome';
+		color: #00a651;
+		opacity: 0;
+	}*/
+
+    .postdetails li .IsIlanlari_a {
+        font-family: 'Ubuntu', sans-serif !important;
+        font-size: 15px !important;
+        font-weight: 400 !important;
+        min-width: 140px;
+        display: block !important;
+    }
+
+	.section {
+		background-color: white;
+	}
+    .btn-group-sm > .btn, .btn-sm {
+		padding:5px 25px !important;
+	}
+
+</style>
+@if (Request.Browser.IsMobileDevice)
+{
+	<style>
+        .selected-product .select-category li {
+			display:grid;
+		}
+        .displaytelefon {
+			display:none !important;
+		}
+	</style>
+
+	@*<style>
+		.selected-product .select-category li:before {
+			top: 5px !important;
+			right: 4px;
+			opacity: 1;
+		}
+	</style>*@
+}
+
+
+<section id="main" class="clearfix details-page">
+    <div class="row">
+      
+
+
+        <div class="col-md-12">
+            <div class="section postdetails box-shadow-genel">
+                @* <h4>Sell an item or service <span class="pull-right">* Mandatory Fields</span></h4>*@
+                <div class="form-group selected-product" id="rootwizard">
+                    <ul class="select-category list-inline">
+                        <li class="li1">
+
+                            <a href="#" class="IsIlanlari_a  btn btn-sm btn-default" style="margin:0 auto;">
+                                Ürün Girişi
+                            </a>
+
+                        </li>
+                        @*<li class="active"><a href="#tab1" data-toggle="tab" class="IsIlanlari_a">Açıklama</a></li>*@
+                        <li class="displaytelefon"><a href="#tab1" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Ürün Açıkması/İçerik</a></li>
+                        <li class="displaytelefon"><a href="#tab3" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Detaylar</a></li>
+                        <li class="displaytelefon"><a href="#tab4" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Fotoğraflar</a></li>
+                        <li class="displaytelefon"><a href="#tab5" data-toggle="tab" class="IsIlanlari_a btn btn-sm btn-default">Yayınla</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab1">
+                            <div class="row form-group add-image">
+                                <div class="col-sm-12">
+
+                                    <br /><br />
+
+                                    <div class="upload-section">
+
+                                        @using (Html.BeginForm())
+                                        {
+                                            <div class="row form-group add-image">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-6">
+                                                        @Html.Label("Üst Kategori")
+
+                                                        @Html.DropDownListFor(model => model.AnaKategoriId, ViewBag.AnaKategoriId as List<SelectListItem>,
+                                                       new { @class = "form-control smallElements" })
+
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+
+                                                        @Html.Label("Alt Kategori")
+                                                        @Html.DropDownListFor(model => model.AltKategoriId, ViewBag.AltKategoriId as List<SelectListItem>,
+                                                                 new { @class = "form-control smallElements" })
+
+                                                    </div>
+
+
+
+                                                    <div class="col-sm-12">
+
+                                                        @if (HttpContext.Current.Request.RequestContext.RouteData.Values["id"] != null)
+                                                        {
+                                                            @Html.TextAreaFor(model => model.baslik, new
+                                                            {
+                                                                name = "TanitimIcerik",
+                                                                id = "TanitimIcerik",
+                                                                @class = "form-control",
+                                                                @maxlength = 75,
+                                                                @style = "margin-top:35px; min-height:130px; font-size:18pt",
+                                                                @required = "required",
+                                                                @title = "LabourCost is requried"
+
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.baslik)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.TextAreaFor(model => model.baslik, new
+                                                           {
+                                                               name = "TanitimIcerik",
+                                                               id = "TanitimIcerik",
+                                                               placeholder = "örn; Özel Karışık Kebap.",
+                                                               @class = "form-control",
+                                                               @maxlength = 75,
+                                                               @style = "margin-top:35px; min-height:130px; font-size:18pt",
+                                                               @required = "required",
+                                                               @title = "LabourCost is requried"
+
+                                                           })
+
+                                                            @Html.ValidationMessageFor(model => model.baslik)
+                                                        }
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <ul class="pager wizard " style="text-align:right">
+
+                                                <li id="btnDevam_Siparis">
+                                                    <button class="btn btn-default " type="submit">Kaydet ve Devam Et</button>
+                                                    @*<a href="/MusteriPaneli/IsIlanlari_Duzenle_Devami" ></a>*@
+                                                </li>
+                                            </ul>
+
+                                        }
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+@section scripts{
+
+	<script>
+
+		var $IsIlanlari = jQuery.noConflict();
+
+		$IsIlanlari(document).ready(function () {
+
+
+
+			var _anaKatId = $IsIlanlari("#AnaKategoriId").val()
+
+			$IsIlanlari.ajax({
+				url: '/MusteriPaneli/getEnAltKategoriIds',
+				type: 'post',
+				data: {
+					anaKatId: _anaKatId
+				}
+			}).success(function (response) {
+
+				$IsIlanlari("#AltKategoriId").html(response);
+			});
+		});
+
+		$IsIlanlari("#AnaKategoriId").change(function () {
+
+			var _anaKatId = $IsIlanlari("#AnaKategoriId").val()
+
+			$IsIlanlari.ajax({
+				url: '/MusteriPaneli/getEnAltKategoriIds',
+				type: 'post',
+				data: {
+					anaKatId: _anaKatId
+				}
+			}).success(function (response) {
+
+				$IsIlanlari("#AltKategoriId").html(response);
+			});
+		});
+
+	</script>
+
+}

@@ -1,0 +1,63 @@
+
+@model HemenTanitim.Models.Havale
+@using Resources;
+
+
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.bankaAdi)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.bankaAdi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.bankaAdi)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.bankaSubesi)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.bankaSubesi, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.bankaSubesi)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.subeKodu)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.subeKodu, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.subeKodu)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.hesapNo)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.hesapNo, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.hesapNo)
+                                </div>
+                            </div>
+
+
+
+
+    <div class="form-group">
+                                <label class="control-label col-lg-4">@Html.LabelFor(model => model.iban)</label>
+                                <div class="col-lg-4">
+                                    @Html.TextBoxFor(model => model.iban, new { @class = "form-control", @id = "required2", @name = "required2" })
+                                    @Html.ValidationMessageFor(model => model.iban)
+                                </div>
+                            </div>
+
+

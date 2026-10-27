@@ -1,0 +1,57 @@
+﻿<!-- solid sales graph -->
+<div class="box box-solid bg-teal-gradient">
+    <div class="box-header">
+        <i class="fa fa-line-chart"></i>
+        <h3 class="box-title">GÜNLÜK SATIŞ HAREKETLERİ</h3>
+        <div class="box-tools pull-right">
+            <small class="pull-right">Grafik içinde bulunulan ayı yansıtmaktadır&nbsp;&nbsp; &nbsp;  </small>
+        </div>
+    </div>
+    <div class="box-body border-radius-none">
+        <div class="chart" id="line-chart" style="height: 200px;"></div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+
+<script type="text/javascript">
+    $(function () {
+
+        var result = [];
+
+        $.ajax({
+
+            url: "@Url.Action("GunlukSatisGrafigi")",
+
+            type: "GET",
+
+            data: {},
+
+            success: function (data) {
+
+                $.each(data, function (id, book) {
+                    result.push({ "month": book.SatisGunleri, "value": book.Tutar });
+                });
+
+                var line = new Morris.Line({
+                    element: 'line-chart',
+                    resize: true,
+                    data: result,
+                    xkey: 'month',
+                    ykeys: ['value'],
+                    labels: ['GELİR'],
+                    lineColors: ['#efefef'],
+                    lineWidth: 2,
+                    hideHover: 'auto',
+                    gridTextColor: "#fff",
+                    gridStrokeWidth: 0.4,
+                    pointSize: 4,
+                    pointStrokeColors: ["#efefef"],
+                    gridLineColor: "#efefef",
+                    gridTextFamily: "Open Sans",
+                    gridTextSize: 10
+                });
+
+
+            }
+        });
+    });
+</script>

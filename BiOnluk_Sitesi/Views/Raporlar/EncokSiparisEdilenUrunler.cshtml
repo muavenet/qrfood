@@ -1,0 +1,101 @@
+﻿@model IEnumerable<HemenTanitim.Models.EncokSiparisAlanUrunler>
+
+@{
+    ViewBag.Title = "EncokSiparisEdilenUrunler";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            En Çok Sipariş Edilen Ürünler
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">En Çok Sipariş Edilen Ürünler</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+                    <div class="box-header">
+                        <div class="box-title">
+                            <a href="@Url.Action("ExceleAktar", new { paramaterName = "encokSiparisEdilenUrunler" })" class="btn btn-default btn-flat">
+                                <i class="fa fa-download"></i>&nbsp;
+                                Excel'e aktar
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Urunler)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SiparisMiktari)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @item.Urunler
+                                        </td>
+                                        <td>
+                                            @item.SiparisMiktari
+                                        </td>
+
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+
+            $("li").removeClass("active");
+            $("#raporlar").addClass("active");
+            $("#raporlar_menu").css("display", "block");
+            $("#encoksiparis").addClass("active");
+            $("#raporlar_arrow").addClass("fa-angle-down");
+        });
+
+    </script>
+
+}

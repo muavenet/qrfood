@@ -1,0 +1,122 @@
+﻿@model HemenTanitim.Models.GaleriIcerikHaberi
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section metaTags{
+
+    <title>@Model.title</title>
+    <meta name="description" content="@Model.metaDescription">
+    <meta name="keywords" content="@Model.keywords">
+  
+}
+<style>
+    p {
+        font-size: 16px;
+        line-height: 32px;
+    }
+</style>
+
+<section id="main" class="clearfix details-page">
+    @{int IcerikId = Model.Id + 1; }
+    <div class="col-md-12" style="border-bottom: 2px solid #ffffff; background-color: white;">
+
+        <div class="parallax-section">
+            <div class="row text-center">
+                <div class="col-sm-12 ">
+
+                    <div class="col-md-3 col-sm-4">
+                        <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                            <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo"style="height: 41px; margin-top: 10px; margin-left: -15px;">
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-sm-4">
+
+                        @{Html.RenderAction("_BasitArama", "Filtre");}
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+
+
+                    <div class="banner">
+                        <h1 style="line-height:inherit; padding-top:150px;" class="title">Türkiye'nin karavan kiralama<strong> platfomu</strong> </h1>
+                        @*<h2 class="title">@Model.Baslik</h2>*@
+                        @*<span class="author">@Model.Yazan</span>*@
+                        @*<span class="date-time">@Model.Tarih.ToShortDateString()</span>*@
+
+
+                        <br /><br /><br />
+
+                    </div>
+                </div><!-- banner -->
+            </div><!-- row -->
+        </div><!-- world -->
+
+    </div>
+
+    <div class="container">
+        <div class="adpost-details">
+            <div class="row">
+                <div class="section col-md-12">
+
+                    <div class=" col-md-8" style="color:black; font-size:18px !important">
+                        @Html.Raw(Model.Icerik)
+                        <div class="col-md-12">
+
+                            <a href="/Home/Haberler?Id=@(IcerikId-2)&GaleriId=@Model.GaleriId" class="btn btn-lg btn-default">Geri</a>
+
+                            <a href="/Home/Haberler?Id=@IcerikId&GaleriId=@Model.GaleriId" class="btn btn-lg btn-default">İleri</a>
+                        </div>
+                    </div>
+
+                    <div class=" col-md-4">
+                        @{Html.RenderAction("_BlogWidgetDetailPage", "FrontEndModules");}
+                    </div>
+
+                    <div class="product-tag ">
+                        <h3 class="section-title" style="margin-left:0">Etiketler</h3>
+                        <div class="sidebar-widget-body outer-top-xs">
+                            <div class="tag-list">
+                                @{
+                                    var s = Model.tags;
+
+                                    if (!string.IsNullOrEmpty(s))
+                                    {
+                                        string[] words = s.Split(',');
+                                        foreach (var item in words)
+                                        {
+                                            <a class="item" title="@item.ToSeoUrl()"
+                                               href="@Url.RouteUrl("Arama", new { sortOrder = "alfabetik", altKategoriId = 0, AnaKategoriId = 0, aramaString = item, tags = 1 })">@item</a>
+                                        }
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div><!-- /.sidebar-widget -->
+                    @*<div class="col-md-3">
+            @{Html.RenderAction("_SocialMediaShare", "FrontEndModules");}<br />
+        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            jQuery('#blogActive').addClass('active');
+            $('.body-content').scrollspy({ target: "#sections" })
+        });
+    </script>
+}
+
+

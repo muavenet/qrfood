@@ -1,0 +1,155 @@
+﻿
+@using HemenTanitim.Models;
+
+@{
+	ViewBag.Title = "Kullanicilar";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+
+@model List<HemenTanitim.Models.store_procedure_IsIlanlariListesi>
+
+@if (!Request.Browser.IsMobileDevice)
+{
+	<div class="ads-info">
+		<div class="row">
+			<div class="col-sm-4 ">
+				<!-- recommended-cta -->
+				@{Html.RenderAction("Kullanicinin_Ozet_Bilgileri", "MusteriPaneli"); }
+
+			</div>
+
+			<div class="col-sm-8">
+				<div class="my-reks section">
+					<div class="col-md-12 no-gutter">
+						<h3>Kullanıcının İlanları</h3>
+					</div>
+
+					<!-- ad-item -->
+					@foreach (var item in Model)
+					{
+						if (item.ilan_silinmesi == false)
+						{
+							<div class="adm-item row" style="margin-bottom:20px">
+								<!-- item-image -->
+								<div class="item-image-box col-sm-3">
+									<div class="item-image">
+										<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+											<img src="@item.Fotograflar" alt="" style="height:115px">
+										</a>
+									</div><!-- item-image -->
+								</div>
+
+								<div class="item-info col-sm-9">
+									<!-- ad-info -->
+									<div class="adm-info">
+
+
+
+										<h4 class="display-3">
+											<strong>
+												<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+													@item.baslik
+												</a>
+											</strong>
+										</h4>
+										<div class="item-cat">
+										</div>
+									</div><!-- ad-info -->
+									<!-- ad-meta -->
+									<div class="ad-meta" style="bottom: 0;">
+										<div class="meta-content">
+											<span>
+												<img src="@item.ProfilFotografi"
+													 style="border-radius: 50%; width: 33px; height: 33px;" />
+											</span>
+											<span>@item.KullaniciAdi 
+											</span>
+										</div>
+
+
+
+									</div><!-- ad-meta -->
+								</div><!-- item-info -->
+							</div>
+						}
+
+					}
+				</div>
+			</div>
+			<!-- recommended-cta-->
+
+		</div>
+	</div><!-- row -->
+
+}
+else
+{
+	<div class="ads-info">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="my-reks section">
+					<div class="col-md-12 no-gutter">
+						<h3>Kullanıcının İlanları</h3>
+					</div>
+
+					<!-- ad-item -->
+					@foreach (var item in Model)
+					{
+						if (item.ilan_silinmesi == false)
+						{
+							<div class="adm-item row" style="margin-bottom:20px">
+								<!-- item-image -->
+								<div class="item-image-box col-sm-3">
+									<div class="item-image">
+										<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+											<img src="@item.Fotograflar" alt="" style="height:175px">
+										</a>
+									</div><!-- item-image -->
+								</div>
+
+								<div class="item-info col-sm-9">
+									<!-- ad-info -->
+									<div class="adm-info">
+
+
+
+										<h4 class="display-3">
+											<strong>
+												<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.baslik.ToSeoUrl().Trim(), isId = item.isId })">
+													@item.baslik.TrimFrontIfLongerThan(50)
+												</a>
+											</strong>
+										</h4>
+										<div class="item-cat">
+										</div>
+									</div><!-- ad-info -->
+									<!-- ad-meta -->
+									<div class="ad-meta" style="bottom: 0;">
+										<div class="meta-content">
+											<span>
+												<img src="@item.ProfilFotografi"
+													 style="border-radius: 50%; width: 33px; height: 33px;" />
+											</span>
+											<span>@item.KullaniciAdi <i><a href=@Url.Action("Kullanici_Ozgecmisi","CV", new { uid = item.kullaniciId })>
+												  kullanıcısının profiline git
+												   </a></i></span>
+										</div>
+
+
+
+									</div><!-- ad-meta -->
+								</div><!-- item-info -->
+							</div>
+						}
+
+					}
+				</div>
+			</div>
+			<!-- recommended-cta-->
+
+		</div>
+	</div><!-- row -->
+
+}

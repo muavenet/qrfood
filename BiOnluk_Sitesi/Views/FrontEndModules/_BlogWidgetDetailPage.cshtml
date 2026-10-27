@@ -1,0 +1,26 @@
+﻿@model List<HemenTanitim.Models.GaleriBaslik>
+
+
+<div class=" " style="background-color:transparent !important; ">
+    <div class="row">
+        <div class="section cat-option select-category post-option">
+            <h4 style="border:none">Güncel Karavan Bilgileri</h4>
+            <ul role="tablist">
+
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })" title="@item.Baslik.ToSeoUrl()">
+                            <span class="select">
+                                @*<img src="@Url.Content("~/Content/uploads/" + item.Resim)" alt="@item.Baslik"
+                                     style="border-top-left-radius:15px; border-top-right-radius:15px; max-width:50px; height:50px; border-radius:50%">*@
+                            </span>
+                            <strong> @item.Baslik.TrimFrontIfLongerThan(25)</strong>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

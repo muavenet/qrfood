@@ -1,0 +1,22 @@
+﻿@model HemenTanitim.Models.GenelBilgiler
+
+<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+    <!-- ============================================================= LOGO ============================================================= -->
+    <div class="logo">
+        <a href="@Url.Action("Index","Home")">
+            <img src="/Content/uploads/@Model.logo" alt="" height="68">
+        </a>
+    </div><!-- /.logo -->
+    <!-- ============================================================= LOGO : END ============================================================= -->
+</div><!-- /.logo-holder -->
+<div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
+    <div class="contact-row">
+        <div class="phone inline">
+            <i class="icon fa fa-phone"></i> @Model.canliDestekNumarasi
+        </div>
+        <div class="contact inline">
+            <i class="icon fa fa-envelope"></i> @Model.mail
+        </div>
+    </div><!-- /.contact-row -->
+    <!-- ============================================================= SEARCH AREA ============================================================= -->
+   

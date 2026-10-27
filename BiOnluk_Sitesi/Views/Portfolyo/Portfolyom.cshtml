@@ -1,0 +1,216 @@
+﻿
+@{
+	ViewBag.Title = "Portfolyo";
+	Layout = "~/Views/Shared/_LayoutMusteriPaneli.cshtml";
+}
+
+
+
+<style>
+	.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover
+	.select-category > li > a {
+		display: inline !important;
+	}
+
+	.select-category li:before {
+		position: absolute;
+		top: 0 !important;
+		right: 0;
+		font-size: 15px;
+		content: "\f105";
+		font-family: 'FontAwesome';
+		color: #00a651;
+		opacity: 0;
+	}
+
+	.postdetails li .IsIlanlari_a {
+		font-family: 'Ubuntu', sans-serif !important;
+		font-size: 15px !important;
+		font-weight: 400 !important;
+		padding: 15px 0px !important;
+	}
+
+	.section {
+		background-color: white;
+	}
+
+	.selected-product .select-category li:before {
+		top: 6px !important
+	}
+	#pvi {
+		width: 227px !important;
+		height: 175px !important;
+	}
+	#preview {
+		height:550px !important;
+	}
+		div#resimUp input {
+			height: 408px !important;
+		}
+	.add-image label.upload-image {
+		height:120px !important;
+	}
+	#pre_btn_vitrin {
+		display:none;
+	}
+	#btnDevam {
+		color: white;
+		font-weight: 400;
+		font-size: large;
+		padding: 20px 120px !important;
+		border-radius: 0;
+	}
+	.nav-pills > li {
+		float:right;
+	}
+	#potfolyo_active_link, #potfolyo_active_link a, #potfolyo_active_link small{
+		background: green;
+		color: white;
+	}
+</style>
+
+@if (Request.Browser.IsMobileDevice)
+{
+	<style>
+		.selected-product .select-category li:before {
+			top: 5px !important;
+			right: 4px;
+			opacity: 1;
+		}
+
+		.selected-product .select-category li.active {
+			padding-left: 0;
+		}
+	</style>
+}
+
+
+
+<section id="main" class="clearfix details-page">
+	<div class="row">
+
+
+		<div class="col-md-12">
+			<div class="section postdetails box-shadow-genel">
+				@* <h4>Sell an item or service <span class="pull-right">* Mandatory Fields</span></h4>*@
+				<div class="form-group selected-product" id="rootwizard">
+
+
+					<form id="formIcerik" action="" method="post">
+
+					
+								<div class="row form-group add-image">
+									<div class="col-sm-12">
+
+										<a id="tooltip" class="tooltip" style="visibility:hidden; left:237px; margin-top:17px; " href="#" title="Kapak resmi">
+											<img src="~/Content/Resim_Editor/images/icons/kapak.png" />
+										</a>
+
+										<div id="preview" style="width:100%; float:none; padding-left:0;" title="">
+											<div id="resimUp">
+
+												<label class="upload-image" for="upload-image-two">
+													<input type="file" id="upload-image-two" name="file[]" multiple onchange="javascript:handleFileSelectBtn(event)">
+													<span>Resim Ekle</span>
+												</label>
+												<span class="small">(PNG, JPG)</span>
+
+												<span class="small">Yüklenen dosya <br /> <span id="dosya_adet"></span> / 12 </span><br />
+												<progress value="0" max="12" style="width: 90px" id="progress_file"></progress>
+
+
+											</div>
+											<div id="pr_content" class="pr_content">
+											</div>
+
+											<div id="progress_bar" style="position:absolute; bottom:0px;width:80%; right:0px; "><div class="percent">0%</div></div>
+										</div>
+
+
+
+										<div class="col-md-12" style="padding:1px">
+											
+											<style>
+												#btnDevam:focus ~ #spin_i {
+													display: inline-block !important;
+												}
+												}
+											</style>
+
+											<ul class="pager wizard">
+												@*<li class="previous"><a href="#">Geri Dön</a></li>*@
+
+												<li>
+
+													<a href="#" class="btn btn-info" onclick="servisGonder('param1');" id="btnDevam" tabindex="0">
+														Kaydet
+													</a>
+													<i class="fa fa-spinner fa-spin" style="display:none;" id="spin_i"></i>
+												</li>
+											</ul>
+
+
+										</div>
+
+											<script src="~/js/Portfolyo_Resim_Editor_Create.js"></script>
+									
+
+										<link href="~/Content/Resim_Editor/resim_dondur.css" rel="stylesheet" />
+
+										<div id="cerceve_arka">
+											<div id="cerceve">
+												<div id="icerik">
+													<div id="serit">
+
+														@*<input type="button" id="btnVitrin" title="Vitrin" value="Vitrin yap" />*@
+														<input type="button" id="btnDondur" value="    Dondur" />
+														<input type="button" id="btnGom" value="    Kaydet" />
+														<input type="button" id="btnVazgec" value="    Vazgeç" />
+													</div>
+													<div style="clear:both;"></div>
+													<div id="resim"></div>
+													<div id="canvas_div">
+														<img id="rot_image" width="480" height="360" />
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</section>
+
+
+@*<script>
+			function getFileData(myFile) {
+
+				var file = myFile.files[0];
+
+				document.getElementById("secilenDosya").innerHTML =  file.name;
+
+			}
+	</script>*@
+
+
+
+<script src="~/Content/tabs/bootstrap.min.js"></script>
+
+<script src="~/Content/tabs/jquery.bootstrap.wizard.js"></script>
+
+<script src="~/Scripts/jquery.validate.1.9.min.js"></script>
+
+<script src="~/Content/tabs/prettify.js"></script>
+
+<script src="~/js/IsIlanlari_Duzenleme_Devami.js"></script>
+

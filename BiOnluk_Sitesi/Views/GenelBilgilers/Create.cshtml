@@ -1,0 +1,68 @@
+
+@model HemenTanitim.Models.GenelBilgiler
+@using Resources;
+@{
+    ViewBag.Title = "Create düzenleme";
+			
+		
+          Layout = "~/Views/Shared/Admin.cshtml";
+          
+}
+
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            GenelBilgiler kay&#305;t i&#351;lemi
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">GenelBilgiler kay&#305;t ekleme</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+                    <div class="box-body">
+						@using (Html.BeginForm("Create", "GenelBilgilers", FormMethod.Post, new { @class = "form-horizontal", @id = "block-validate" }))
+										{
+						@Html.ValidationSummary(true)
+  
+       
+
+							@Html.Partial("_CreateOrEdit", Model)
+     
+							  <div class="form-actions no-margin-bottom" style="text-align:left;">
+                                    <input type="submit" value="Kaydet" class="btn btn-primary btn-lg " />
+                                </div>
+						 }
+						</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                	<a href="@Url.Action("Index")">Listeye d&#246;n</a>
+            </div>
+     
+
+       </section></aside>
+
+
+
+
+@section scriptFooter{
+
+
+
+@Scripts.Render("~/bundles/bootstrap-wysihtml5")
+    <script>
+
+        $(document).ready(function () {
+
+            $("#wysihtml5").wysihtml5();
+
+        });
+    </script>
+}
+

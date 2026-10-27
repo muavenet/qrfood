@@ -1,0 +1,85 @@
+﻿@model HemenTanitim.Models.Urunler
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Ürün silme 
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("Index")">Ürün işlemleri</a></li>
+            <li class="active">Ürün Silme</li>
+        </ol>
+    </section>
+
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-danger'>
+                    <div class='box-header'>
+                        <h3 class='box-title'>Bu kaydı silmek istediğinizden emin misiniz?</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UrunAdi)
+                            </div>
+                        <div class="form-group">
+                            @Html.DisplayFor(model => model.UrunAdi)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UrunIcerik)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DisplayFor(model => model.UrunIcerik)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Fiyat)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DisplayFor(model => model.Fiyat) TL
+                        </div>
+
+                     
+
+                        <div class="box-footer">
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Sil" class="btn btn-primary" /> |
+                                    @Html.ActionLink("Geri dön", "Index")
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+</aside>
+
+<script>
+
+
+
+    $(document).ready(function () {
+
+
+        $("li").removeClass("active");
+        $("#urunler").addClass("active");
+        $("#urunler_menu").css("display", "block");
+        $("#urunler_liste").addClass("active");
+        $("#urunler_arrow").addClass("fa-angle-down");
+    });
+
+        </script>

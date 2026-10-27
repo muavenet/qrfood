@@ -1,0 +1,409 @@
+﻿        #cerceve_arka {
+            position:fixed;
+            width:100%;
+            height:100%;
+            background: rgba(43,43,43,1);
+            background: -moz-linear-gradient(left, rgba(43,43,43,1) 0%, rgba(28,28,28,0.8) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(43,43,43,1)), color-stop(100%, rgba(28,28,28,0.8)));
+            background: -webkit-linear-gradient(left, rgba(43,43,43,1) 0%, rgba(28,28,28,0.8) 100%);
+            background: -o-linear-gradient(left, rgba(43,43,43,1) 0%, rgba(28,28,28,0.8) 100%);
+            background: -ms-linear-gradient(left, rgba(43,43,43,1) 0%, rgba(28,28,28,0.8) 100%);
+            background: linear-gradient(to right, rgba(43,43,43,1) 0%, rgba(28,28,28,0.8) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2b2b', endColorstr='#1c1c1c', GradientType=1 );
+            z-index:1;
+            left:0px;
+            top:0px;
+            visibility:hidden;
+            
+        }
+        #cerceve {
+    
+             position:fixed;
+
+           width:45%;
+            height:85%;
+           top: 10%;
+          left: 25%;
+          margin-top: 0px;
+          margin-left: 0;
+          z-index:2;
+            background-image:url(/Content/Resim_Editor/images/image_edit_back.png);
+
+            border:solid 2px #47ea01;
+            border-radius:4px;
+        }  
+        #icerik {
+        position:relative; float:left; width: 100%; height:100%; text-align: center; 
+        }
+
+        #resim {
+        position:relative; float:left; width: 100%; text-align: center; top: 65px;
+        }  
+        #canvas_div {
+        width:100%;height:400px; position:relative; float:left; text-align: center; top: 65px;
+        }  
+        #serit {
+            width:100%;height:40px; position:relative; float:left; 
+        background-image:url(/Content/Resim_Editor/images/image_edit_serit.png);
+        }  
+        #btnDondur {
+            background-position: center; padding: 4px 4px 4px 4px; border: 2px solid #333333;   width: 100px; height: 30px; border-radius:4px; margin-left:55px; margin-top:5px; background:url("/Content/Resim_Editor/images/icons/rtt_btn.png") no-repeat; background-position: 3% 48% ;
+               background-color: #eeeeee; /* Old browsers */
+        background-color: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+        background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+        background-color: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+        background-color: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+        background-color: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+        background-color: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+        z-index:9999;
+        }
+        #btnDondur:hover {
+            cursor:pointer;
+        }
+
+        #btnGom {
+        padding: 4px 4px 4px 4px; border: 2px solid #333333;  width: 100px; height: 30px; border-radius:4px; background-color: rgba(226,226,226,1); margin-top:5px; background:url("/Content/Resim_Editor/images/icons/rotate_save_btn.png") no-repeat;  background-position: left; background-position: 3% 48% ;
+           background-color: #eeeeee; /* Old browsers */
+        background-color: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+        background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+        background-color: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+        background-color: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+        background-color: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+        background-color: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+          
+}
+            #btnGom:hover {
+                cursor: pointer;
+            }
+        #btnVazgec {
+    padding: 4px 4px 4px 4px; border: 2px solid #333333;   width: 75px; height: 30px; border-radius:4px; margin-top:5px; margin-right:5px; background:url("/Content/Resim_Editor/images/icons/rotate_exir_btn.png") no-repeat; background-position: 5% 50%; float:right;
+    background-color: #eeeeee; /* Old browsers */
+background-color: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+background-color: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+background-color: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+background-color: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+background-color: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+
+}
+        #btnVazgec:hover {
+   cursor:pointer;
+}
+
+
+        #btnVitrin {
+    padding: 4px 4px 4px 4px; border: 2px solid #333333;   width: 120px; height: 30px; border-radius:4px; margin-top:5px; margin-left:5px; background:url("/Content/Resim_Editor/images/icons/vitrin.png") no-repeat; background-position: 5% 50%; float:left;
+  background-color: #eeeeee; /* Old browsers */
+background-color: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+background-color: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+background-color: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+background-color: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+background-color: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+
+}
+        #btnVitrin:hover {
+            cursor:pointer;
+        }
+
+#preview {
+	position: relative;
+	width: 64%;
+	height: 230px;
+	background-color: #f4f5f7;
+	padding-top: 3px;
+	border: 3px dotted #ccc;
+	float: right;
+	top: 8px;
+	left: 0px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-bottom: 12px;
+}
+         
+        #preview:after {              
+                content: attr(title);
+                display: block;
+                left: 0;
+                top:43%; left:24% ;
+                position:absolute;
+                white-space: nowrap;
+                font-size:1.6em;
+                color:#C5B7B7;
+                z-index:0;
+            }
+        #preview-row {
+			position: relative;
+			width: auto;
+			padding: 12px;
+			border: 1px solid #ccc;
+		}
+		#drop_zone {
+			position: relative;
+			left: 0px;
+			width: 30%;
+			height: 215px;
+			background-color: #eee;
+			border: 3px dotted #ccc;
+			text-align: center;
+			padding: 12px;
+              float:left;
+               font-family:Calibri;
+               font-size:x-large;
+               top:8px;
+		}
+        #drop_zone:hover {
+			border: 3px dotted #808080;
+		}
+
+		
+
+ 		
+        div#DosyaUpload {
+             width: 300px;
+             height: 80px;
+             background: url(/Content/Resim_Editor/images/resim_yukle_button.png);
+             overflow: hidden;
+             margin-top:70px;
+            
+        }
+        div#DosyaUpload input {
+            display: block !important;
+            width: 300px !important;
+            height: 80px !important;
+            opacity: 0 !important;
+            overflow: hidden !important;
+           
+        }
+        div#DosyaUpload input:hover {
+          cursor:pointer;
+           
+        }
+
+        #pre_btn{
+           font-family:Calibri;
+           font-size:12px;
+           padding-left:5px;
+           margin-top:1px;
+           margin-left:10px;
+           z-index:1;
+           width:24px;
+           height:24px;
+           border:none;
+           background-color:transparent;    
+           background-image:url("/Content/Resim_Editor/images/icons/ilan_guncelle.png");
+        }
+        #pre_btn:hover {
+                cursor:pointer;
+                
+            }
+
+        #pre_btn_vitrin {
+            font-family:Calibri;
+           font-size:12px;
+           padding-left:5px;
+           margin-top:1px;
+           margin-left:10px;
+           z-index:1;
+           width:24px;
+           height:24px;
+           border:none;
+           background-color:transparent;    
+           background-image:url("/Content/Resim_Editor/images/icons/ilan_vitrin.png");
+
+    }
+        #pre_btn_vitrin:hover {
+                    cursor:pointer;
+                }
+
+        #pre_btn_delete{
+               font-family:Calibri;
+               font-size:12px;
+               padding-left:5px;
+               margin-top:1px;
+               margin-left:10px;
+               z-index:1;
+               width:24px;
+               height:24px;
+               border:none;
+               background-color:transparent;    
+               background-image:url("/Content/Resim_Editor/images/icons/ilan_sil.png");
+            }
+        #pre_btn_delete:hover {
+                    cursor:pointer;
+                }
+
+.black_box {
+	outline: 4px solid #00a651;
+	outline-offset: 0px;
+}
+
+		
+
+        #pvi{
+            position:relative;
+            float:left;
+            margin:5px;
+            width : 110px;
+            height : 85px;
+            z-index:1;
+            text-align:center;
+            /*border:2px solid #43c111;*/
+        }        
+        #pvi:hover {
+                 /*border:2px solid #47ea01;
+-webkit-box-shadow: 0px 5px 25px 1px rgba(0,0,0,1);
+-moz-box-shadow: 0px 5px 25px 1px rgba(0,0,0,1);
+box-shadow: 0px 5px 25px 1px rgba(0,0,0,1);*/
+            }
+        
+        #pvi:hover #pvid {
+            visibility:visible;
+        }
+			#pvi #pvid {
+				visibility: hidden;
+				position: absolute;
+				float: left;
+				bottom: 0;
+				width: 110px;
+				height: 26px;
+				background-color: #ffffff;
+				opacity: 0.9;
+				border: 1px solid #e6e6e6;
+				text-align: center;
+			
+			}
+        
+       .img_transs_90 {
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+            transform: rotate(90deg);
+        }
+       .img_transs_180 {
+            -ms-transform: rotate(180deg); /* IE 9 */
+            -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+            transform: rotate(180deg);
+        }
+       .img_transs_270 {
+            -ms-transform: rotate(270deg); /* IE 9 */
+            -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+            transform: rotate(270deg);
+        }
+       .img_transs_360 {
+            -ms-transform: rotate(360deg); /* IE 9 */
+            -webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+            transform: rotate(360deg);
+        }
+
+        #canvas {
+    border: 1px solid #808080;
+    
+}
+
+        #progress_bar {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+}
+        #progress_bar.loading {
+    opacity: 1.0;
+  }
+        #progress_bar .percent {
+        background-color: #99ccff;
+        height: auto;
+        width: 0;
+    }
+
+       
+
+          .tooltip {
+            color: #000000; 
+            cursor: help; 
+            position: absolute;
+            z-index:2;
+            
+            width:32px !important;
+            height:18px !important;
+            }          
+
+            .tooltip:hover {
+                color: #c00;
+                text-decoration: none;
+            }
+
+            .tooltip:hover:after {
+                background: #111;
+                background: rgba(0,0,0,.8);
+                border-radius: .5em;
+                bottom: 1.9em;
+                color: #fff;
+                content: attr(title);
+                display: block;
+                left: 0;
+                padding: .3em 1em;
+                position: absolute;
+                text-shadow: 0 1px 0 #000;
+                white-space: nowrap;
+                z-index: 98;
+            }
+
+            .tooltip:hover:before {
+                border: solid;
+                border-color: #111 transparent;
+                border-color: rgba(0,0,0,.8) transparent;
+                border-width: .4em .4em 0 .4em;
+                bottom: 1.5em;
+                content: "";
+                display: block;
+                left: 0.9em;
+                position: absolute;
+                z-index: 99;
+            }
+
+            /* this part styles only a paragraph  */
+
+/*p {
+    color: #333;
+    font: normal .875em "Lucida Grande",Arial,sans-serif;
+    margin: 1em auto;
+    width: 75%;
+}
+        .classic { padding: 0.2em 0.5em; }
+        * html a:hover { background: transparent; }
+        .classic {background: #43c111; border: 2px solid #47ea01; }*/
+
+  div#resimUp {
+	  text-align:center;
+            position:relative;
+            float:left;
+             width: 114px;
+             /*background: url(/Content/Resim_Editor/images/resim_yukle_ilan_duzenle.gif)  no-repeat;*/
+             background-position-x:center;
+             background-position-y:5px;
+             overflow: hidden;
+             padding:3px;
+             border:1px dotted #544634;
+             margin:3px 5px 5px 5px;
+           
+        }
+        div#resimUp input {
+            display: block !important;
+            width: 114px !important;
+            height: 94px;
+            opacity: 0 !important;
+            overflow: hidden !important;
+          
+        }
+        div#resimUp input:hover {
+          cursor:pointer;           
+        }

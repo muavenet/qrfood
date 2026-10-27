@@ -1,0 +1,272 @@
+﻿
+@model HemenTanitim.Models.SiparisBilgileri
+@using HemenTanitim.Models;
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "siparisOnayla";
+    Layout = null;
+}
+
+
+<link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
+@*<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />*@
+<link href="~/Content/FrontEnd/css/siparisOnayla.css" rel="stylesheet" />
+
+
+<section id="main" class="clearfix details-page">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" style="box-shadow:0px 0px 12px #ccc;  background-color:white;">
+                <div class="card">
+                    <div class="row d-flex justify-content-between px-3 top">
+                        <div class="d-flex">
+                            <a href="https://wa.me/905373666046?text=My Order Number is : @Model.SiparisId. I want to information about my order. " class="text-center">
+                                <h5>Live Support for Order<span class="text-primary font-weight-bold"></span></h5>
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- Add class 'active' to progress -->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12">
+                            <ul id="progressbar" class="text-center">
+                                <li class="active step0"></li>
+                                <li id="aktif_2" class="step0"></li>
+                                <li id="aktif_3" class="step0"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between top">
+                        <div class="row d-flex icon-content">
+                            <img id="img1_" class="icon myDIV" src="/Content/FrontEnd/images/track_icons/food_.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold margin-left"><br>Order<br>Prepearing</p>
+                            </div>
+                        </div>
+                        <div class="row d-flex icon-content">
+                            <img id="img2_" class="icon" src="~/Content/FrontEnd/images/track_icons/food_.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold margin-left"><br>Order<br>Shipped</p>
+                            </div>
+                        </div>
+                        <div class="row d-flex icon-content m-auto" f>
+                            <img id="img3_" class="icon" src="~/Content/FrontEnd/images/track_icons/food_.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold margin-left"><br>Order<br>Delivered</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <fieldset>
+                    <div class="section postdetails">
+                        @* <h4>Sell an item or service <span class="pull-right">* Mandatory Fields</span></h4>*@
+                        <div class="form-group selected-product" id="rootwizard">
+
+
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="tab1">
+                                    <div class="row form-group add-image">
+                                        <div class="col-sm-12">
+                                            <br /><br />
+                                            <div class="upload-section">
+                                                <div class="row form-group add-image">
+                                                    <div class="col-sm-12">
+                                                        <!-- item-image -->
+                                                        <div class="col-sm-3 sola_yanas">
+                                                            <div class="item-image">
+                                                                <a src="/MusteriPaneli/Kullanicilar/@Model.hotelId">
+                                                                    @Html.Raw(Model.IlanAciklama)
+                                                                    @*<img src="@Model.ilanFotusu" class="ilan_foto">*@
+                                                                </a>
+                                                            </div><!-- item-image -->
+                                                        </div>
+
+                                                        <div class="item-info col-sm-9">
+                                                            <!-- ad-info -->
+                                                            <hr />
+
+                                                            <div class="col-md-12 col-xs-12 sola_yanas">
+
+                                                                <div class="col-md-6 col-xs-6 text-left">   <strong>Order Number : @Model.SiparisId</strong></div>
+                                                                <div class="col-md-6 col-xs-6 text-right">Time :<strong> @Model.Ttes </strong></div>
+
+                                                            </div>
+
+                                                            <div class="col-md-12 col-xs-12 sola_yanas mobil_margin_bottom">
+                                                                <br />
+                                                                <div class="col-md-6 col-xs-6 text-left">
+                                                                    <small>@Model.SiparisTarihi</small>
+                                                                </div>
+                                                                <div class="col-md-6 col-xs-6 text-right">Total :<strong> @Model.Tutar TL </strong></div>
+                                                            </div>
+                                                        </div><!-- item-info -->
+
+
+                                                        <hr />
+                                                        <div class="col-md-12" id="div_bildirimler">
+                                                            <span class="title alert-default" style="display:block;">
+                                                                <i class="fa fa-check" style="color:green;"></i> Order has been confirmed
+                                                                <small class="text-default text-right" style="display:inline-block"> (@Model.SiparisTarihi)</small>
+                                                            </span>
+                                                            <br />
+
+                                                            <br />
+
+
+                                                            @*@if (Model.SiparisDurumu == 1)
+            {
+                <br />
+
+                <span class="title alert-default" style="display:block;">
+                    <i class="fa fa-check" style="color:green;"></i> Sipariş hizmet veren (@Model.IlanSahibiAdi) tarafından teslim edildi.
+                </span>
+            }*@
+
+
+                                                        </div>
+
+
+                                                        @if (Model.yorum == false)
+                                                        {
+                                                            <form id="formYorum" action="" method="post">
+                                                                <div class="col-md-12">
+
+                                                                    <input type="hidden" name="siparisId" value="@Model.SiparisId" />
+
+                                                                    <span class="hizmet_spani padding-left-0">
+                                                                        Your comments
+                                                                    </span>
+                                                                    <br />
+                                                                    @Html.BootstrapRating().Value(3)
+
+                                                                    @Html.TextArea("YorumIcerik", new
+                                                               {
+                                                                   name = "YorumIcerik",
+                                                                   id = "YorumIcerik",
+                                                                   rows = "7",
+                                                                   @class = "form-control",
+                                                                   @required = "required",
+                                                                   placeholder = "You can write your review here..."
+                                                               })
+                                                                </div>
+
+                                                                <div class="col-md-12 text-right">
+                                                                    <a href="#" class="btn btn-lg btn-default" id="siparisTeslimEdildi"
+                                                                       style="border-radius:unset;">Submit</a>
+                                                                </div>
+
+                                                            </form>
+                                                        }
+                                                      
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div><!-- section -->
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div><!-- photos-ad -->
+    </div>
+</section>
+
+
+@Html.Hidden("Get", Url.Action("GetSiparisler", "SiparisiTamamla", new { SiparisId = Model.SiparisId }))
+<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+<script src="~/signalr/hubs" type="text/javascript"></script>
+<script>
+
+    var $ol = jQuery.noConflict();
+
+    $ol(function () {
+
+        // Proxy created on the fly
+        var job = $ol.connection.siparisOnayla;
+
+        // Declare a function on the job hub so the server can invoke it
+        job.client.displaySiparisler = function () {
+            getData();
+        };
+
+        //Start the connection
+        $ol.connection.hub.start();
+        getData();
+    });
+
+    function getData() {
+        $ol.ajax({
+            //HomeController/GetSiparişler içerisinden çekiyorum.
+            url: $ol("#Get").val(),
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+
+                switch (data) {
+                    case 'Hazırlanıyor':
+                        $ol("#img1_").addClass("myDIV");
+                        break;
+                    case 'Yola Çıktı':
+                        $ol("#aktif_2").addClass("active");
+                        $ol("#img1_").removeClass("myDIV");
+                        $ol("#img2_").addClass("myDIV");
+                        break;
+                    case 'Teslim Edildi':
+                        $ol("#aktif_2").addClass("active");
+                        $ol("#aktif_3").addClass("active");
+                        $ol("#img1_").removeClass("myDIV");
+                        $ol("#img2_").removeClass("myDIV");
+                        $ol("#img3_").addClass("myDIV");
+                        break;
+                }
+            }
+        });
+    }
+
+    function getFileData(myFile) {
+
+        var file = myFile.files[0];
+
+        document.getElementById("secilenDosya").innerHTML = "Seçilen Dosya : " + file.name;
+
+    }
+        //var $CKEDITOR = jQuery.noConflict();
+
+        //$CKEDITOR(document).ready(function () {
+        //    CKEDITOR.replace('TanitimIcerik', {
+        //        customConfig: "/Scripts/plugins/ckeditor/simple_config.js"
+        //    });
+        //});
+
+</script>
+
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+
+
+<script src="~/Scripts/jquery.validate.1.9.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="~/Content/tabs/jquery.bootstrap.wizard.js"></script>
+
+<script src="~/Content/tabs/prettify.js"></script>
+
+<script src="~/js/SiparisGirisi.js"></script>
+
+<script src="~/Scripts/bootstrap-rating/bootstrap-rating.js"></script>
+
+@*<script src="~/Scripts/bootstrap-rating/bootstrap-rating.min.js"></script>*@
+
+@section scripts{
+    @*<script src="/Scripts/bootstrap.min.js"></script>*@
+}

@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IsIlanlari</title>
+</head>
+<body>
+
+    @Html.ActionLink("View Clients", "IsIlanlari", "MusteriPaneli", new { @class = "dialog" }))
+
+
+    <script src="~/Scripts/jquery-2.2.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.dialog').click(function () {
+                var url = $(this).attr('href');
+                var dialog = $('<div style="display:none"></div>').appendTo('body');
+                dialog.load(url, {},
+                    function (responseText, textStatus, XMLHttpRequest) {
+                        dialog.dialog({
+                            close: function (event, ui) {
+                                dialog.remove();
+                            }
+                        });
+                    });
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

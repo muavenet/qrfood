@@ -1,0 +1,110 @@
+﻿@model HemenTanitim.Models.Hakkimizda
+
+@using Resources;
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Hakkımızda Bilgiler
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("Index")">Hakkımızda Bilgiler</a></li>
+
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'><a href="@Url.Action("Edit", new { aid = Model.Id })">D&#252;zenle</a></h3>
+                    </div>
+
+
+
+                    <div class="box-body">
+                        <div class="box-body table-responsive" style="overflow:hidden">
+
+                            <table id="tblListe" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-2">Ba&#351;l&#305;klar</th>
+                                        <th>&#304;&#231;erikler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                  
+                                    
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.Baslik)</label>
+                                        </td>
+                                        <td>
+                                            @Model.Baslik
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <label>@Html.LabelFor(model => model.Icerik)</label>
+                                        </td>
+                                        <td>
+                                            @Model.Icerik
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <a href="@Url.Action("Edit", new { aid = Model.Id })">D&#252;zenle</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $(document).ready(function () {
+            $("li").removeClass("active");
+            $("#ayarlar").addClass("active");
+            $("#ayarlar_menu").css("display", "block");
+            $("#ayarlar_hakkimizda").addClass("active");
+            $("#ayarlar_arrow").addClass("fa-angle-down");
+        });
+
+
+
+    });
+</script>
+
+
+

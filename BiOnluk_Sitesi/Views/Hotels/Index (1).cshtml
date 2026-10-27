@@ -1,0 +1,119 @@
+﻿@model IEnumerable<HemenTanitim.Models.Hotels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            @ViewBag.SiparisTuru
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Hotels")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Hotel listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <a href="@Url.Action("Create", "Hotels")" class="btn btn-success" style="color:white">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;Yeni Hotel Ekle
+                </a> <br />  &nbsp;
+                <div class='box box-info'>
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="ui celled table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.HotelAdi)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.odaSayisi)
+                                    </th>
+                                    <th  style="text-align:right; padding-right:25px">
+                                        @Html.DisplayNameFor(model => model.KomisyonOrani)
+                                    </th>
+
+                                    <th>
+
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HotelAdi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.odaSayisi)
+                                        </td>
+                                        <td style="text-align:right">
+                                          %  @Html.DisplayFor(modelItem => item.KomisyonOrani)
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="btn btn-default" href="@Url.Action("Edit", "Hotels", new { id= item.Id})">Güncelle</a>
+                                            @*<a class="btn btn-default" href="@Url.Action("Details", "Hotels", new { id= item.Id})">Detaylar</a>*@
+                                            <a class="btn btn-default" href="@Url.Action("Delete", "Hotels", new { id= item.Id})">Kaldır</a>
+                                            <a class="btn btn-primary" href="#" onclick="OdaEkle(@item.odaSayisi, @item.Id)">
+
+                                                <span class="fa fa-spinner fa-spin" style="display:none;" id="spin_i_@item.Id"></span>
+
+                                                <span class="glyphicon glyphicon-plus plus_i"></span>&nbsp;
+
+                                                Odaları Yönet
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    <script>
+
+        function OdaEkle(odasayisi, id) {
+
+
+            var $l = jQuery.noConflict();
+            $l.ajax({
+                url: '/Hotels/OdaEkle',
+                data: { Id: id, OdaSayisi: odasayisi},
+                datatype: 'json',
+                beforeSend: function (xhr) {
+                    $l("#spin_i_" + id).css("display","inline-block");
+                    $l(".plus_i").css("display", "none");
+                },
+                success: function (sss) {
+                    window.location.href = "/Odalar/Edit/" + id + "";
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        };
+
+   
+    </script>
+
+
+    }

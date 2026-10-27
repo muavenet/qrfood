@@ -1,0 +1,143 @@
+@model IEnumerable<HemenTanitim.Models.Mesajlar>
+
+@{
+	ViewBag.Title = "Details detay";
+
+	Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+	<section class="content-header">
+
+		@if (!String.IsNullOrEmpty(Request.QueryString["urunadi"]))
+		{
+			<h1>
+				@Request.QueryString["urunadi"] ürününe cevap giriyorsunuz
+			</h1>
+		}
+		else if (!String.IsNullOrEmpty(Request.QueryString["uyeadi"]))
+		{
+			<h1>
+				@Request.QueryString["uyeadi"] kiþisene mesaj gönderiyorsunuz
+			</h1>
+		}
+
+
+		<ol class="breadcrumb">
+			<li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+			<li><a href="@Url.Action("Index")">Mesajlar i&#351;lemleri</a></li>
+			<li class="active">Mesajlar detay</li>
+		</ol>
+	</section>
+
+	<div id="content">
+
+		<div class="inner" style="min-height: 700px;">
+
+
+
+			<section class="content">
+				<div class='row'>
+					<div class='col-md-12'>
+						<div class='box box-purple'>
+
+							<div class="box-body">
+								<div class="box-body table-responsive" style="overflow:hidden">
+
+
+									@foreach (var item in Model)
+									{
+
+										<div class="col-md-8" style="margin-bottom:15px; padding:10px; border:1px solid #d3d3d3; border-collapse:collapse; 
+											border-bottom:3px solid #967e4b; background-color:#f7f7f7;">
+											<div class="form-group">
+
+												<label class="pull-left">
+													<a href="/SiparisiTamamla/siparisOnayla/@item.spId">
+														@item.urunadi @item.uyeadi.ToUpper()
+													</a>
+													@item.uyeadi.ToUpper()
+												</label>
+
+												<small class="pull-right">@item.tarih.ToLongDateString()</small>
+												<div style="clear:both"></div>
+
+												<span class="pull-left" style="background-color:white; padding:10px;width:100%">@item.mesaj</span>
+											</div>
+											@if (!String.IsNullOrEmpty(item.dosyaNo))
+											{
+												<span class="pull-left" style="background-color:white; padding:10px;width:100%">
+													<strong>
+														<a href="/Content/Dosyalar/@item.dosyaNo" class="dosyaIndir">Ek Dosyayý Ýndir</a>
+													</strong>
+
+												</span>
+											}
+										</div>
+
+
+
+										//if (nerede == "pull-left")
+										//{
+										//    nerede = "pull-right";
+										//}
+										//else
+										//{
+										//    nerede = "pull-left";
+										//}
+
+									}
+									<div style="clear:both"></div>
+									<br />
+									<div class="col-md-5 col-sm-12">
+										@using (Html.BeginForm("MesajGonder", "Mesajlars", FormMethod.Post))
+										{
+
+											<input type="hidden" value="@Request.QueryString["uyeid"]" name="uyeid" />
+											<input type="hidden" value="@Request.QueryString["urunadi"]" name="urunadi" />
+											<input type="hidden" value="@Request.QueryString["urunid"]" name="urunid" />
+
+											<textarea name="mesajicerik" rows="5" class="form-control"></textarea>
+											<br />
+											<input type="checkbox" name="chckkonuAcikmi" checked ="checked" />
+
+											<input type="submit" name="name" class="btn btn-info" value="Gönder" />
+
+											<br />
+											<br />
+										}
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</section>
+		</div>
+	</div>
+</aside>
+
+
+
+
+@*<script src="/Scripts/jquery-1.7.1.js"></script>
+
+<script src="/js/jsLibrary.js"></script>
+
+<script>
+
+	$(".dosyaIndir").click(function (e) {
+
+		e.preventDefault();
+
+		var link = $(this);
+
+		var url_ = "/Downloads/ajaxDosyaKontrol?dosyaAdi=" + link.attr("data-id");
+
+		MYLIBRARY.ajaxPostJsonDownloadsFile(url_);
+
+	});
+
+</script>*@

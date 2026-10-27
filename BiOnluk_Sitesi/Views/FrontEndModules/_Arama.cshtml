@@ -1,0 +1,150 @@
+﻿@model HemenTanitim.Models.Urunler
+
+
+@using (Html.BeginForm("_AramaLink", "FrontEndModules", FormMethod.Post))
+{
+    <div class="control-group">
+
+        @Html.TextBoxFor(model => model.UrunAdi, new { @class = "search-field", @id = "search-field", @placeholder = "Aranacak kelime..." })
+
+        <input type="submit" name="Arama" value="Ara" class="search-button" style="border-bottom:none; border-right:none; border-top:none" />
+    </div>
+}
+
+
+<style>
+    #search-field {
+        display: initial !important;
+        min-width: 100%;
+        border: none !important;
+        background-color: transparent !important;
+    
+    }
+
+
+    .twitter-typeahead {
+    
+        width:75%;
+    }
+    #search-field:focus {
+        outline: none;
+    }
+
+    .main-header .top-search-holder .search-area .search-field {
+    }
+
+    .typeahead, .tt-query, .tt-hint {
+        
+        padding: 8px;
+        font-size: 13px;
+        border: none;
+        outline: none;
+        font-family: 'Roboto', sans-serif !important;
+      
+    }
+
+    .typeahead {
+        background-color: #fff;
+    }
+
+        .typeahead: focus {
+            border: 2px solid #0097cf;
+        }
+
+    .tt-query {
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+
+    .tt-hint {
+        color: #999;
+    }
+
+    .tt-dropdown-menu {
+        width: 300px;
+        margin-top: 12px;
+        padding: 8px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
+
+    .tt-suggestion {
+        padding: 3px 20px;
+        font-size: 12px;
+        line-height: 24px;
+    }
+
+        .tt-suggestion.tt-cursor {
+            color: #fff;
+            background-color: #579;
+        }
+
+        .tt-suggestion p {
+            margin: 0;
+        }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://twitter.github.io/typeahead.js/releases/0.10.4/typeahead.bundle.js"></script>
+
+
+
+<script>
+
+    var $k = jQuery.noConflict();
+   
+
+    $k(function () {
+   
+        var engine = new Bloodhound({
+            remote: {
+                url: '/FrontEndModules/AutoComplete?kelime=%QUERY',
+
+                replace: function (url, query) {
+
+                    var state = encodeURIComponent($k('#search-field').val());
+
+                    return url.replace('%QUERY', query);
+                },
+
+                ajax: {
+                    type: 'POST'
+                }
+
+            },
+            datumTokenizer: function (d) {
+                return Bloodhound.tokenizers.whitespace(d.val);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+
+        engine.initialize();
+
+        $k('#search-field').typeahead(minlength=3, {
+            displayKey: 'val',
+            source: engine.ttAdapter()
+        });
+
+     
+      
+        
+    });
+</script>

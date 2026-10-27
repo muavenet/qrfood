@@ -1,0 +1,109 @@
+
+@model IEnumerable<HemenTanitim.Models.MusteriSiteleri>
+
+@using Resources;
+
+
+
+@{
+    ViewBag.Title = "Index";
+          Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<style>
+    .text-center{text-align:left}
+</style>	
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            MusteriSiteleri listesi
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">MusteriSiteleri listesi</li>
+        </ol>
+    </section>
+
+	 <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class='box-header'>
+                        <h3 class='box-title'>@Html.ActionLink("Yeni Ekle", "Create")</h3>
+					</div><!-- /.box-header -->
+
+     <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+
+ <thead>
+    <tr>
+       <th></th>
+        <th>
+         @Html.DisplayNameFor(model => model.uyeId)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.siteUrl)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.UrlGosterim)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.AnaKategoriId)
+        </th>
+        <th>
+         @Html.DisplayNameFor(model => model.AnaKategoriler)
+        </th>
+ 
+    </tr>
+	 </thead>
+	  <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+			<a href="@Url.Action("Edit", new { aid=item.siteId })">D&#252;zenle</a>|
+            @Html.ActionLink("Detaylar", "Details", new { aid=item.siteId }) |
+            @Html.ActionLink("Sil", "Delete", new { aid=item.siteId })
+        </td>
+        <td>
+			@item.uyeId
+        </td>
+        <td>
+			@item.siteUrl
+        </td>
+        <td>
+			@item.UrlGosterim
+        </td>
+        <td>
+			@item.AnaKategoriId
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.AnaKategoriler).ToString()
+        </td>
+    </tr>
+}
+ <tbody>
+</table>
+   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+@section scriptFooter{
+
+@Scripts.Render("~/bundles/datatables")
+
+<script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    }
+
+

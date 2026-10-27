@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+
+
+
+</head>
+<body>
+
+
+   
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#VisitorDetail').hide();
+        });
+        $("#PassId").autocomplete({
+            minLength: 3,
+        source: function (request, response) {
+            var customer = new Array();
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+
+                url: "@(Url.Action("Template_GetCustomers", "Filtre"))",
+                data: { "text": request.term },
+                success: function (data) {
+                    $("#VisitorDetail").empty();
+                    $('#VisitorDetail').show();
+                    for (var i = 0; i < data.length; i++) {
+                        $("#VisitorDetail").append("<div><a href='/Filtre/BasitAramaSonuc/" + data[i].ArananKelime + "/10/" + data[i].AltKategoriId + " '>" + data[i].baslik + " in " + data[i].AltKategoriAdi +" Menu</a></div>");
+                     
+                    }
+                }
+            });
+
+            },
+            focus: function () {
+                // prevent value inserted on focus
+                $('#VisitorDetail').hide();
+            }
+     });
+
+    </script>
+
+</body>
+</html>
+

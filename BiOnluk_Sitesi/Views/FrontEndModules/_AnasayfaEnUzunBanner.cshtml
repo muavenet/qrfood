@@ -1,0 +1,20 @@
+﻿@model HemenTanitim.Models.Fotolar
+
+@if (Model != null)
+{ 
+    <div class="wide-banners wow fadeInUp outer-bottom-vs">
+        <div class="row center">
+            <div class="col-md-12">
+                <div class="wide-banner cnt-strip">
+                    <div class="image">
+                        <img data-echo="/Content/uploads/@Model.ResimYolu" src="/Content/uploads/@Model.ResimYolu" alt="@Model.Baslik1">
+                    </div>
+                    <div class="new-label">
+                        <div class="text">Yeni</div>
+                    </div><!-- /.new-label -->
+                </div><!-- /.wide-banner -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+</div><!-- /.wide-banners -->
+}
+

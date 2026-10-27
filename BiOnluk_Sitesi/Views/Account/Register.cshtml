@@ -1,0 +1,94 @@
+﻿@model HemenTanitim.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "ÜYE GİRİŞİ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="main" class="clearfix user-page">
+    <div class="container">
+        <div class="row text-center">
+            <!-- user-login -->
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="user-account">
+					<h2>Yeni Kullanıcı Kayıt</h2>
+
+					<label class="col-sm-8 label-title text-left" style="color:red; font-size:15px">@TempData["HataRegister"]</label>
+
+					@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form"@*, onsubmit = "return checkForm(this);"*@ }))
+					{
+						@Html.AntiForgeryToken()
+
+						@Html.ValidationSummary(true)
+
+						<div class="form-group">
+							@Html.TextBoxFor(m => m.UserName, new { @class = "form-control unicase-form-control text-input", @placeholder = "Kullanıcı adı" })
+							@Html.ValidationMessageFor(m => m.UserName)
+						</div>
+
+						<div class="form-group">
+							@Html.TextBoxFor(m => m.Email, new { @class = "form-control unicase-form-control text-input", @type = "email", @placeholder = "Email adresi" })
+							@Html.ValidationMessageFor(m => m.Email)
+						</div>
+
+						<div class="form-group">
+							@Html.TextBoxFor(m => m.Telefon, new { @class = "form-control unicase-form-control text-input", @type = "number", @placeholder = "Gsm Numarası" })
+							@Html.ValidationMessageFor(m => m.Telefon)
+						</div>
+
+						@*<div class="form-group">
+								@Html.DropDownList("IlleriGetir",
+								(IEnumerable<SelectListItem>) ViewBag.IlleriGetir, 
+								"Lütfen Konum Seçiniz",
+							   new { @class = "form-control smallElements",
+								   @style = "padding:0; width:50%" })
+								@Html.ValidationMessageFor(model => model.Konum)
+						</div>*@
+
+						
+						<div class="form-group">
+							@Html.PasswordFor(m => m.Password, new { @class = "form-control unicase-form-control text-input", @placeholder = "Şifre" })
+							@Html.ValidationMessageFor(m => m.Password)
+						</div>
+
+						<div class="form-group">
+							@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control unicase-form-control text-input", @placeholder = "Şifre Tekrar" })
+							@Html.ValidationMessageFor(m => m.ConfirmPassword)
+						</div>
+
+
+						<div class="checkbox text-left">
+						
+							<span id="uySpan">Üyelik şartları sözleşmesi</span>
+						</div>
+
+						<button type="submit" class="btn pull-right">Kaydet</button>
+
+					}
+
+
+
+					<!-- checkbox -->
+
+				</div>
+            </div><!-- user-login -->
+        </div><!-- row -->
+    </div><!-- container -->
+</section><!-- signup-page -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"></script>
+
+@*<script src="~/js/checkboxControl.js"></script>*@
+
+<style>   
+    .validation-summary-errors {
+    color:red;
+    font-weight:bold;
+    }
+    .field-validation-error {
+        color: #ff0000;
+        display: block;
+    }
+</style>

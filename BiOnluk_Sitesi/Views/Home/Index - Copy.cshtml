@@ -1,0 +1,201 @@
+﻿@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Theme Region">
+	<meta name="description" content="">
+
+	<title>Turistik Yemek Sepeti | TYP </title>
+
+	<!-- CSS -->
+	@Styles.Render("~/Content/css")
+
+	<link rel="stylesheet" href="/Content/FrontEnd/css/owl.carousel.css">
+
+	<!-- font -->
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'>
+
+	<!-- icons -->
+	<link rel="icon" href="images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/ico/apple-touch-icon-57-precomposed.png">
+	<!-- icons -->
+
+</head>
+<body>
+    <!-- header -->
+    <header id="header" class="clearfix">
+        <!-- navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container" style="width: 100%; padding: 13px 40px 0px 40px;">
+                <!-- navbar-header -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" style="height:38px"></a>
+                </div>
+                <!-- /navbar-header -->
+                <!-- nav-right -->
+                <div class="nav-right">
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <!-- language-dropdown -->
+                        <!-- sign-in -->
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+                <!-- nav-right -->
+            </div><!-- container -->
+        </nav><!-- navbar -->
+
+    </header><!-- header -->
+    <!-- home-one-info -->
+    <section id="home-one-info" class="clearfix home-one">
+        <!-- world -->
+        <div id="banner-two" class="parallax-section">
+            <div class="row text-center">
+                <!-- banner -->
+                <div class="col-sm-12 ">
+                    <div class="banner">
+                        <h1 style="line-height:inherit;" class="title">Türkiye'nin karavan kiralama<strong> platfomu</strong> </h1>
+                        <h3 style="color:black">Bir <strong>karavan kiralamak</strong> veya kendi karavanızı <strong>kiraya vermek </strong> mi istiyorsunuz</h3>
+                        <!-- banner-form -->
+                        <!-- category-change -->
+                        <a href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0" class="btn btn-lg btn-info" style="margin-top:30px; border-radius:0">Bir Karavan Kirala</a>
+
+                        <a href="/MusteriPaneli/IsIlanlari" class="btn btn-lg btn-danger"
+                           style="margin-top:30px;  border-radius:0">Karavanımı Kiraya Ver</a>
+                        <br /><br /><br />
+                        <!-- banner-socail -->
+                        @*<ul class="banner-socail">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            </ul*@
+                        <!-- banner-socail -->
+                    </div>
+                </div><!-- banner -->
+            </div><!-- row -->
+        </div><!-- world -->
+
+        <div class="container">
+            @{Html.RenderAction("_AnaSayfa_Vitrini", "FrontEndModules");}
+            <div class="col-md-12 text-center">
+                <a href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0" class="btn btn-lg btn-default"
+                   style="min-width:180px">Daha Fazlası</a>
+            </div>
+
+
+        </div><!-- container -->
+
+    </section><!-- home-one-info -->
+
+    <section id="" class="clearfix parallax-section col-to-action">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h2>Size Özel Sayfanızdan Karavanınızı Tanıtın...</h2>
+                </div>
+            </div><!-- row -->
+            <!-- row -->
+            <div class="row  text-center">
+                <div class="col-sm-4"></div>
+                <!-- download-app -->
+                <div class="col-sm-4">
+                    <a href="/MusteriPaneli/IsIlanlari" class="download-app">
+                        <img src="/Content/FrontEnd/images/icon/16.png" alt="Image" class="img-responsive">
+                        <span class="pull-left">
+                            <span>Hemen Şimdi</span>
+                            <strong>Bir Sayfa Oluştur </strong>
+
+                        </span>
+
+                    </a>
+
+                </div><!-- download-app -->
+                <div class="col-sm-4"></div>
+                <!-- download-app -->
+
+            </div><!-- row -->
+        </div><!-- contaioner -->
+    </section><!-- download -->
+    <section id="home-one-info" class="clearfix home-one">
+        <div class="container">
+            @{Html.RenderAction("_BlogWidget", "FrontEndModules");}
+            <!-- featureds -->
+            <!-- cta -->
+        </div><!-- container -->
+    </section>
+
+    <!-- footer -->
+    <!-- download -->
+    <section id="download" class="clearfix parallax-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h2>Platform Mobil Uygulaması Çok Yakında...</h2>
+                </div>
+            </div><!-- row -->
+            <!-- row -->
+            <div class="row">
+                <!-- download-app -->
+                <div class="col-sm-4">
+                    <a href="#" class="download-app">
+                        <img src="/Content/FrontEnd/images/icon/16.png" alt="Image" class="img-responsive">
+                        <span class="pull-left">
+                            <span>Google Play</span>
+                            <strong>Mağazasnda</strong>
+                        </span>
+                    </a>
+                </div><!-- download-app -->
+                <!-- download-app -->
+                <div class="col-sm-4">
+                    <a href="#" class="download-app">
+                        <img src="/Content/FrontEnd/images/icon/17.png" alt="Image" class="img-responsive">
+                        <span class="pull-left">
+                            <span>App Store</span>
+                            <strong>Mağazasnda</strong>
+                        </span>
+                    </a>
+                </div><!-- download-app -->
+                <!-- download-app -->
+                <div class="col-sm-4">
+                    <a href="#" class="download-app">
+                        <img src="/Content/FrontEnd/images/icon/18.png" alt="Image" class="img-responsive">
+                        <span class="pull-left">
+                            <span>Windows Store</span>
+                            <strong>Mağazasnda</strong>
+                        </span>
+                    </a>
+                </div><!-- download-app -->
+            </div><!-- row -->
+        </div><!-- contaioner -->
+    </section><!-- download -->
+    <!-- footer -->
+
+    @{Html.RenderAction("_Footer", "FrontEndModules"); }
+
+
+    <script src="/Content/FrontEnd/js/jquery.min.js"></script>
+    <script src="/Content/FrontEnd/js/bootstrap.min.js"></script>
+    <script src="/Content/FrontEnd/js/owl.carousel.min.js"></script>
+    <script src="/Content/FrontEnd/js/scrollup.min.js"></script>
+    <script src="/Content/FrontEnd/js/custom.js"></script>  
+
+
+</body>
+</html>

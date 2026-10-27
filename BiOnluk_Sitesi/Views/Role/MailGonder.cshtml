@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "MailGonder";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            Mail gönder
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Dasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="@Url.Action("UserList","Role")">Kullanıcı işlemleri</a></li>
+            <li class="active">Mail gönder</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='box box-purple'>
+                    @using (Html.BeginForm("MailGonder", "Role"))
+                    {
+                        <input type="hidden" name="hdnMailAdresi" value="@Request.QueryString["mailadresi"]" />
+
+                        <div class="box box-info">
+                            <div class="box-header">
+                                <i class="fa fa-envelope"></i>
+                                <h3 class="box-title">Mail gönderimi</h3>
+                                <!-- tools box -->
+
+                            </div>
+                            <div class="box-body">
+                                <form action="#" method="post">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="subject" placeholder="Konu" />
+                                    </div>
+                                    <div>
+
+                                        @Html.TextArea("message", new { @class = "textarea", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" })
+
+                                        
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <button class="pull-right btn btn-default" id="sendEmail">
+                                    Gönder
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+
+                    @*<script>
+                        $("#sendEmail").click(function () {
+                            $("#sendEmail").text("Bu işlem biraz sürebilir lütfen bekleyiniz...");
+                        });
+                    </script>*@
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+@section scriptFooter
+              {
+
+<script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace("message");
+        });
+
+    </script>
+}

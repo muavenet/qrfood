@@ -1,0 +1,77 @@
+﻿@model IEnumerable<HemenTanitim.Models.KategoriListe>
+
+@{
+    ViewBag.Title = "Alt kategoriler";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            Alt kategori listesi
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li><a href="#">Alt kategori listesi</a></li>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+                            <div class='box-header'>
+                                <h3 class='box-title'>@Html.ActionLink("Yeni ekle", "Create")</h3>
+                            </div>
+
+
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("Kategori adı")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Üst kategori adı")
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AltKategoriAdi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AnaKategoriAdi)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Sil", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+<script>
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#kategoriler").addClass("active");
+        $("#kategoriler_menu").css("display", "block");
+        $("#kategoriler_altKategori").addClass("active");
+        $("#kategoriler_arrow").addClass("fa-angle-down");
+    });
+</script>

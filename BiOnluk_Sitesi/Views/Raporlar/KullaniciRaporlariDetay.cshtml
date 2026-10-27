@@ -1,0 +1,122 @@
+﻿@model List<HemenTanitim.Models.SiparisBilgileri>
+
+@{
+    ViewBag.Title = "Kullanıcı Raporu";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<style>
+    .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 12px !important;
+    }
+</style>
+
+
+
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Hotel listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sipariş İçerik
+                                    </th>
+                                    <th>
+                                        Tarih
+                                    </th>
+
+                                    <th>
+                                        Tutar
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @Html.Raw(item.IlanAciklama.TrimFrontIfLongerThan(50).Replace("<br />", ""))
+                                        </td>
+
+                                        <td>
+                                            @item.SiparisTarihi
+                                        </td>
+                                        <td>
+                                            <b>@item.Tutar</b>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-success" href="@Url.Action("Detay", "AdminSiparisIslemleri", new { id= item.SiparisId})">Detaylar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    <script type="text/javascript">
+
+
+        //$(document).ready(function () {
+
+        //    $("li").removeClass("active");
+        //    $("#siparisler").addClass("active");
+        //});
+
+        $(document).ready(function () {
+
+            $("#KullaniciRaporu").addClass("active");
+
+        });
+
+
+
+    </script>
+
+
+
+}
+
+

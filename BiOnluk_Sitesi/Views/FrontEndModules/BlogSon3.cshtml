@@ -1,0 +1,55 @@
+﻿
+@model List<HemenTanitim.Models.Blog>
+
+
+<div class="section featureds explore-nearby">
+    @*<div class="featured-top">
+        <h4>Son Yazılar</h4>
+    </div>*@
+    <div class="row text-center">
+        @{int i = 0;}
+        @foreach (var item in Model)
+        {
+            if (i == 3)
+            { break; }
+
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="featured">
+                    <div class="featured-image">
+
+
+                        <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })" title="@item.Baslik.ToSeoUrl()">
+
+                            <img src="@Url.Content("~/Content/uploads/" + item.Resim)" class="img-responsive" alt="@item.Baslik" style="max-width:256px" />
+                        </a>
+
+                        @*<a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.UrunId })" class="verified" data-toggle="Detay" data-placement="top" title="Detay"><i class="fa fa-dot-circle-o"></i></a>*@
+                    </div>
+
+                    <!-- ad-info -->
+                    <div class="ad-info">
+                        <div class="item-cat">
+                            <br />
+							<h3>
+                                <strong>
+                                    <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })" title="@item.Baslik.ToSeoUrl()">
+                                        @item.Baslik
+                                    </a>
+                                </strong>
+                                
+                            </h3>
+                            <p>
+                                @Html.Raw(item.Icerik.TrimFrontIfLongerThan(200)) <a href="@Url.RouteUrl("Blog", new { urunAdi = item.Baslik.ToSeoUrl(), Id = item.Id })">Devamı <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </p>
+                        </div>
+
+                        @*<h4><a href="@Url.Action("Index", "UrunDetay", new { urunAdi = item.UrunAdi.ToSeoUrl().Trim(), id = item.UrunId })">@item.UrunAdi.FirstCharToUpper()</a></h4>*@
+
+
+                    </div><!-- ad-info -->
+                </div><!-- featured -->
+            </div><!-- featured -->
+        }
+
+    </div><!-- row -->
+
+</div><!-

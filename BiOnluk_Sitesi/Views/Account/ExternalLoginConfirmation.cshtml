@@ -1,0 +1,46 @@
+﻿@model HemenTanitim.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Yeni kayıt";
+}
+
+<div class="body-content" id="top-banner-and-menu">
+    <div class="container">
+        <h2>@ViewBag.Title</h2>
+        <h3>@ViewBag.LoginProvider hesabınızı bağlayın.</h3>
+
+        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @TempData["hata"];
+            <hr />
+            @Html.ValidationSummary(true)
+            <p class="text-info">
+                <strong>@ViewBag.LoginProvider ile başarıyla giriş yaptınız.</strong>.
+                Şimdi kullanıcı adı ve mail adresinize ihtiyacımız var. Lütfen gerekli alanları doldurunuz.
+            </p>
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Kaydet" />
+                </div>
+            </div>
+        }
+        </div></div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

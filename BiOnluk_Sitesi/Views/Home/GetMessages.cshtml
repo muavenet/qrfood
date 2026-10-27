@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JobStatus</title>
+
+
+    @Styles.Render("~/Content/css")
+
+    @Html.Hidden("Get", Url.Action("GetSiparisler", "Home"))
+
+</head>
+<body>
+    111
+    <div class="row">
+        <div class="col-md-12">
+            <div id="messagesTable"></div>
+        </div>
+    </div>
+
+    <div>
+        <table id="tblJobInfo" style="text-align:center;margin-left:10px"></table>
+    </div>
+
+
+  
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+    <script src="/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+
+
+
+        $(function () {
+          
+            // Proxy created on the fly
+            var job = $.connection.siparisHub;
+
+            // Declare a function on the job hub so the server can invoke it
+            job.client.displaySiparisler = function () {
+              
+                getData();
+            };
+
+            // Start the connection
+            $.connection.hub.start();
+            getData();
+        });
+
+        function getData() {
+
+            console.log($("#Get").val());
+
+            var $tbl = $('#tblJobInfo');
+            $.ajax({
+                url: $("#Get").val(),
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+                    if (data.length > 0) {
+
+                        $tbl.empty();
+                        var rows = [];
+                        for (var i = 0; i < data.length; i++) {
+                            rows.push('<tr><td>' + data[i].Id + '</td></tr> <tr><td>' + data[i].IlanAdi + '</td></tr> <tr><td>' + data[i].Tutar + '</td></tr>');
+                        }
+                        $tbl.append(rows.join(''));
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@model HemenTanitim.Models.Hakkimizda
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <ul class="list-inline list-unstyled">
+                <li><a href="@Url.Action("Index")">Anasayfa</a></li>
+                <li class='active'>Hakkımızda</li>
+            </ul>
+        </div><!-- /.breadcrumb-inner -->
+    </div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+<div class="body-content" id="top-banner-and-menu">
+
+    <div class="container">
+
+       
+                
+                <h1>@Model.Baslik</h1>
+            
+                @Html.Raw(Model.Icerik)
+          
+
+       
+</div></div>

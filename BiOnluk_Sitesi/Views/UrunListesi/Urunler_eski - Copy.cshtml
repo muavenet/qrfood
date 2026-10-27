@@ -1,0 +1,331 @@
+﻿@{
+    ViewBag.Title = "UrunGoster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section metaTags
+{				}
+
+<style>
+
+    .pad-15 {
+        padding-right: 15px;
+    }
+
+    .dropdown-menu {
+        border: none;
+    }
+
+    .banner-section {
+        padding: 0 !important;
+        border-radius: 0;
+        border-bottom: 2px solid #f3f3f3;
+        text-align: start;
+        margin-top:5px;
+    }
+
+    .category-dropdown {
+        border-radius: 0;
+        padding-top: 7px;
+        padding-bottom: 3px;
+        line-height: 40px;
+        display: inline-block;
+    }
+
+    #drop_value_Selected {
+        padding-right: 45px
+    }
+
+    .category-dropdown a {
+        font-size: 18px !important;
+        background-color: white;
+        /*padding: 20px 22px 16px 13px;*/
+        padding: 5px;
+        width: 240px;
+        display: block;
+        line-height: 45px;
+    }
+
+    #urunler_section {
+        padding: 0 !important;
+    }
+
+    .category-dropdown {
+        background-color: transparent;
+    }
+</style>
+
+<section id="main" class="clearfix category-page main-categories">
+
+    @if (!Request.Browser.IsMobileDevice)
+    {
+
+        <div class="col-md-12" style="border-bottom: 2px solid #ffffff; background-color: white;">
+          
+                <div  class="parallax-section">
+                    <div class="row text-center">
+                        <div class="col-sm-12 ">
+
+                            <div class="col-md-3 col-sm-4">
+                                <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                                    <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height: 41px; margin-top: 10px; margin-left: -15px;">
+                                </a>
+                            </div>
+                            <div class="col-md-5 col-sm-4">
+
+                                @{Html.RenderAction("_BasitArama", "Filtre");}
+
+                            </div>
+                            <div class="col-md-4 col-sm-4 text-right">
+                                @Html.Partial("_LoginPartial")
+                            </div>
+
+
+                            <div class="banner" >
+                                <h1 style="line-height:inherit; padding-top:150px;" class="title">Türkiye'nin karavan kiralama<strong> platfomu</strong> </h1>
+                                <h3 style="color:black">Bir <strong>karavan kiralamak</strong> veya kendi karavanızı <strong>kiraya vermek </strong> mi istiyorsunuz</h3>
+
+                             
+                                <br /><br /><br />
+
+                            </div>
+                        </div><!-- banner -->
+                    </div><!-- row -->
+                </div><!-- world -->
+          
+        </div>
+
+    }
+    else
+    {
+        <style>
+            .category-dropdown, .category-dropdown a {
+                width: 100%;
+                line-height: 35px;
+            }
+
+            .pad-15 {
+                padding-right: 0;
+            }
+
+            section {
+                padding: 0;
+            }
+            #load_more_btn {
+                margin-bottom:45px;
+            }
+        </style>
+
+        <div class="col-md-12 col-sm-4" style="        background-color: white;padding: 7px;">
+            <div class="container">
+                <div class="col-md-3 col-sm-4">
+                    <a class="" href="/UrunListesi/tavsiye_edilenler/3/motokaravan/motokaravan-all/267/0">
+                        <img class="img-responsive" src="~/Content/FrontEnd/images/logo-mobile.jpg" alt="Logo" style="height:45px; margin: 0 auto; ">
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+
+
+
+    @*<div class="banner">
+            <div class="banner-form banner-form-full">
+
+            </div>
+        </div>*@
+
+
+
+
+
+    <div class="container">
+
+
+
+        @*<div class="breadcrumb-section">*@
+        <!-- breadcrumb -->
+        @*<ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">ANASAYFA</a></li>*@
+        @*<li>@ViewContext.RouteData.Values["anaKategoriAdi"].ToString().turkceSeoUrlTemizle()</li>*@
+        @*</ol>*@<!-- breadcrumb -->
+        @*</div>*@
+
+
+
+        <div class="category-info">
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12">
+
+                    <!-- -@@if (!Request.Browser.IsMobileDevice)
+                        {
+                            <div class="accordion box-shadow-genel">-->
+                    <!-- panel-group -->
+                    <!--<div class="panel-group" id="accordion" style="margin-top:8px">
+                                <div id="yaz"></div>
+                                <div class="panel-default panel-faq">
+                                    <div class="panel-heading" style="border-bottom: 2px solid #f3f3f3;">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#accordion-one">
+                                            <h4 class="panel-title">
+                                                @ViewContext.RouteData.Values["anaKategoriAdi"].ToString().turkceSeoUrlTemizle()
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    @{Html.RenderAction("AltKategoriListesi", "KategoriListesiGetir");}
+                                </div>
+                            </div>
+                            <div id="AramaButonuFixedSon"></div>
+                        </div>
+                    }-->
+
+
+                    @{
+                        var anaKategoriAdi_ = ViewContext.RouteData.Values["AnaKategoriAdi"].ToString().ToSeoUrl();
+                        var anaKategoriId_ = ViewContext.RouteData.Values["AnaKategoriId"].ToString();
+
+                        var altKategoriId_ = 0;
+
+                        if (ViewContext.RouteData.Values.ContainsKey("AltKategoriId"))
+                        {
+                            altKategoriId_ = Convert.ToInt32(ViewContext.RouteData.Values["AltKategoriId"]);
+                        }
+
+                    }
+
+                    <div id="_VitrinIlantiListView">
+
+                        <div class="section featureds explore-nearby" id="urunler_section">
+
+                            <div class="banner-section ">
+                                <div class="dropdown category-dropdown pad-15">
+                                    <a data-toggle="dropdown" href="#">
+                                        <i class="fa fa-ellipsis-v" style="clear:both; "></i>
+                                        <span class="change-text" id="drop_value_Selected">Motokaravan</span>
+                                        <i class="fa fa-angle-down" style="clear:both"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu category-change " id="filtre_dropdown" style="min-width: 234px;">
+                                        <li>
+                                            <a href="#" onclick="filtreleme_clickler_kategoriler('tavsiye_edilen',3,267,'Motokaravan','Motokaravan')">Motokaravan</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onclick="filtreleme_clickler_kategoriler('tavsiye_edilen',7,268,'Çekme Karavan','Çekme Karavan')">Çekme Karavan</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- İLLER -->
+
+                                <div class="dropdown category-dropdown pad-15">
+                                    @{Html.RenderAction("_Iller", "FrontEndModules");}
+                                </div>
+
+                                <div class="dropdown category-dropdown">
+                                    <a data-toggle="dropdown" href="#">
+                                        <i class="fa fa-sort-alpha-desc" style="clear:both; "></i>
+                                        <span class="change-text" id="drop_value_Selected_siralama">Tavsiye Edilen</span>
+                                        <i class="fa fa-angle-down" style="clear:both"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu category-change" id="filtre_dropdown" style="min-width: 234px;">
+                                        <li>
+                                            <a href="#" onclick="filtreleme_clickler_siralama('en_yeniler', 'En Yeniler')">En Yeniler</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onclick="filtreleme_clickler_siralama('tavsiye_edilen','Tavsiye Edilen')">Tavsiye Edilen</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            @{Html.RenderAction("_VitrinUrunler", "FrontEndModules", new { size = 0 });}
+
+
+                            <div class="col-md-12 text-center">
+                                <div id="loadgifLoadMore" style="width:100%; text-align:center; margin-top:15px" class="center"></div><br />
+                                <input type="button" value="Daha Fazla Göster" id="load_more_btn" class="btn btn-default btn-lg"
+                                       data-key='{"param1":@anaKategoriId_, "param2":"@anaKategoriAdi_", "param3" : @altKategoriId_}' />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*@{Html.RenderAction("ilanListeSayfasi", "UrunListesi", new { anaKategoriAdi = ViewContext.RouteData.Values["anaKategoriAdi"].ToString(),
+                        AnaKategoriId = ViewContext.RouteData.Values["anaKategoriId"], sortOrder = ViewContext.RouteData.Values["sortorder"], page = ViewContext.RouteData.Values["page"] });}*@
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+@if (ViewContext.RouteData.Values.Keys.Contains("anaKategoriAdi"))
+{
+
+    @Html.Hidden("hdnanaKategoriAdi", ViewContext.RouteData.Values["anaKategoriAdi"].ToString())
+    @Html.Hidden("hdnanaKategoriId", ViewContext.RouteData.Values["anaKategoriId"])
+    @Html.Hidden("hdnanaAltKategoriAdi", ViewContext.RouteData.Values["AltKategoriAdi"].ToString())
+    @Html.Hidden("hdnanaAltKategoriId", ViewContext.RouteData.Values["AltKategoriId"])
+    @Html.Hidden("hdnIlId", ViewContext.RouteData.Values["ilId"])
+    @Html.Hidden("hdnSiralama", ViewContext.RouteData.Values["sortOrder"])
+}
+
+
+@section scripts{
+
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/js/Load_more_Ilanlar.js"></script>
+
+    <script src="/js/jsLibrary.js"></script>
+
+    <script>
+
+        var $hdn = jQuery.noConflict();
+
+        console.log($hdn("#hdnIlId").val());
+
+        function filtreleme_clickler_kategoriler(sortorder_, anaKategoriId_, altKategoriId_, anaKategoriAdi_, dropdownda_gösterilece_yazi) {
+
+            MYLIBRARY.init([sortorder_, anaKategoriId_, anaKategoriAdi_, altKategoriId_, dropdownda_gösterilece_yazi, $hdn("#hdnIlId").val()]);
+
+            MYLIBRARY.VitrinUrunleriGetir();
+
+        };
+
+        function filtreleme_clickler_iller(dropdownda_gösterilece_yazi, ilId_) {
+
+            MYLIBRARY.init(['', $hdn("#hdnanaKategoriId").val(),
+                $hdn("#hdnanaAltKategoriId").val(),
+                $hdn("#hdnanaAltKategoriAdi").val(),
+                dropdownda_gösterilece_yazi, ilId_]);
+
+            MYLIBRARY.VitrinUrunleriGetir_IllereGore();
+
+        };
+
+        function filtreleme_clickler_siralama(siralama, dropdownda_gösterilece_yazi) {
+
+            console.log(siralama);
+
+            $hdn("#hdnSiralama").val(siralama);
+
+            MYLIBRARY.init([siralama, $hdn("#hdnanaKategoriId").val(), $hdn("#hdnanaAltKategoriId").val(), $hdn("#hdnanaAltKategoriAdi").val(), dropdownda_gösterilece_yazi, $hdn("#hdnIlId").val()]);
+
+            MYLIBRARY.VitrinUrunleriGetir_Siralama();
+
+        };
+
+    </script>
+
+}
+
+

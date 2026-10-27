@@ -1,0 +1,203 @@
+﻿@model List<HemenTanitim.Models.SiparisBilgileri>
+
+@{
+    ViewBag.Title = "Siparişler";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<style>
+    .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 12px !important;
+    }
+</style>
+
+
+
+
+<style>
+    .text-center {
+        text-align: left;
+    }
+</style>
+
+
+<aside class="right-side">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.SiparisTuru
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","AdminDasboard")"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
+            <li class="active">Sipariş listesi</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div class='box box-info'>
+
+                    <div class="col-md-12">
+                        <br />
+                        <div class="lbl-cnt">
+                            <div class="fld inline">
+                                <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                    <p class="pull-left">                                        
+
+                                      
+                                    </p>                               
+
+                                    <p class="pull-right">
+
+                                        <select class="form-select btn btn-default" aria-label="Default select example" id="durumlar_drop">
+                                            <option value="3" selected>Teslim Edildi</option>
+                                            <option value="2">Yolda Olanlar</option>
+                                            <option value="1">Hazırlanmakta Olanlar</option>
+                                            <option value="4">İptal Siparişler</option>
+                                        </select>
+
+                                        <input type="date"  id="ilktarih" class="btn" /> /
+                                        <input type="date" id="sontarih" class="btn" />
+
+                                        <a href="#" id="tariheGoreCek" class="btn btn-default"><i class="fa fa-search"></i> Arama Yap</a>
+                                    </p>
+                                 
+
+
+                                </div>
+                            </div><!-- /.fld -->
+                        </div><!-- /.lbl-cnt -->
+
+                        <!-- tools box -->
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body table-responsive" style="overflow:hidden">
+                        <table id="tblListe" class="table table-bordered table-striped">
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Sipariş No
+                                    </th>
+                                    <th>
+                                        Sipariş durumu
+                                    </th>
+                                 
+                                    <th>
+                                        Sipariş tarihi
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                                @{string sonuc = ""; }
+                                @foreach (var item in Model)
+                                {
+                                    if (item.Durumu == 3)
+                                    { sonuc = "Teslim Edildi"; }
+                                    else if(item.Durumu == 2)
+                                    { sonuc = "Yola çıktı"; }
+                                    else if (item.Durumu == 1)
+                                    { sonuc = "Hazırlanmakta"; }
+                                    else if (item.Durumu == 4)
+                                    { sonuc = "İptal Sipariş"; }
+
+
+                                    <tr>
+                                        <td>
+                                            @item.SiparisId
+                                        </td>
+
+                                        <td>
+                                            <b>@Html.Raw(sonuc)</b>
+                                        </td>
+                                        <td>
+                                            @item.SiparisTarihi
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-success" href="@Url.Action("Detay", "AdminSiparisIslemleri", new { id= item.SiparisId})">Detaylar</a>
+                                        </td>
+                                    </tr>
+                                   
+
+
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+@section scriptFooter{
+
+    @Scripts.Render("~/bundles/datatables")
+    <script src="~/Scripts/plugins/datatables/dataTablesConfigurations.js"></script>
+
+    <script type="text/javascript">
+
+
+        var date = new Date();
+
+        var day = ("0" + date.getDate()).slice(-2);
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+
+        var month_once = ("0" + (date.getMonth())).slice(-2);
+
+        var today = date.getFullYear() + "-" + (month) + "-" + (day);
+        var birayonce = date.getFullYear() + "-" + (month_once) + "-" + (day);
+
+        $('#sontarih').val(today);
+        $('#ilktarih').val(birayonce);
+
+        $("#tariheGoreCek").click(function () {
+
+
+            var ilktarih = $("#ilktarih").val();
+            var sontarih = $("#sontarih").val();
+            var durum = $("#durumlar_drop").val();
+
+            var url = "/AdminSiparisIslemleri/Index/" + durum +"/" + ilktarih + "/" + sontarih+"";
+
+            location.href = url;
+
+           
+
+
+        });
+
+
+        $(document).ready(function () { $("#rapor_genel").addClass("active"); });
+
+        function ddlTes(e) {
+            var val = $(e).val();
+            $.ajax({
+                url: "/AdminSiparisIslemleri/TeslimDurumuDegistir",
+                data: { selectedValue: val, Id: e.id },
+                type: "POST",
+                dataType: "json",
+                success: function (result) { },
+                error: function (error) { alert(error); }
+            })
+        }
+
+
+    </script>
+
+
+
+}
+
+

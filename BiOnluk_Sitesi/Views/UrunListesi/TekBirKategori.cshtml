@@ -1,0 +1,11 @@
+﻿@model IEnumerable<HemenTanitim.Models.AltKategoriEkle>
+
+
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li><span class="glyphicon glyphicon-play"></span><a href="#" style="line-height:24px">&nbsp;@item.KategoriAdi</a></li>
+                }
+            </ul>
+  
+
